@@ -4,7 +4,7 @@ A warm, dark **Vencord desktop** theme with translucent glass, bronze accents, s
 
 ![Obsidian Fallen Knight theme preview](assets/preview.png)
 
-*Illustrative preview rendered with the theme's CSS, sample content and an original CSS backdrop. The live wallpaper comes from an MP4 you provide separately.*
+*Actual Discord desktop screenshot supplied by the maintainer, showing the Friends page with the local video wallpaper. The MP4 must be added separately.*
 
 [Download CSS](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest/download/Obsidian-Fallen-Knight.theme.css) · [Download theme + plugin](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest/download/Obsidian-Fallen-Knight.zip) · [Installation guide](docs/INSTALLATION.md) · [Releases](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest)
 
@@ -38,7 +38,7 @@ https://raw.githubusercontent.com/LeoxMinei/obsidian-fallen-knight/main/Obsidian
 
 Name your file **`obsidian-fallen-knight.mp4`** and place it in the folder opened by **Settings → Vencord → Themes → Open Themes Folder**. The plugin reads only that named local file and does not upload it.
 
-The original look was inspired by **Fallen Knight in Flower Field Rain Live Wallpaper**, obtained from [Wallpaper Waves](https://wallpaperwaves.com/). Videos and extracted frames are not bundled. You can use another MP4 that you have permission to use.
+The original look was inspired by **Fallen Knight in Flower Field Rain Live Wallpaper**, obtained from [Wallpaper Waves](https://wallpaperwaves.com/). Video files and standalone wallpaper assets are not bundled; the README includes a preview screenshot. You can use another MP4 that you have permission to use.
 
 The player preserves the source video's resolution and frame rate. A 1080p/60 fps source remains 1080p/60 fps; actual presentation performance depends on your computer, decoder and workload. No frame interpolation or upscaling is performed.
 
@@ -52,7 +52,7 @@ The plugin can be disabled in **Vencord → Plugins → ObsidianVideo**. When th
 
 The source targets **Vencord on Discord desktop**. Setup instructions are provided for Windows, macOS and Linux; runtime testing has been performed on Linux/Chromium, not independently on all three operating systems. Other clients and the browser extension have not been verified for this native plugin. The plugin does not run in Discord's Android/iOS apps.
 
-Vencord development builds, TypeScript checking and plugin lint passed during development. The player was tested with an original 1920×1080/60 fps MP4, including start/stop, visibility changes, reduced motion and missing-file fallback. Friends, Nitro, Shop and Quests layouts were checked in simulated previews at three viewport widths. The preview above is illustrative, not a screenshot of a signed-in account.
+Vencord development builds, TypeScript checking and plugin lint passed during development. The player was tested with an original 1920×1080/60 fps MP4, including start/stop, visibility changes, reduced motion and missing-file fallback. Friends, Nitro, Shop and Quests layouts were checked in simulated previews at three viewport widths. The preview above is a real desktop screenshot supplied by the maintainer; the layout checks described here used separate simulated fixtures.
 
 Discord may change its CSS classes. Report styling issues with your client version and a screenshot that excludes private information.
 
@@ -62,4 +62,4 @@ Theme and plugin code: **GPL-3.0-or-later**; see [LICENSE](LICENSE). Created by 
 
 The plugin uses [Vencord](https://github.com/Vendicated/Vencord). This is an independent project, not affiliated with Discord or Vencord.
 
-Third-party wallpaper rights remain with their respective owners and are not covered by the code license. Obtain and use media according to its provider's terms. The preview's CSS backdrop and sample interface are included with the project.
+Third-party wallpaper rights remain with their respective owners and are not covered by the code license. Obtain and use media according to its provider's terms. The README preview is a maintainer-provided screenshot. Third-party artwork and avatars visible in it retain their respective rights.
