@@ -1,6 +1,6 @@
 /*
  * Vencord, a Discord client mod
- * Copyright (c) 2026 LeoxMinei and contributors
+ * Copyright (c) 2026 opbsd and contributors
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
@@ -29,7 +29,7 @@ function updatePlayback() {
 export default definePlugin({
     name: "ObsidianVideo",
     description: "Plays a local Fallen Knight MP4 wallpaper without animated WebP backgrounds.",
-    authors: [{ name: "LeoxMinei", id: 0n }],
+    authors: [{ name: "opbsd", id: 0n }],
     tags: ["Appearance"],
     enabledByDefault: true,
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.5.3
+
+- Updated author credits and repository links to `opbsd/ObsidianFallenKnight`.
+- Refreshed downloadable packages to use the current GitHub username.
+- No changes to theme declarations or video playback behavior.
+
 ## 2.5.2
 
 - Added a Linux guide grouped by distribution family and package manager.

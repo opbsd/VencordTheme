@@ -6,7 +6,7 @@ A warm, dark **Vencord desktop** theme with translucent glass, bronze accents, s
 
 *Actual Discord desktop screenshot supplied by the maintainer, showing the Friends page with the local video wallpaper. Friends' names and avatars have been pixelated for privacy; the pixelation is a screenshot edit, not a theme effect. The MP4 must be added separately.*
 
-[Download CSS](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest/download/Obsidian-Fallen-Knight.theme.css) · [Download theme + plugin](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest/download/Obsidian-Fallen-Knight.zip) · [Installation guide](docs/INSTALLATION.md) · [Releases](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest)
+[Download CSS](https://github.com/opbsd/ObsidianFallenKnight/releases/latest/download/Obsidian-Fallen-Knight.theme.css) · [Download theme + plugin](https://github.com/opbsd/ObsidianFallenKnight/releases/latest/download/Obsidian-Fallen-Knight.zip) · [Installation guide](docs/INSTALLATION.md) · [Releases](https://github.com/opbsd/ObsidianFallenKnight/releases/latest)
 
 ## Features
 
@@ -31,7 +31,7 @@ The [installation guide](docs/INSTALLATION.md) covers the CSS theme, building th
 For **Online Themes**, use:
 
 ```text
-https://raw.githubusercontent.com/LeoxMinei/obsidian-fallen-knight/main/Obsidian-Fallen-Knight.theme.css
+https://raw.githubusercontent.com/opbsd/ObsidianFallenKnight/main/Obsidian-Fallen-Knight.theme.css
 ```
 
 ## Local wallpaper
@@ -58,7 +58,7 @@ Discord may change its CSS classes. Report styling issues with your client versi
 
 ## License and credits
 
-Theme and plugin code: **GPL-3.0-or-later**; see [LICENSE](LICENSE). Created by [LeoxMinei](https://github.com/LeoxMinei).
+Theme and plugin code: **GPL-3.0-or-later**; see [LICENSE](LICENSE). Created by [opbsd](https://github.com/opbsd).
 
 The plugin uses [Vencord](https://github.com/Vendicated/Vencord). This is an independent project, not affiliated with Discord or Vencord.
 
