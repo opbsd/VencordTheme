@@ -132,10 +132,14 @@ export function createAdaptivePalette(video: HTMLVideoElement) {
 
     return {
         setActive(active: boolean) {
-            if (timer) clearInterval(timer);
-            timer = undefined;
-            if (!active || failed) return;
-            sample();
+            if (!active) {
+                if (timer) clearInterval(timer);
+                timer = undefined;
+                return;
+            }
+            if (timer || failed) return;
+            // Preserve the established palette on resume; only the first activation samples immediately.
+            if (!current) sample();
             if (!failed) timer = setInterval(sample, 3000);
         },
         stop() {

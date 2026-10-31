@@ -10,5 +10,5 @@ import { readFile } from "fs/promises";
 import { join } from "path";
 
 export function readWallpaper(_: IpcMainInvokeEvent) {
-    return readFile(join(THEMES_DIR, "obsidian-fallen-knight.mp4"));
+    return readFile(join(THEMES_DIR, "wallpaper.mp4"));
 }

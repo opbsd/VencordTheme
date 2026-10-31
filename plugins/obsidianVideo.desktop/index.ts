@@ -18,12 +18,14 @@ let observer: MutationObserver | undefined;
 let palette: ReturnType<typeof createAdaptivePalette> | undefined;
 
 function updatePalette() {
-    palette?.stop();
-    palette = undefined;
-    if (video && settings.store.adaptiveColors) {
-        palette = createAdaptivePalette(video);
-        palette.setActive(!document.hidden && !reducedMotion.matches);
+    if (!video || !settings.store.adaptiveColors) {
+        palette?.stop();
+        palette = undefined;
+        return;
     }
+    // Decoders can emit loadeddata again after the window is restored.
+    palette ??= createAdaptivePalette(video);
+    palette.setActive(!document.hidden && !reducedMotion.matches);
 }
 
 const settings = definePluginSettings({

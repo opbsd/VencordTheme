@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.6.2
+
+- Changed the required local video filename to the generic `wallpaper.mp4`; existing users must rename their file and rebuild/install the updated plugin.
+- Preserved the established adaptive palette across repeated video `loadeddata` events and minimize/restore cycles.
+- Resumed sampling on its regular timer without immediately resampling or restoring fallback colors.
+- Updated Windows, macOS and Linux video setup instructions, including duplicate-extension and upgrade notes.
+
 ## 2.6.1
 
 - Updated repository, raw stylesheet, download and clone URLs to the renamed `opbsd/VencordTheme` repository.

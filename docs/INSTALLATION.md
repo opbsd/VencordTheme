@@ -25,6 +25,8 @@ Without the optional plugin, the theme uses a dark fallback. To load the CSS onl
 
 ### Before adding video
 
+The required video filename is **`wallpaper.mp4`**, including when upgrading from an older release. Rename your existing file, rebuild/install the updated custom plugin, then fully quit and reopen Discord. Avoid a duplicate extension such as `wallpaper.mp4.mp4`.
+
 Install **Git, Node.js and pnpm** using the current requirements in the [official Vencord source-build guide](https://docs.vencord.dev/installing/). Verify your terminal can run:
 
 ```sh
@@ -72,7 +74,7 @@ Select the Discord installation you use in the installer. Follow the official in
 ### 3. Add the theme and video
 
 - Follow [CSS theme only](#css-theme-only).
-- Open **Themes → Open Themes Folder** and place your MP4 there as `obsidian-fallen-knight.mp4`.
+- Open **Themes → Open Themes Folder** and place your MP4 there as `wallpaper.mp4`.
 - A typical standard-install path is `%APPDATA%\Vencord\themes`. The folder opened by Vencord is authoritative if your configuration differs.
 - Fully quit Discord from the tray and reopen it. Check **Plugins → ObsidianVideo** is enabled.
 
@@ -110,7 +112,7 @@ Select your Discord installation in the installer. Follow any platform-specific 
 ### 3. Add the theme and video
 
 - Follow [CSS theme only](#css-theme-only).
-- Use **Themes → Open Themes Folder** and add `obsidian-fallen-knight.mp4` there.
+- Use **Themes → Open Themes Folder** and add `wallpaper.mp4` there.
 - A typical standard-install path is `~/Library/Application Support/Vencord/themes`. In Finder, **Go → Go to Folder…** can open it. Use Vencord's folder button if your installation differs.
 - Quit Discord with Command-Q and reopen it. Check **Plugins → ObsidianVideo** is enabled.
 
@@ -138,7 +140,7 @@ The shared build instructions appear once in that guide. Distribution-specific s
 ### The theme appears, but the video does not
 
 1. Make sure you installed and enabled the custom **ObsidianVideo** plugin, not only the CSS.
-2. Confirm the exact file name is `obsidian-fallen-knight.mp4` and that your file manager did not add a second extension.
+2. Confirm the exact file name is `wallpaper.mp4` and that your file manager did not add a second extension.
 3. Put the file in the folder opened by **Open Themes Folder**, not the Vencord source folder or Discord's installation directory.
 4. Fully quit and reopen Discord. The native plugin helper requires a full restart after installation; reloading the renderer alone does not load it.
 5. If your system has reduced motion enabled, the plugin intentionally pauses and hides the video.
