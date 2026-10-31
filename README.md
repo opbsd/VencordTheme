@@ -24,7 +24,7 @@ The CSS theme works without the video plugin and uses a dark fallback background
 
 - **[Windows — PowerShell](docs/INSTALLATION.md#windows)**
 - **[macOS — Terminal](docs/INSTALLATION.md#macos)**
-- **[Linux — Terminal](docs/INSTALLATION.md#linux)**
+- **[Linux — distribution families, native packages and Flatpak](docs/LINUX.md)**
 
 The [installation guide](docs/INSTALLATION.md) covers the CSS theme, building the optional desktop plugin, where to put the MP4, restarting Discord and troubleshooting. Video playback requires a custom Vencord desktop build; copying TypeScript into the themes folder does not install a plugin.
 

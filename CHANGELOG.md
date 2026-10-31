@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.5.2
+
+- Added a Linux guide grouped by distribution family and package manager.
+- Documented native Discord, Flatpak, immutable desktops, SteamOS, NixOS and unverified musl/alternative-client setups.
+- Consolidated shared Node.js, plugin-build and media-placement steps.
+- Included the maintainer-provided preview with friend identities pixelated for privacy.
+- Theme declarations and plugin behavior are unchanged.
+
 ## 2.5.1
 
 - Added an illustrative preview with sample content and an original CSS backdrop.

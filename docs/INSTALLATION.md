@@ -116,43 +116,16 @@ Select your Discord installation in the installer. Follow any platform-specific 
 
 ## Linux
 
-### 1. Choose the Discord package
+Use the dedicated **[Linux distribution guide](LINUX.md)**. It groups systems that share the same package manager and separates native, Flatpak, immutable and Nix-managed installations.
 
-These instructions target Discord desktop with Vencord. Vencord's official installer does not support Discord's Snap package; use a supported installation listed on the [official download page](https://vencord.dev/download/). Sandboxed installations can use different configuration locations and permissions.
+- [Debian / Ubuntu and derivatives](LINUX.md#debian--ubuntu-and-derivatives)
+- [Arch and derivatives](LINUX.md#arch-and-derivatives)
+- [Fedora / RHEL family](LINUX.md#fedora--rhel-family)
+- [openSUSE / SUSE](LINUX.md#opensuse--suse-family)
+- [Solus](LINUX.md#solus), [Mageia / OpenMandriva](LINUX.md#mageia--openmandriva), [Gentoo](LINUX.md#gentoo), [Void](LINUX.md#void-linux)
+- [Immutable desktops / SteamOS](LINUX.md#immutable-desktops-and-steamos), [NixOS](LINUX.md#nixos), [musl / other distributions](LINUX.md#alpine--musl--other-distributions)
 
-### 2. Build the plugin in Terminal
-
-```sh
-mkdir -p "$HOME/Documents/ObsidianSetup"
-cd "$HOME/Documents/ObsidianSetup"
-
-git clone https://github.com/LeoxMinei/obsidian-fallen-knight.git
-git clone https://github.com/Vendicated/Vencord.git
-
-mkdir -p Vencord/src/userplugins
-cp -R obsidian-fallen-knight/plugins/obsidianVideo.desktop Vencord/src/userplugins/
-
-cd Vencord
-pnpm install --frozen-lockfile
-pnpm build --dev
-```
-
-### 3. Install your custom build
-
-Quit Discord completely, including its tray process if present. In the same Terminal window, still inside `Vencord`, run:
-
-```sh
-pnpm inject
-```
-
-Choose the appropriate Discord installation and follow the installer's prompts. Reopen Discord.
-
-### 4. Add the theme and video
-
-- Follow [CSS theme only](#css-theme-only).
-- Open **Themes → Open Themes Folder** and add `obsidian-fallen-knight.mp4` there.
-- A typical standard-install path is `~/.config/Vencord/themes`; XDG settings, environment overrides and sandboxed packages may change it. Use the folder opened by Vencord rather than assuming the default.
-- Fully quit and reopen Discord. Check **Plugins → ObsidianVideo** is enabled.
+The shared build instructions appear once in that guide. Distribution-specific sections explain which route to use and which combinations remain unverified.
 
 ## Other clients and mobile
 
