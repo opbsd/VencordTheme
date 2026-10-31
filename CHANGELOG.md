@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.6.1
+
+- Updated repository, raw stylesheet, download and clone URLs to the renamed `opbsd/VencordTheme` repository.
+- Includes all adaptive color features from 2.6.0.
+
 ## 2.6.0
 
 - Added local wallpaper-driven primary and secondary colors, dark tinted surfaces, coordinated borders, selections and glass highlights.
@@ -10,7 +15,7 @@
 
 ## 2.5.3
 
-- Updated author credits and repository links to `opbsd/ObsidianFallenKnight`.
+- Updated author credits and repository links to `opbsd/VencordTheme`.
 - Refreshed downloadable packages to use the current GitHub username.
 - No changes to theme declarations or video playback behavior.
 

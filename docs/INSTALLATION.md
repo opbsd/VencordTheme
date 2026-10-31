@@ -16,7 +16,7 @@ Choose your setup:
 These steps are the same on Windows, macOS and Linux:
 
 1. Install Vencord for your Discord desktop installation using the [official download page](https://vencord.dev/download/).
-2. Download [Obsidian-Fallen-Knight.theme.css](https://github.com/opbsd/ObsidianFallenKnight/releases/latest/download/Obsidian-Fallen-Knight.theme.css).
+2. Download [Obsidian-Fallen-Knight.theme.css](https://github.com/opbsd/VencordTheme/releases/latest/download/Obsidian-Fallen-Knight.theme.css).
 3. Open Discord → **Settings → Vencord → Themes → Open Themes Folder**.
 4. Copy the CSS into that folder and enable **Obsidian Fallen Knight Video** in Local Themes.
 5. Disable other themes and select a dark Discord appearance.
@@ -48,7 +48,7 @@ $obsidianWorkspace = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'Ob
 New-Item -ItemType Directory -Force -Path $obsidianWorkspace | Out-Null
 Set-Location $obsidianWorkspace
 
-git clone https://github.com/opbsd/ObsidianFallenKnight.git obsidian-fallen-knight
+git clone https://github.com/opbsd/VencordTheme.git obsidian-fallen-knight
 git clone https://github.com/Vendicated/Vencord.git
 
 New-Item -ItemType Directory -Force -Path '.\Vencord\src\userplugins' | Out-Null
@@ -86,7 +86,7 @@ Open Terminal and run:
 mkdir -p "$HOME/Documents/ObsidianSetup"
 cd "$HOME/Documents/ObsidianSetup"
 
-git clone https://github.com/opbsd/ObsidianFallenKnight.git obsidian-fallen-knight
+git clone https://github.com/opbsd/VencordTheme.git obsidian-fallen-knight
 git clone https://github.com/Vendicated/Vencord.git
 
 mkdir -p Vencord/src/userplugins

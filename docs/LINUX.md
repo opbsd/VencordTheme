@@ -258,7 +258,7 @@ Run these commands as your normal user in a terminal where Node.js and pnpm work
 mkdir -p "$HOME/Documents/ObsidianSetup"
 cd "$HOME/Documents/ObsidianSetup"
 
-git clone https://github.com/opbsd/ObsidianFallenKnight.git obsidian-fallen-knight
+git clone https://github.com/opbsd/VencordTheme.git obsidian-fallen-knight
 git clone https://github.com/Vendicated/Vencord.git
 
 mkdir -p Vencord/src/userplugins
@@ -335,7 +335,7 @@ Select the persistent host `dist` path rather than a temporary `/run/...` portal
 
 For every working client route above:
 
-1. Download [Obsidian-Fallen-Knight.theme.css](https://github.com/opbsd/ObsidianFallenKnight/releases/latest/download/Obsidian-Fallen-Knight.theme.css).
+1. Download [Obsidian-Fallen-Knight.theme.css](https://github.com/opbsd/VencordTheme/releases/latest/download/Obsidian-Fallen-Knight.theme.css).
 2. Open **Settings → Vencord → Themes → Open Themes Folder**.
 3. Add the CSS, enable **Obsidian Fallen Knight Video**, and disable other themes.
 4. For video, add your MP4 to the same folder with the exact name **`obsidian-fallen-knight.mp4`**.
