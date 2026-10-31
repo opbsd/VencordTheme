@@ -2,9 +2,9 @@
 
 A warm, dark **Vencord desktop** theme with translucent glass, bronze accents, stone neutrals and ivory text. The optional **ObsidianVideo** plugin plays your own local MP4 wallpaper.
 
-![Obsidian Fallen Knight theme preview](assets/preview-discord-friends.png)
+![Obsidian Fallen Knight Friends page with friend identities pixelated](assets/preview-discord-friends-redacted.png)
 
-*Actual Discord desktop screenshot supplied by the maintainer, showing the Friends page with the local video wallpaper. The MP4 must be added separately.*
+*Actual Discord desktop screenshot supplied by the maintainer, showing the Friends page with the local video wallpaper. Friends' names and avatars have been pixelated for privacy; the pixelation is a screenshot edit, not a theme effect. The MP4 must be added separately.*
 
 [Download CSS](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest/download/Obsidian-Fallen-Knight.theme.css) · [Download theme + plugin](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest/download/Obsidian-Fallen-Knight.zip) · [Installation guide](docs/INSTALLATION.md) · [Releases](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest)
 
