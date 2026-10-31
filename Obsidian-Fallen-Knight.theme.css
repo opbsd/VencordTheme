@@ -1,0 +1,810 @@
+/**
+ * @name Obsidian Fallen Knight Video
+ * @author LeoxMinei
+ * @source https://github.com/LeoxMinei/obsidian-fallen-knight
+ * @version 2.5.0
+ * @description Vetro scuro bronzo e pietra, pagine Home trasparenti e MP4 nativo tramite ObsidianVideo.
+ */
+
+/* INSTALLAZIONE
+ * Discord > Impostazioni > Vencord > Themes > Open Themes Folder.
+ * Copia questo file nella cartella, poi attiva Obsidian Fallen Knight Video.
+ * Disattiva gli altri temi e scegli un aspetto scuro in Discord.
+ * Nessun import o font remoto.
+ *
+ * PERSONALIZZAZIONE: modifica i colori e i controlli qui sotto.
+ * --obs-blur: intensita della sfocatura (0px per disattivarla).
+ * --obs-motion: durata delle interazioni (0ms per disattivarle).
+ * --obs-gap: spazio fra i pannelli (consigliato 8px-12px).
+ * Gli effetti rispettano le preferenze di movimento e trasparenza del sistema.
+ * I colori di stato (online, assente, non disturbare) restano riconoscibili.
+ */
+:root {
+    --obs-black: #0b0a08;
+    --obs-sidebar: #13120f;
+    --obs-chat: #12110e;
+    --obs-panel: #1a1813;
+    --obs-elevated: #242118;
+    --obs-hover: #2c281f;
+    --obs-border: #393329;
+    --obs-text: #eee9de;
+    --obs-secondary: #c9c1b2;
+    --obs-muted: #b0a694;
+    --obs-accent: #b4a98b;
+    --obs-accent-hover: #cdc0a0;
+    --obs-accent-pressed: #a29678;
+    --obs-on-accent: #19170f;
+    --obs-gap: 10px;
+    --obs-radius: 14px;
+    --obs-blur: 20px;
+    --obs-motion: 180ms;
+    --obs-entrance: 180ms;
+    --obs-ease: cubic-bezier(.22, 1, .36, 1);
+    --obs-glass-background: #191711;
+    --obs-glass-filter: none;
+    --obs-chat-surface: #12110e;
+    --obs-matte-background: #13120f;
+    --obs-glass-line: rgb(219 211 190 / 6%);
+    --obs-glass-shadow: 0 6px 20px rgb(0 0 0 / 18%),
+        inset 0 1px 0 rgb(238 232 216 / 5%);
+}
+
+/* Variabili Discord attuali e precedenti. I profili personalizzati
+ * mantengono la propria palette. */
+body,
+.theme-dark:not(.custom-user-profile-theme),
+.theme-light:not(.custom-user-profile-theme) {
+    color-scheme: dark;
+    --background-primary: var(--obs-chat) !important;
+    --background-secondary: var(--obs-sidebar) !important;
+    --background-secondary-alt: var(--obs-black) !important;
+    --background-tertiary: var(--obs-black) !important;
+    --background-floating: var(--obs-panel) !important;
+    --background-accent: var(--obs-elevated) !important;
+    --background-base-low: var(--obs-chat) !important;
+    --background-base-lower: var(--obs-sidebar) !important;
+    --background-base-lowest: var(--obs-black) !important;
+    --background-surface-high: var(--obs-panel) !important;
+    --background-surface-higher: var(--obs-elevated) !important;
+    --background-surface-highest: var(--obs-hover) !important;
+    --background-mobile-primary: var(--obs-chat) !important;
+    --background-mobile-secondary: var(--obs-sidebar) !important;
+    --background-nested-floating: var(--obs-elevated) !important;
+    --background-mod-subtle: rgb(238 232 216 / 3%) !important;
+    --background-mod-muted: rgb(238 232 216 / 5%) !important;
+    --background-mod-normal: rgb(238 232 216 / 7%) !important;
+    --background-mod-strong: rgb(238 232 216 / 10%) !important;
+    --background-modifier-hover: rgb(238 232 216 / 4%) !important;
+    --background-modifier-active: rgb(180 169 139 / 10%) !important;
+    --background-modifier-selected: rgb(180 169 139 / 15%) !important;
+    --background-modifier-accent: var(--obs-border) !important;
+    --background-scrim: rgb(0 0 0 / 75%) !important;
+    --background-scrim-lightbox: rgb(0 0 0 / 90%) !important;
+    --bg-base-primary: var(--obs-chat) !important;
+    --bg-base-secondary: var(--obs-sidebar) !important;
+    --bg-base-tertiary: var(--obs-black) !important;
+    --bg-surface-overlay: var(--obs-panel) !important;
+    --bg-surface-overlay-tmp: var(--obs-panel) !important;
+    --bg-surface-raised: var(--obs-elevated) !important;
+    --app-frame-background: var(--obs-black) !important;
+    --app-frame-border: var(--obs-border) !important;
+    --home-background: var(--obs-chat) !important;
+    --chat-background: var(--obs-chat) !important;
+    --chat-background-default: var(--obs-chat) !important;
+    --chat-border: var(--obs-border) !important;
+    --panel-bg: var(--obs-sidebar) !important;
+    --modal-background: var(--obs-panel) !important;
+    --modal-footer-background: var(--obs-sidebar) !important;
+    --card-background-default: var(--obs-panel) !important;
+    --card-primary-bg: var(--obs-panel) !important;
+    --card-secondary-bg: var(--obs-sidebar) !important;
+    --embed-background: var(--obs-sidebar) !important;
+    --embed-background-alternate: var(--obs-panel) !important;
+
+    --text-normal: var(--obs-text) !important;
+    --text-primary: var(--obs-text) !important;
+    --text-secondary: var(--obs-secondary) !important;
+    --text-muted: var(--obs-muted) !important;
+    --text-default: var(--obs-text) !important;
+    --text-strong: var(--obs-text) !important;
+    --text-subtle: var(--obs-secondary) !important;
+    --header-primary: var(--obs-text) !important;
+    --header-secondary: var(--obs-secondary) !important;
+    --channels-default: var(--obs-secondary) !important;
+    --channel-icon: var(--obs-muted) !important;
+    --chat-text-muted: var(--obs-muted) !important;
+    --icon-default: var(--obs-secondary) !important;
+    --icon-strong: var(--obs-text) !important;
+    --icon-muted: var(--obs-muted) !important;
+    --icon-subtle: var(--obs-muted) !important;
+    --interactive-normal: var(--obs-secondary) !important;
+    --interactive-hover: var(--obs-text) !important;
+    --interactive-active: var(--obs-text) !important;
+    --interactive-muted: var(--obs-muted) !important;
+    --interactive-text-default: var(--obs-secondary) !important;
+    --interactive-text-hover: var(--obs-text) !important;
+    --interactive-text-active: var(--obs-text) !important;
+    --interactive-icon-default: var(--obs-secondary) !important;
+    --interactive-icon-hover: var(--obs-text) !important;
+    --interactive-icon-active: var(--obs-accent) !important;
+    --interactive-background-hover: rgb(238 232 216 / 5%) !important;
+    --interactive-background-active: rgb(180 169 139 / 12%) !important;
+    --interactive-background-selected: rgb(180 169 139 / 15%) !important;
+
+    --brand-360: var(--obs-accent) !important;
+    --brand-400: var(--obs-accent) !important;
+    --brand-500: var(--obs-accent) !important;
+    --brand-560: var(--obs-accent-hover) !important;
+    --brand-600: var(--obs-accent-pressed) !important;
+    --background-brand: var(--obs-accent) !important;
+    --text-brand: var(--obs-accent) !important;
+    --text-link: var(--obs-accent-hover) !important;
+    --text-link-low-saturation: var(--obs-accent-hover) !important;
+    --focus-primary: var(--obs-accent) !important;
+    --border-focus: var(--obs-accent) !important;
+    --border-subtle: #29251d !important;
+    --border-muted: #302b21 !important;
+    --border-normal: var(--obs-border) !important;
+    --border-strong: #514938 !important;
+
+    --button-filled-brand-background: var(--obs-accent) !important;
+    --button-filled-brand-background-hover: var(--obs-accent-hover) !important;
+    --button-filled-brand-background-active: var(--obs-accent-pressed) !important;
+    --button-filled-brand-text: var(--obs-on-accent) !important;
+    --control-primary-background-default: var(--obs-accent) !important;
+    --control-primary-background-hover: var(--obs-accent-hover) !important;
+    --control-primary-background-active: var(--obs-accent-pressed) !important;
+    --control-primary-text-default: var(--obs-on-accent) !important;
+    --control-primary-text-hover: var(--obs-on-accent) !important;
+    --control-primary-text-active: var(--obs-on-accent) !important;
+    --control-primary-icon-default: var(--obs-on-accent) !important;
+    --control-primary-icon-hover: var(--obs-on-accent) !important;
+    --control-primary-icon-active: var(--obs-on-accent) !important;
+    --control-secondary-background-default: var(--obs-elevated) !important;
+    --control-secondary-background-hover: var(--obs-hover) !important;
+    --control-secondary-background-active: var(--obs-border) !important;
+    --control-secondary-text-default: var(--obs-text) !important;
+    --control-secondary-text-hover: var(--obs-text) !important;
+    --control-secondary-text-active: var(--obs-text) !important;
+    --control-secondary-icon-default: var(--obs-secondary) !important;
+    --control-secondary-icon-hover: var(--obs-text) !important;
+    --control-secondary-icon-active: var(--obs-text) !important;
+
+    --channeltextarea-background: var(--obs-panel) !important;
+    --channel-text-area-placeholder: var(--obs-muted) !important;
+    --input-background: var(--obs-sidebar) !important;
+    --input-background-default: var(--obs-sidebar) !important;
+    --input-border-default: var(--obs-border) !important;
+    --input-border-hover: #5c5240 !important;
+    --input-border-active: var(--obs-accent) !important;
+    --input-text-default: var(--obs-text) !important;
+    --input-placeholder-text-default: var(--obs-muted) !important;
+    --input-icon-default: var(--obs-secondary) !important;
+
+    --background-message-hover: rgb(238 232 216 / 2.5%) !important;
+    --message-background-hover: rgb(238 232 216 / 2.5%) !important;
+    --background-mentioned: rgb(180 169 139 / 9%) !important;
+    --background-mentioned-hover: rgb(180 169 139 / 14%) !important;
+    --message-mentioned-background-default: rgb(180 169 139 / 9%) !important;
+    --message-mentioned-background-hover: rgb(180 169 139 / 14%) !important;
+    --mention-background: rgb(180 169 139 / 16%) !important;
+    --mention-foreground: #d9ccb0 !important;
+    --message-reacted-background-default: rgb(180 169 139 / 16%) !important;
+    --message-reacted-text-default: #d9ccb0 !important;
+    --background-code: var(--obs-black) !important;
+    --scrollbar-thin-thumb: #625946 !important;
+    --scrollbar-thin-track: transparent !important;
+    --scrollbar-auto-thumb: #625946 !important;
+    --scrollbar-auto-track: var(--obs-sidebar) !important;
+    --scrollbar-auto-scrollbar-color-thumb: #625946 !important;
+    --scrollbar-auto-scrollbar-color-track: var(--obs-sidebar) !important;
+    --deprecated-store-bg: var(--obs-chat) !important;
+    --deprecated-card-bg: var(--obs-panel) !important;
+}
+
+/* Dettagli visivi con selettori indipendenti dai suffissi di Discord. */
+[class*="channelTextArea_"] {
+    border: 1px solid var(--obs-border);
+    border-radius: var(--obs-radius);
+    transition: border-color var(--obs-motion) ease,
+        box-shadow var(--obs-motion) ease;
+}
+
+[class*="channelTextArea_"]:focus-within {
+    border-color: var(--obs-accent);
+}
+
+[class*="scrollableContainer_"] {
+    border-radius: var(--obs-radius);
+}
+
+[class*="mentioned_"]::before {
+    background-color: var(--obs-accent) !important;
+}
+
+[class*="markup_"] pre {
+    background-color: var(--obs-black);
+    border: 1px solid var(--obs-border);
+    border-radius: 8px;
+}
+
+[class*="markup_"] code.inline {
+    background-color: var(--obs-black);
+    color: #d9ccb0;
+    border-radius: 4px;
+}
+
+::selection {
+    background: #5b513b;
+    color: #f2ede2;
+}
+
+/* LIQUID GLASS
+ * Riflessi di dimensione fissa: non diventano fasce su schermi ultrawide.
+ * Le grandi superfici rimangono opache; blur soltanto su header e popup.
+ */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    :root {
+        --obs-glass-background:
+            radial-gradient(ellipse 220px 90px at 28px 0,
+                rgb(226 213 184 / 5%), transparent 100%),
+            rgb(22 20 16 / 58%);
+        --obs-glass-filter: blur(var(--obs-blur)) saturate(105%);
+    }
+}
+
+/* Fondale quasi nero, con una luce viola appena percepibile. */
+#app-mount,
+#app-mount .bg__960e4 {
+    background:
+        radial-gradient(ellipse 540px 380px at 140px 0,
+            rgb(124 105 73 / 8%), transparent 100%),
+        #0b0a08 !important;
+}
+
+#app-mount .app__160d8,
+#app-mount .base__5e434,
+#app-mount .sidebar__5e434,
+#app-mount .page__5e434,
+#app-mount .chat_f75fb0 {
+    background: transparent !important;
+}
+
+/* Spaziatura del layout desktop. Mantiene l'altezza dinamica del pannello
+ * utente: Spotify e gli eventuali controlli vocali non coprono i canali.
+ * Non altera la larghezza configurata della lista canali.
+ */
+#app-mount .content__5e434 {
+    margin-top: var(--obs-gap);
+}
+
+#app-mount .sidebar__5e434 {
+    margin: 0 var(--obs-gap) var(--obs-gap);
+}
+
+#app-mount .page__5e434 {
+    padding: 0 var(--obs-gap) var(--obs-gap) 0;
+    min-width: 0;
+    border: 0;
+}
+
+#app-mount .page__5e434 > .chat_f75fb0,
+#app-mount .page__5e434 > .container__133bf {
+    padding: 0;
+    min-width: 0;
+}
+
+#app-mount .guilds__5e434 {
+    margin-right: var(--obs-gap);
+    margin-bottom: calc(var(--custom-app-panels-height, 0px) + var(--obs-gap));
+}
+
+#app-mount .sidebarList__5e434 {
+    margin-bottom: calc(var(--custom-app-panels-height, 0px) + var(--obs-gap));
+    border: 0;
+}
+
+/* La riserva per il pannello utente e gia nel margine esterno qui sopra.
+ * Discord la aggiunge anche all'interno della lista: con Spotify aperto
+ * verrebbe contata due volte, lasciando un grande vuoto sotto i canali.
+ * Mantiene invece il piccolo padding di scorrimento dell'ultimo elemento.
+ */
+#app-mount .sidebarList__5e434 .container__2637a {
+    padding-bottom: 0 !important;
+}
+
+#app-mount .sidebarList__5e434 :is(.scroller__629e4, .scroller__99e7c) {
+    margin-bottom: 0 !important;
+}
+
+/* I client meno recenti usano flex invece della subgrid di Discord.
+ * Riserva anche qui lo spazio fra rail e canali, senza tagliare la lista. */
+@supports not ((grid-template-columns: subgrid) and (white-space-collapse: collapse)) {
+    #app-mount .sidebar__5e434:not(.channelListHidden__5e434):not([data-collapsed="true"]) {
+        width: calc(var(--custom-guild-sidebar-width) + var(--obs-gap) - 1px);
+    }
+}
+
+#app-mount .panels__5e434 {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
+}
+
+#app-mount .chat_f75fb0 {
+    border: 0;
+}
+
+#app-mount .chat_f75fb0 > .subtitleContainer_f75fb0,
+#app-mount .container__133bf > .container__9293f {
+    margin-bottom: var(--obs-gap);
+    flex-shrink: 0;
+}
+
+#app-mount .chat_f75fb0 > .content_f75fb0 {
+    border: 0;
+    background: transparent;
+    min-height: 0;
+}
+
+/* Stessa finitura antracite per navigazione, membri e pannello utente.
+ * Un unico bordo interno delicato; niente cornici sovrapposte.
+ */
+#app-mount :is(
+    .guilds__5e434,
+    .sidebarList__5e434,
+    .panels__5e434,
+    .container_c8ffbb
+) {
+    background: var(--obs-matte-background) !important;
+    border-radius: var(--obs-radius);
+    box-shadow: inset 0 0 0 1px rgb(219 211 190 / 4%);
+}
+
+#app-mount .container_c8ffbb {
+    margin-left: var(--obs-gap);
+}
+
+/* Via gli strati interni opachi e le ombre native che duplicano i bordi. */
+#app-mount :is(
+    .container__2637a,
+    .privateChannels_e6b769,
+    .scroller__99e7c,
+    .scroller_ef3116,
+    .members_c8ffbb,
+    .member_c8ffbb,
+    .title_f75fb0,
+    .header_f37cb1,
+    .panels__5e434 .container__37e49
+) {
+    background: transparent !important;
+}
+
+#app-mount .title_f75fb0,
+#app-mount .header_f37cb1 {
+    box-shadow: none;
+    border: 0;
+}
+
+#app-mount .sidebar__5e434::after {
+    display: none;
+}
+
+/* Il vetro della barra superiore e separato dalla chat da un vero margine. */
+#app-mount :is(
+    .subtitleContainer_f75fb0,
+    .container__133bf > .container__9293f
+) {
+    background: var(--obs-glass-background) !important;
+    -webkit-backdrop-filter: var(--obs-glass-filter);
+    backdrop-filter: var(--obs-glass-filter);
+    border-radius: var(--obs-radius);
+    box-shadow: var(--obs-glass-shadow), inset 0 0 0 1px var(--obs-glass-line);
+    border: 0;
+}
+
+/* Un piano scuro continuo per messaggi e composer, senza sfocare lo scroll. */
+#app-mount .chatContent_f75fb0 {
+    background: var(--obs-chat-surface) !important;
+    border-radius: var(--obs-radius);
+    box-shadow: inset 0 0 0 1px rgb(219 211 190 / 3%);
+    min-width: 0;
+}
+
+#app-mount .form_f75fb0 {
+    background: transparent;
+    padding-right: 14px;
+    padding-left: 14px;
+}
+
+/* Spotify condivide la superficie del pannello utente, senza un'altra card. */
+#app-mount #vc-spotify-player {
+    --vc-spotify-green: var(--obs-accent);
+    background: transparent !important;
+    border-bottom: 1px solid var(--obs-glass-line);
+    border-radius: var(--obs-radius) var(--obs-radius) 0 0;
+    padding: 12px 14px;
+    box-shadow: none;
+}
+
+#app-mount #vc-spotify-album-image {
+    border-radius: 8px;
+}
+
+#app-mount .vc-spotify-button {
+    border-radius: 9px;
+    transition: background-color var(--obs-motion) ease,
+        color var(--obs-motion) ease;
+}
+
+#app-mount .vc-spotify-button:hover {
+    background-color: rgb(180 169 139 / 10%);
+    color: var(--obs-text);
+}
+
+/* Menu, selettore emoji e finestre: sfocatura piu evidente sul contenuto. */
+#app-mount :is(
+    .menu_c1e9c4,
+    .contentWrapper__08434,
+    .root__49fc1,
+    .autocomplete__6b0e0,
+    .container__16eb0,
+    .messagesPopoutWrap__432f4
+) {
+    background: var(--obs-glass-background) !important;
+    -webkit-backdrop-filter: var(--obs-glass-filter);
+    backdrop-filter: var(--obs-glass-filter);
+    border-radius: var(--obs-radius);
+    box-shadow: 0 18px 48px rgb(0 0 0 / 38%),
+        inset 0 0 0 1px var(--obs-glass-line),
+        inset 0 1px 0 rgb(238 232 216 / 7%);
+    animation: obsidian-glass-in var(--obs-entrance) var(--obs-ease);
+}
+
+/* Composer: riflesso localizzato, senza blur durante la scrittura. */
+#app-mount [class*="channelTextArea_"] {
+    background: var(--obs-glass-background) !important;
+    border-color: var(--obs-glass-line);
+    box-shadow: inset 0 1px 0 rgb(238 232 216 / 4%),
+        0 4px 14px rgb(0 0 0 / 12%);
+}
+
+#app-mount [class*="channelTextArea_"] [class*="scrollableContainer_"] {
+    background: transparent !important;
+}
+
+#app-mount [class*="channelTextArea_"]:focus-within {
+    border-color: rgb(180 169 139 / 42%);
+    box-shadow: 0 0 0 2px rgb(180 169 139 / 7%),
+        0 8px 28px rgb(0 0 0 / 22%),
+        inset 0 1px 0 rgb(238 232 216 / 10%);
+}
+
+/* Canali e messaggi privati: un piccolo movimento, senza cambiare il layout. */
+#app-mount :is(.link__2ea32, .interactive__972a0) {
+    border-radius: 10px;
+    transition: background-color var(--obs-motion) ease,
+        box-shadow var(--obs-motion) ease,
+        translate var(--obs-motion) var(--obs-ease);
+}
+
+#app-mount :is(.link__2ea32, .interactive__972a0):hover {
+    translate: 1px 0;
+    box-shadow: inset 0 1px 0 rgb(238 232 216 / 5%);
+}
+
+#app-mount :is(
+    .modeSelected__2ea32 .link__2ea32,
+    .interactiveSelected__972a0
+) {
+    background: linear-gradient(100deg, rgb(180 169 139 / 12%), rgb(180 169 139 / 4%)) !important;
+    box-shadow: inset 2px 0 0 var(--obs-accent),
+        inset 0 1px 0 rgb(238 232 216 / 6%);
+}
+
+/* Pulsanti: pressione elastica breve, colore originale degli avvisi conservato. */
+#app-mount button[class*="button_"] {
+    transition: background-color var(--obs-motion) ease,
+        box-shadow var(--obs-motion) ease,
+        scale var(--obs-motion) var(--obs-ease);
+}
+
+#app-mount button[class*="button_"]:not(:disabled):active {
+    scale: .97;
+}
+
+#app-mount button[class*="button_"]:focus-visible {
+    outline: 2px solid var(--obs-accent);
+    outline-offset: 3px;
+}
+
+#app-mount button[class*="lookFilled_"][class*="colorBrand_"] {
+    border-radius: 12px;
+    box-shadow: inset 0 1px 0 rgb(238 232 216 / 35%),
+        0 4px 14px rgb(180 169 139 / 14%);
+}
+
+#app-mount button[class*="lookFilled_"][class*="colorBrand_"]:not(:disabled):hover {
+    box-shadow: inset 0 1px 0 rgb(238 232 216 / 45%),
+        0 6px 22px rgb(180 169 139 / 24%);
+}
+
+/* Nessuna animazione su ogni messaggio: scroll e cronologia restano stabili. */
+@keyframes obsidian-glass-in {
+    from { opacity: 0; translate: 0 5px; }
+    to { opacity: 1; translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --obs-motion: 0ms;
+        --obs-entrance: 0ms;
+    }
+    #app-mount :is(.link__2ea32, .interactive__972a0):hover {
+        translate: none;
+    }
+    #app-mount button[class*="button_"]:not(:disabled):active {
+        scale: none;
+    }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    :root {
+        --obs-glass-background: #191711;
+        --obs-glass-filter: none;
+        --obs-chat-surface: #12110e;
+    }
+}
+
+@media (forced-colors: active) {
+    #app-mount button[class*="button_"]:focus-visible {
+        outline-color: Highlight;
+    }
+}
+
+:root { --obs-wallpaper-still: none; }
+
+/* FALLEN KNIGHT
+ * Il filmato originale viene riprodotto dal plugin locale ObsidianVideo:
+ * 1080p, 60 fps, senza riconversioni. Nessun upload richiesto.
+ * Nessun contenuto multimediale di terzi e incluso nella distribuzione pubblica.
+ * Aumenta l'opacita di --obs-chat-surface per scurire l'area messaggi.
+ * Il plugin legge il file MP4 nella cartella temi di Vencord.
+ */
+:root {
+    --obs-wallpaper-position: center center;
+    --obs-panel-filter: none;
+    --obs-chat-surface: rgb(16 14 11 / 46%);
+    --obs-matte-background: rgb(22 20 16 / 62%);
+}
+
+#app-mount,
+#app-mount .bg__960e4 {
+    background-color: #0b0a08 !important;
+    background-image:
+        linear-gradient(rgb(12 10 7 / 16%),
+                        rgb(12 10 7 / 16%)),
+        var(--obs-wallpaper-still) !important;
+    background-size: cover !important;
+    background-position: var(--obs-wallpaper-position) !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Rende visibile il fondale anche dietro gli strati base della finestra. */
+#app-mount .baseLayer__960e4,
+#app-mount .layers__160d8 {
+    background: transparent !important;
+}
+
+#app-mount .chatContent_f75fb0 :is(.messagesWrapper__36d07, .scroller__36d07) {
+    background: transparent !important;
+}
+
+/* Vetro caldo sui pannelli stretti, con sfocatura leggera.
+ * La chat non ha filtri per mantenere leggibili e nitidi testo e filmato. */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    :root {
+        --obs-panel-filter: blur(6px) saturate(95%);
+    }
+}
+
+#app-mount :is(.guilds__5e434, .sidebarList__5e434, .panels__5e434, .container_c8ffbb) {
+    -webkit-backdrop-filter: var(--obs-panel-filter);
+    backdrop-filter: var(--obs-panel-filter);
+}
+
+#app-mount [class*="messageContent_"] {
+    text-shadow: 0 1px 3px rgb(0 0 0 / 55%);
+}
+
+/* Il movimento ridotto nasconde il video e usa il fondale scuro. */
+@media (prefers-reduced-motion: reduce) {
+    #app-mount,
+    #app-mount .bg__960e4 {
+        background-image:
+            linear-gradient(rgb(12 10 7 / 16%),
+                            rgb(12 10 7 / 16%)),
+            var(--obs-wallpaper-still) !important;
+    }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    :root {
+        --obs-matte-background: #13120f;
+        --obs-chat-surface: #12110e;
+        --obs-panel-filter: none;
+    }
+}
+
+/* 2.5: riproduzione MP4 nativa e pagine Home coordinate. */
+#app-mount {
+    isolation: isolate;
+}
+
+#app-mount .bg__960e4 {
+    background: transparent !important;
+}
+
+#obsidian-video-wallpaper {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+#obsidian-video-wallpaper[hidden] {
+    display: none;
+}
+
+#obsidian-video-wallpaper video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--obs-wallpaper-position);
+}
+
+#obsidian-video-wallpaper::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgb(12 10 7 / 16%);
+}
+
+/* I grandi pannelli non sfocano ogni fotogramma dello sfondo. */
+:root {
+    --obs-panel-filter: none;
+    --obs-glass-filter: blur(8px) saturate(105%);
+}
+
+#app-mount :is(.subtitleContainer_f75fb0, .container__133bf > .container__9293f) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+/* Spazio interno alla rail: anche la prima icona resta lontana dal bordo. */
+#app-mount .guilds__5e434 .scroller_ef3116 {
+    padding-top: 12px !important;
+    box-sizing: border-box;
+}
+
+/* Friends: il contenitore esterno non deve coprire lo sfondo. */
+#app-mount .container__133bf {
+    --background-base-low: transparent !important;
+    --background-base-lower: transparent !important;
+    --background-base-lowest: transparent !important;
+    --background-primary: transparent !important;
+    --background-secondary: transparent !important;
+    --background-gradient-chat: transparent !important;
+    background: transparent !important;
+    border: 0 !important;
+}
+
+#app-mount .tabBody__133bf {
+    background: transparent !important;
+    border: 0 !important;
+}
+
+#app-mount .peopleColumn__133bf {
+    background: var(--obs-chat-surface) !important;
+    border-radius: var(--obs-radius);
+    box-shadow: inset 0 0 0 1px var(--obs-glass-line);
+}
+
+#app-mount .nowPlayingColumn__133bf {
+    margin-left: var(--obs-gap);
+    background: var(--obs-matte-background) !important;
+    border-radius: var(--obs-radius);
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px var(--obs-glass-line);
+}
+
+#app-mount .container__7d20c {
+    background: transparent !important;
+}
+
+#app-mount .scroller__7d20c {
+    border-left: 0;
+    border-inline-start: 0;
+}
+
+#app-mount .emptyCard__7e549 {
+    background: rgb(26 23 18 / 32%) !important;
+    border-radius: 12px;
+}
+
+#app-mount .tabBar__133bf .addFriend__133bf {
+    color: var(--obs-on-accent) !important;
+    border-radius: 10px;
+}
+
+#app-mount .tabBar__133bf .addFriend__133bf[aria-selected="true"] {
+    background: rgb(180 169 139 / 14%) !important;
+    color: var(--obs-accent-hover) !important;
+}
+
+/* Nitro, Shop e Quests: variabili locali, senza toccare le altre schermate. */
+#app-mount :is(.applicationStore_f07d62, .homeWrapper__0920e, .shop__6db1d, .container__955a3) {
+    --background-base-low: transparent !important;
+    --background-base-lower: transparent !important;
+    --background-base-lowest: transparent !important;
+    --background-primary: transparent !important;
+    --background-secondary: transparent !important;
+    --background-gradient-chat: transparent !important;
+    --background-surface-high: rgb(26 23 18 / 60%) !important;
+    --background-surface-higher: rgb(32 28 21 / 66%) !important;
+    --background-surface-highest: rgb(37 32 24 / 72%) !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: var(--obs-radius);
+}
+
+#app-mount :is(.homeWrapper__0920e, .shop__6db1d, .container__955a3) {
+    overflow: hidden;
+}
+
+#app-mount :is(.mainPageScroller__80907, .shop__6db1d, .scroller__23746) {
+    background: var(--obs-chat-surface) !important;
+    border-radius: var(--obs-radius);
+    box-shadow: inset 0 0 0 1px var(--obs-glass-line);
+}
+
+#app-mount .shop__08415 {
+    background: transparent !important;
+}
+
+#app-mount :is(.headerBar__1a9ce, .headerBar__8a7fc, .navBar__131a1) {
+    background: var(--obs-glass-background) !important;
+    border: 0 !important;
+    box-shadow: inset 0 -1px 0 var(--obs-glass-line);
+}
+
+#app-mount .applicationStore_f07d62 :is([class*="hero_"], [class*="heroSection_"], [class*="heroContainer_"]) {
+    background: radial-gradient(ellipse at 50% 0, rgb(122 102 65 / 16%), transparent 70%),
+        rgb(21 18 14 / 50%) !important;
+    border-radius: var(--obs-radius);
+}
+
+#app-mount .applicationStore_f07d62 :is([class*="gradientBackground_"], [class*="heroBackground_"], [class*="backgroundGradient_"]) {
+    background: radial-gradient(ellipse at 50% 0, rgb(122 102 65 / 18%), transparent 75%) !important;
+}
+
+#app-mount :is(.applicationStore_f07d62, .shop__6db1d, .container__955a3) :is(
+    [class*="productCard_"], [class*="questCard_"], [class*="questTile_"], [class*="perkCard_"]
+) {
+    background-color: rgb(26 23 18 / 62%) !important;
+    border-color: var(--obs-glass-line) !important;
+    border-radius: var(--obs-radius);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #obsidian-video-wallpaper { display: none; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    :root { --obs-glass-filter: none; }
+}
