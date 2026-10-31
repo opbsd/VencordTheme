@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.6.0
+
+- Added local wallpaper-driven primary and secondary colors, dark tinted surfaces, coordinated borders, selections and glass highlights.
+- Added the enabled-by-default `adaptiveColors` plugin setting; disabling it restores the fixed palette.
+- Sampled a 64×36 frame every three seconds with gradual palette changes; background/reduced-motion pausing and cleanup are preserved.
+- Kept video resolution and frame rate unchanged; no video, poster or private media is bundled.
+- Fixed clone commands to explicitly use the directory expected by the subsequent installation steps.
+
 ## 2.5.3
 
 - Updated author credits and repository links to `opbsd/ObsidianFallenKnight`.

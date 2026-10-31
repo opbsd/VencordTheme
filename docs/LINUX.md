@@ -258,7 +258,7 @@ Run these commands as your normal user in a terminal where Node.js and pnpm work
 mkdir -p "$HOME/Documents/ObsidianSetup"
 cd "$HOME/Documents/ObsidianSetup"
 
-git clone https://github.com/opbsd/ObsidianFallenKnight.git
+git clone https://github.com/opbsd/ObsidianFallenKnight.git obsidian-fallen-knight
 git clone https://github.com/Vendicated/Vencord.git
 
 mkdir -p Vencord/src/userplugins

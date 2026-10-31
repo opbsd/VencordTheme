@@ -1,6 +1,6 @@
 # Obsidian Fallen Knight
 
-A warm, dark **Vencord desktop** theme with translucent glass, bronze accents, stone neutrals and ivory text. The optional **ObsidianVideo** plugin plays your own local MP4 wallpaper.
+A dark **Vencord desktop** theme with translucent glass and a warm fallback palette. The optional **ObsidianVideo** plugin plays your own local MP4 wallpaper and adapts the interface colors to it.
 
 ![Obsidian Fallen Knight Friends page with friend identities pixelated](assets/preview-discord-friends-redacted.png)
 
@@ -11,7 +11,9 @@ A warm, dark **Vencord desktop** theme with translucent glass, bronze accents, s
 ## Features
 
 - Dark translucent panels, rounded corners and restrained highlights.
-- Bronze, charcoal and ivory colors that blend with warm wallpapers.
+- Adaptive primary and secondary colors extracted locally from the wallpaper, with dark tinted surfaces and readable text.
+- Small 64×36 frame samples every three seconds, gradual palette updates and no continuous full-resolution analysis.
+- A fixed bronze, charcoal and ivory fallback when adaptive colors are disabled.
 - Separate Friends and Active Now panels with the background visible.
 - Coordinated Nitro, Shop and Quests surfaces.
 - Local MP4 playback with no animated WebP or GIF conversion.
@@ -44,6 +46,8 @@ The player preserves the source video's resolution and frame rate. A 1080p/60 fp
 
 ## Customization
 
+With the updated plugin, **adaptiveColors** is enabled by default. It coordinates accents, buttons, selections, borders and glass surfaces with the video's main and secondary colors. Open **Vencord → Plugins → ObsidianVideo → settings** and disable **adaptiveColors** to restore the fixed palette or use manual colors. Status, warning and danger colors remain recognizable. Analysis stays local and pauses while the document is hidden or reduced motion is enabled.
+
 Edit `--obs-accent`, `--obs-text`, `--obs-gap` and `--obs-radius` near the top of the CSS. The final Fallen Knight section defines `--obs-chat-surface` and `--obs-matte-background`: increase their opacity percentages for darker panels.
 
 The plugin can be disabled in **Vencord → Plugins → ObsidianVideo**. When the video is unavailable or reduced motion is enabled, the dark fallback remains visible.
@@ -53,6 +57,8 @@ The plugin can be disabled in **Vencord → Plugins → ObsidianVideo**. When th
 The source targets **Vencord on Discord desktop**. Setup instructions are provided for Windows, macOS and Linux; runtime testing has been performed on Linux/Chromium, not independently on all three operating systems. Other clients and the browser extension have not been verified for this native plugin. The plugin does not run in Discord's Android/iOS apps.
 
 Vencord development builds, TypeScript checking and plugin lint passed during development. The player was tested with an original 1920×1080/60 fps MP4, including start/stop, visibility changes, reduced motion and missing-file fallback. Friends, Nitro, Shop and Quests layouts were checked in simulated previews at three viewport widths. The preview above is a real desktop screenshot supplied by the maintainer; the layout checks described here used separate simulated fixtures.
+
+Adaptive colors were checked with purple, blue, multicolor and neutral samples, including text contrast on opaque theme surfaces. A 2560×1440/60 fps MP4 ran at about 60 fps with and without sampling in a headless Chromium check; this is not a guarantee of desktop performance. Toggle restoration, hidden/reduced-motion pausing, cleanup and missing-video fallback were checked.
 
 Discord may change its CSS classes. Report styling issues with your client version and a screenshot that excludes private information.
 

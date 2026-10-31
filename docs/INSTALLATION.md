@@ -48,7 +48,7 @@ $obsidianWorkspace = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'Ob
 New-Item -ItemType Directory -Force -Path $obsidianWorkspace | Out-Null
 Set-Location $obsidianWorkspace
 
-git clone https://github.com/opbsd/ObsidianFallenKnight.git
+git clone https://github.com/opbsd/ObsidianFallenKnight.git obsidian-fallen-knight
 git clone https://github.com/Vendicated/Vencord.git
 
 New-Item -ItemType Directory -Force -Path '.\Vencord\src\userplugins' | Out-Null
@@ -86,7 +86,7 @@ Open Terminal and run:
 mkdir -p "$HOME/Documents/ObsidianSetup"
 cd "$HOME/Documents/ObsidianSetup"
 
-git clone https://github.com/opbsd/ObsidianFallenKnight.git
+git clone https://github.com/opbsd/ObsidianFallenKnight.git obsidian-fallen-knight
 git clone https://github.com/Vendicated/Vencord.git
 
 mkdir -p Vencord/src/userplugins

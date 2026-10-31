@@ -4,7 +4,10 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import definePlugin, { PluginNative } from "@utils/types";
+import { definePluginSettings } from "@api/Settings";
+import definePlugin, { OptionType, PluginNative } from "@utils/types";
+
+import { createAdaptivePalette } from "./palette";
 
 const Native = VencordNative.pluginHelpers.ObsidianVideo as PluginNative<typeof import("./native")>;
 
@@ -12,11 +15,32 @@ let layer: HTMLDivElement | undefined;
 let video: HTMLVideoElement | undefined;
 let objectUrl: string | undefined;
 let observer: MutationObserver | undefined;
+let palette: ReturnType<typeof createAdaptivePalette> | undefined;
+
+function updatePalette() {
+    palette?.stop();
+    palette = undefined;
+    if (video && settings.store.adaptiveColors) {
+        palette = createAdaptivePalette(video);
+        palette.setActive(!document.hidden && !reducedMotion.matches);
+    }
+}
+
+const settings = definePluginSettings({
+    adaptiveColors: {
+        type: OptionType.BOOLEAN,
+        description: "Adapt the dark theme palette to the wallpaper colors.",
+        default: true,
+        onChange: updatePalette
+    }
+});
+
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 function updatePlayback() {
     if (!video?.src || !layer) return;
     layer.hidden = reducedMotion.matches;
+    palette?.setActive(!document.hidden && !reducedMotion.matches);
     if (document.hidden || reducedMotion.matches) {
         video.pause();
     } else {
@@ -31,6 +55,7 @@ export default definePlugin({
     description: "Plays a local Fallen Knight MP4 wallpaper without animated WebP backgrounds.",
     authors: [{ name: "opbsd", id: 0n }],
     tags: ["Appearance"],
+    settings,
     enabledByDefault: true,
 
     start() {
@@ -55,6 +80,7 @@ export default definePlugin({
         video.addEventListener("error", () => {
             if (layer) layer.hidden = true;
         });
+        video.addEventListener("loadeddata", updatePalette);
         layer.append(video);
         mount.prepend(layer);
         observer = new MutationObserver(() => {
@@ -76,6 +102,9 @@ export default definePlugin({
     },
 
     stop() {
+        palette?.stop();
+        palette = undefined;
+        video?.removeEventListener("loadeddata", updatePalette);
         observer?.disconnect();
         observer = undefined;
         document.removeEventListener("visibilitychange", updatePlayback);

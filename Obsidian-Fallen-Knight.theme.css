@@ -2,9 +2,23 @@
  * @name Obsidian Fallen Knight Video
  * @author opbsd
  * @source https://github.com/opbsd/ObsidianFallenKnight
- * @version 2.5.3
- * @description Warm bronze and stone glass surfaces, translucent Home pages and local MP4 playback through ObsidianVideo.
+ * @version 2.6.0
+ * @description Dark translucent glass, adaptive wallpaper colors and local MP4 playback through ObsidianVideo.
  */
+
+/* ADAPTIVE WALLPAPER COLORS
+ * Palette is sampled from the local MP4 by ObsidianVideo every 3 seconds.
+ * Disable adaptiveColors in the plugin settings to restore the fixed palette.
+ */
+:root {
+    --obs-accent-secondary: #b4a98b;
+    --obs-border-subtle: #29251d;
+    --obs-border-muted: #302b21;
+    --obs-border-strong: #514938;
+    --obs-scrollbar: #625946;
+    --obs-selection: #5b513b;
+}
+
 
 /* INSTALLATION
  * Discord > Settings > Vencord > Themes > Open Themes Folder.
@@ -40,13 +54,13 @@
     --obs-motion: 180ms;
     --obs-entrance: 180ms;
     --obs-ease: cubic-bezier(.22, 1, .36, 1);
-    --obs-glass-background: #191711;
+    --obs-glass-background: var(--obs-panel);
     --obs-glass-filter: none;
-    --obs-chat-surface: #12110e;
-    --obs-matte-background: #13120f;
-    --obs-glass-line: rgb(219 211 190 / 6%);
+    --obs-chat-surface: var(--obs-chat);
+    --obs-matte-background: var(--obs-sidebar);
+    --obs-glass-line: color-mix(in srgb, var(--obs-secondary) 6%, transparent);
     --obs-glass-shadow: 0 6px 20px rgb(0 0 0 / 18%),
-        inset 0 1px 0 rgb(238 232 216 / 5%);
+        inset 0 1px 0 color-mix(in srgb, var(--obs-text) 5%, transparent);
 }
 
 /* Current and legacy Discord tokens. Custom user profiles keep their palette. */
@@ -69,13 +83,13 @@ body,
     --background-mobile-primary: var(--obs-chat) !important;
     --background-mobile-secondary: var(--obs-sidebar) !important;
     --background-nested-floating: var(--obs-elevated) !important;
-    --background-mod-subtle: rgb(238 232 216 / 3%) !important;
-    --background-mod-muted: rgb(238 232 216 / 5%) !important;
-    --background-mod-normal: rgb(238 232 216 / 7%) !important;
-    --background-mod-strong: rgb(238 232 216 / 10%) !important;
-    --background-modifier-hover: rgb(238 232 216 / 4%) !important;
-    --background-modifier-active: rgb(180 169 139 / 10%) !important;
-    --background-modifier-selected: rgb(180 169 139 / 15%) !important;
+    --background-mod-subtle: color-mix(in srgb, var(--obs-text) 3%, transparent) !important;
+    --background-mod-muted: color-mix(in srgb, var(--obs-text) 5%, transparent) !important;
+    --background-mod-normal: color-mix(in srgb, var(--obs-text) 7%, transparent) !important;
+    --background-mod-strong: color-mix(in srgb, var(--obs-text) 10%, transparent) !important;
+    --background-modifier-hover: color-mix(in srgb, var(--obs-text) 4%, transparent) !important;
+    --background-modifier-active: color-mix(in srgb, var(--obs-accent) 10%, transparent) !important;
+    --background-modifier-selected: color-mix(in srgb, var(--obs-accent) 15%, transparent) !important;
     --background-modifier-accent: var(--obs-border) !important;
     --background-scrim: rgb(0 0 0 / 75%) !important;
     --background-scrim-lightbox: rgb(0 0 0 / 90%) !important;
@@ -126,9 +140,9 @@ body,
     --interactive-icon-default: var(--obs-secondary) !important;
     --interactive-icon-hover: var(--obs-text) !important;
     --interactive-icon-active: var(--obs-accent) !important;
-    --interactive-background-hover: rgb(238 232 216 / 5%) !important;
-    --interactive-background-active: rgb(180 169 139 / 12%) !important;
-    --interactive-background-selected: rgb(180 169 139 / 15%) !important;
+    --interactive-background-hover: color-mix(in srgb, var(--obs-text) 5%, transparent) !important;
+    --interactive-background-active: color-mix(in srgb, var(--obs-accent) 12%, transparent) !important;
+    --interactive-background-selected: color-mix(in srgb, var(--obs-accent) 15%, transparent) !important;
 
     --brand-360: var(--obs-accent) !important;
     --brand-400: var(--obs-accent) !important;
@@ -141,10 +155,10 @@ body,
     --text-link-low-saturation: var(--obs-accent-hover) !important;
     --focus-primary: var(--obs-accent) !important;
     --border-focus: var(--obs-accent) !important;
-    --border-subtle: #29251d !important;
-    --border-muted: #302b21 !important;
+    --border-subtle: var(--obs-border-subtle) !important;
+    --border-muted: var(--obs-border-muted) !important;
     --border-normal: var(--obs-border) !important;
-    --border-strong: #514938 !important;
+    --border-strong: var(--obs-border-strong) !important;
 
     --button-filled-brand-background: var(--obs-accent) !important;
     --button-filled-brand-background-hover: var(--obs-accent-hover) !important;
@@ -174,28 +188,28 @@ body,
     --input-background: var(--obs-sidebar) !important;
     --input-background-default: var(--obs-sidebar) !important;
     --input-border-default: var(--obs-border) !important;
-    --input-border-hover: #5c5240 !important;
+    --input-border-hover: var(--obs-border-strong) !important;
     --input-border-active: var(--obs-accent) !important;
     --input-text-default: var(--obs-text) !important;
     --input-placeholder-text-default: var(--obs-muted) !important;
     --input-icon-default: var(--obs-secondary) !important;
 
-    --background-message-hover: rgb(238 232 216 / 2.5%) !important;
-    --message-background-hover: rgb(238 232 216 / 2.5%) !important;
-    --background-mentioned: rgb(180 169 139 / 9%) !important;
-    --background-mentioned-hover: rgb(180 169 139 / 14%) !important;
-    --message-mentioned-background-default: rgb(180 169 139 / 9%) !important;
-    --message-mentioned-background-hover: rgb(180 169 139 / 14%) !important;
-    --mention-background: rgb(180 169 139 / 16%) !important;
-    --mention-foreground: #d9ccb0 !important;
-    --message-reacted-background-default: rgb(180 169 139 / 16%) !important;
-    --message-reacted-text-default: #d9ccb0 !important;
+    --background-message-hover: color-mix(in srgb, var(--obs-text) 2.5%, transparent) !important;
+    --message-background-hover: color-mix(in srgb, var(--obs-text) 2.5%, transparent) !important;
+    --background-mentioned: color-mix(in srgb, var(--obs-accent) 9%, transparent) !important;
+    --background-mentioned-hover: color-mix(in srgb, var(--obs-accent) 14%, transparent) !important;
+    --message-mentioned-background-default: color-mix(in srgb, var(--obs-accent) 9%, transparent) !important;
+    --message-mentioned-background-hover: color-mix(in srgb, var(--obs-accent) 14%, transparent) !important;
+    --mention-background: color-mix(in srgb, var(--obs-accent) 16%, transparent) !important;
+    --mention-foreground: var(--obs-accent-hover) !important;
+    --message-reacted-background-default: color-mix(in srgb, var(--obs-accent) 16%, transparent) !important;
+    --message-reacted-text-default: var(--obs-accent-hover) !important;
     --background-code: var(--obs-black) !important;
-    --scrollbar-thin-thumb: #625946 !important;
+    --scrollbar-thin-thumb: var(--obs-scrollbar) !important;
     --scrollbar-thin-track: transparent !important;
-    --scrollbar-auto-thumb: #625946 !important;
+    --scrollbar-auto-thumb: var(--obs-scrollbar) !important;
     --scrollbar-auto-track: var(--obs-sidebar) !important;
-    --scrollbar-auto-scrollbar-color-thumb: #625946 !important;
+    --scrollbar-auto-scrollbar-color-thumb: var(--obs-scrollbar) !important;
     --scrollbar-auto-scrollbar-color-track: var(--obs-sidebar) !important;
     --deprecated-store-bg: var(--obs-chat) !important;
     --deprecated-card-bg: var(--obs-panel) !important;
@@ -229,13 +243,13 @@ body,
 
 [class*="markup_"] code.inline {
     background-color: var(--obs-black);
-    color: #d9ccb0;
+    color: var(--obs-accent-hover);
     border-radius: 4px;
 }
 
 ::selection {
-    background: #5b513b;
-    color: #f2ede2;
+    background: var(--obs-selection);
+    color: var(--obs-text);
 }
 
 /* LIQUID GLASS: fixed-size highlights avoid wide streaks on ultrawide displays. */
@@ -243,8 +257,8 @@ body,
     :root {
         --obs-glass-background:
             radial-gradient(ellipse 220px 90px at 28px 0,
-                rgb(226 213 184 / 5%), transparent 100%),
-            rgb(22 20 16 / 58%);
+                color-mix(in srgb, var(--obs-accent-secondary) 5%, transparent), transparent 100%),
+            color-mix(in srgb, var(--obs-sidebar) 58%, transparent);
         --obs-glass-filter: blur(var(--obs-blur)) saturate(105%);
     }
 }
@@ -254,8 +268,8 @@ body,
 #app-mount .bg__960e4 {
     background:
         radial-gradient(ellipse 540px 380px at 140px 0,
-            rgb(124 105 73 / 8%), transparent 100%),
-        #0b0a08 !important;
+            color-mix(in srgb, var(--obs-accent-secondary) 8%, transparent), transparent 100%),
+        var(--obs-black) !important;
 }
 
 #app-mount .app__160d8,
@@ -347,7 +361,7 @@ body,
 ) {
     background: var(--obs-matte-background) !important;
     border-radius: var(--obs-radius);
-    box-shadow: inset 0 0 0 1px rgb(219 211 190 / 4%);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--obs-secondary) 4%, transparent);
 }
 
 #app-mount .container_c8ffbb {
@@ -396,7 +410,7 @@ body,
 #app-mount .chatContent_f75fb0 {
     background: var(--obs-chat-surface) !important;
     border-radius: var(--obs-radius);
-    box-shadow: inset 0 0 0 1px rgb(219 211 190 / 3%);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--obs-secondary) 3%, transparent);
     min-width: 0;
 }
 
@@ -427,7 +441,7 @@ body,
 }
 
 #app-mount .vc-spotify-button:hover {
-    background-color: rgb(180 169 139 / 10%);
+    background-color: color-mix(in srgb, var(--obs-accent) 10%, transparent);
     color: var(--obs-text);
 }
 
@@ -446,7 +460,7 @@ body,
     border-radius: var(--obs-radius);
     box-shadow: 0 18px 48px rgb(0 0 0 / 38%),
         inset 0 0 0 1px var(--obs-glass-line),
-        inset 0 1px 0 rgb(238 232 216 / 7%);
+        inset 0 1px 0 color-mix(in srgb, var(--obs-text) 7%, transparent);
     animation: obsidian-glass-in var(--obs-entrance) var(--obs-ease);
 }
 
@@ -454,7 +468,7 @@ body,
 #app-mount [class*="channelTextArea_"] {
     background: var(--obs-glass-background) !important;
     border-color: var(--obs-glass-line);
-    box-shadow: inset 0 1px 0 rgb(238 232 216 / 4%),
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--obs-text) 4%, transparent),
         0 4px 14px rgb(0 0 0 / 12%);
 }
 
@@ -463,10 +477,10 @@ body,
 }
 
 #app-mount [class*="channelTextArea_"]:focus-within {
-    border-color: rgb(180 169 139 / 42%);
-    box-shadow: 0 0 0 2px rgb(180 169 139 / 7%),
+    border-color: color-mix(in srgb, var(--obs-accent) 42%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--obs-accent) 7%, transparent),
         0 8px 28px rgb(0 0 0 / 22%),
-        inset 0 1px 0 rgb(238 232 216 / 10%);
+        inset 0 1px 0 color-mix(in srgb, var(--obs-text) 10%, transparent);
 }
 
 /* Subtle channel and direct-message hover motion without layout shifts. */
@@ -479,16 +493,16 @@ body,
 
 #app-mount :is(.link__2ea32, .interactive__972a0):hover {
     translate: 1px 0;
-    box-shadow: inset 0 1px 0 rgb(238 232 216 / 5%);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--obs-text) 5%, transparent);
 }
 
 #app-mount :is(
     .modeSelected__2ea32 .link__2ea32,
     .interactiveSelected__972a0
 ) {
-    background: linear-gradient(100deg, rgb(180 169 139 / 12%), rgb(180 169 139 / 4%)) !important;
+    background: linear-gradient(100deg, color-mix(in srgb, var(--obs-accent) 12%, transparent), color-mix(in srgb, var(--obs-accent-secondary) 4%, transparent)) !important;
     box-shadow: inset 2px 0 0 var(--obs-accent),
-        inset 0 1px 0 rgb(238 232 216 / 6%);
+        inset 0 1px 0 color-mix(in srgb, var(--obs-text) 6%, transparent);
 }
 
 /* Brief button press feedback. Warning and danger colors remain recognizable. */
@@ -509,13 +523,13 @@ body,
 
 #app-mount button[class*="lookFilled_"][class*="colorBrand_"] {
     border-radius: 12px;
-    box-shadow: inset 0 1px 0 rgb(238 232 216 / 35%),
-        0 4px 14px rgb(180 169 139 / 14%);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--obs-text) 35%, transparent),
+        0 4px 14px color-mix(in srgb, var(--obs-accent) 14%, transparent);
 }
 
 #app-mount button[class*="lookFilled_"][class*="colorBrand_"]:not(:disabled):hover {
-    box-shadow: inset 0 1px 0 rgb(238 232 216 / 45%),
-        0 6px 22px rgb(180 169 139 / 24%);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--obs-text) 45%, transparent),
+        0 6px 22px color-mix(in srgb, var(--obs-accent) 24%, transparent);
 }
 
 /* Message history and scrolling remain stable; individual messages are not animated. */
@@ -539,9 +553,9 @@ body,
 
 @media (prefers-reduced-transparency: reduce) {
     :root {
-        --obs-glass-background: #191711;
+        --obs-glass-background: var(--obs-panel);
         --obs-glass-filter: none;
-        --obs-chat-surface: #12110e;
+        --obs-chat-surface: var(--obs-chat);
     }
 }
 
@@ -563,16 +577,16 @@ body,
 :root {
     --obs-wallpaper-position: center center;
     --obs-panel-filter: none;
-    --obs-chat-surface: rgb(16 14 11 / 46%);
-    --obs-matte-background: rgb(22 20 16 / 62%);
+    --obs-chat-surface: color-mix(in srgb, var(--obs-chat) 46%, transparent);
+    --obs-matte-background: color-mix(in srgb, var(--obs-sidebar) 62%, transparent);
 }
 
 #app-mount,
 #app-mount .bg__960e4 {
-    background-color: #0b0a08 !important;
+    background-color: var(--obs-black) !important;
     background-image:
-        linear-gradient(rgb(12 10 7 / 16%),
-                        rgb(12 10 7 / 16%)),
+        linear-gradient(color-mix(in srgb, var(--obs-black) 16%, transparent),
+                        color-mix(in srgb, var(--obs-black) 16%, transparent)),
         var(--obs-wallpaper-still) !important;
     background-size: cover !important;
     background-position: var(--obs-wallpaper-position) !important;
@@ -610,16 +624,16 @@ body,
     #app-mount,
     #app-mount .bg__960e4 {
         background-image:
-            linear-gradient(rgb(12 10 7 / 16%),
-                            rgb(12 10 7 / 16%)),
+            linear-gradient(color-mix(in srgb, var(--obs-black) 16%, transparent),
+                            color-mix(in srgb, var(--obs-black) 16%, transparent)),
             var(--obs-wallpaper-still) !important;
     }
 }
 
 @media (prefers-reduced-transparency: reduce) {
     :root {
-        --obs-matte-background: #13120f;
-        --obs-chat-surface: #12110e;
+        --obs-matte-background: var(--obs-sidebar);
+        --obs-chat-surface: var(--obs-chat);
         --obs-panel-filter: none;
     }
 }
@@ -658,7 +672,7 @@ body,
     content: "";
     position: absolute;
     inset: 0;
-    background: rgb(12 10 7 / 16%);
+    background: color-mix(in srgb, var(--obs-black) 16%, transparent);
 }
 
 /* Large panels do not blur every video frame. */
@@ -719,7 +733,7 @@ body,
 }
 
 #app-mount .emptyCard__7e549 {
-    background: rgb(26 23 18 / 32%) !important;
+    background: color-mix(in srgb, var(--obs-panel) 32%, transparent) !important;
     border-radius: 12px;
 }
 
@@ -729,7 +743,7 @@ body,
 }
 
 #app-mount .tabBar__133bf .addFriend__133bf[aria-selected="true"] {
-    background: rgb(180 169 139 / 14%) !important;
+    background: color-mix(in srgb, var(--obs-accent) 14%, transparent) !important;
     color: var(--obs-accent-hover) !important;
 }
 
@@ -741,9 +755,9 @@ body,
     --background-primary: transparent !important;
     --background-secondary: transparent !important;
     --background-gradient-chat: transparent !important;
-    --background-surface-high: rgb(26 23 18 / 60%) !important;
-    --background-surface-higher: rgb(32 28 21 / 66%) !important;
-    --background-surface-highest: rgb(37 32 24 / 72%) !important;
+    --background-surface-high: color-mix(in srgb, var(--obs-panel) 60%, transparent) !important;
+    --background-surface-higher: color-mix(in srgb, var(--obs-elevated) 66%, transparent) !important;
+    --background-surface-highest: color-mix(in srgb, var(--obs-hover) 72%, transparent) !important;
     background: transparent !important;
     border: 0 !important;
     border-radius: var(--obs-radius);
@@ -770,19 +784,19 @@ body,
 }
 
 #app-mount .applicationStore_f07d62 :is([class*="hero_"], [class*="heroSection_"], [class*="heroContainer_"]) {
-    background: radial-gradient(ellipse at 50% 0, rgb(122 102 65 / 16%), transparent 70%),
-        rgb(21 18 14 / 50%) !important;
+    background: radial-gradient(ellipse at 50% 0, color-mix(in srgb, var(--obs-accent-secondary) 16%, transparent), transparent 70%),
+        color-mix(in srgb, var(--obs-panel) 50%, transparent) !important;
     border-radius: var(--obs-radius);
 }
 
 #app-mount .applicationStore_f07d62 :is([class*="gradientBackground_"], [class*="heroBackground_"], [class*="backgroundGradient_"]) {
-    background: radial-gradient(ellipse at 50% 0, rgb(122 102 65 / 18%), transparent 75%) !important;
+    background: radial-gradient(ellipse at 50% 0, color-mix(in srgb, var(--obs-accent-secondary) 18%, transparent), transparent 75%) !important;
 }
 
 #app-mount :is(.applicationStore_f07d62, .shop__6db1d, .container__955a3) :is(
     [class*="productCard_"], [class*="questCard_"], [class*="questTile_"], [class*="perkCard_"]
 ) {
-    background-color: rgb(26 23 18 / 62%) !important;
+    background-color: color-mix(in srgb, var(--obs-panel) 62%, transparent) !important;
     border-color: var(--obs-glass-line) !important;
     border-radius: var(--obs-radius);
 }
