@@ -28,7 +28,7 @@ function updatePlayback() {
 
 export default definePlugin({
     name: "ObsidianVideo",
-    description: "Riproduce il wallpaper locale Fallen Knight come video MP4, senza WebP animate.",
+    description: "Plays a local Fallen Knight MP4 wallpaper without animated WebP backgrounds.",
     authors: [{ name: "LeoxMinei", id: 0n }],
     tags: ["Appearance"],
     enabledByDefault: true,

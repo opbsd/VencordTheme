@@ -1,80 +1,65 @@
 # Obsidian Fallen Knight
 
-Tema scuro per **Vencord desktop**, con vetro traslucido, colori bronzo e pietra, testi avorio e animazioni discrete. Include il plugin opzionale **ObsidianVideo** per usare un MP4 locale come sfondo.
+A warm, dark **Vencord desktop** theme with translucent glass, bronze accents, stone neutrals and ivory text. The optional **ObsidianVideo** plugin plays your own local MP4 wallpaper.
 
-## Download
+![Obsidian Fallen Knight theme preview](assets/preview.png)
 
-- [Tema CSS](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest/download/Obsidian-Fallen-Knight.theme.css)
-- [Pacchetto tema e plugin](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest/download/Obsidian-Fallen-Knight.zip)
-- [Ultima release](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest)
+*Illustrative preview rendered with the theme's CSS, sample content and an original CSS backdrop. The live wallpaper comes from an MP4 you provide separately.*
 
-## Installare il tema
+[Download CSS](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest/download/Obsidian-Fallen-Knight.theme.css) · [Download theme + plugin](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest/download/Obsidian-Fallen-Knight.zip) · [Installation guide](docs/INSTALLATION.md) · [Releases](https://github.com/LeoxMinei/obsidian-fallen-knight/releases/latest)
 
-1. Scarica `Obsidian-Fallen-Knight.theme.css`.
-2. In Discord apri **Impostazioni → Vencord → Themes → Open Themes Folder**.
-3. Copia il CSS nella cartella e attiva **Obsidian Fallen Knight Video**.
-4. Disattiva gli altri temi e usa un aspetto scuro di Discord.
+## Features
 
-In alternativa, aggiungi questo URL in **Online Themes**:
+- Dark translucent panels, rounded corners and restrained highlights.
+- Bronze, charcoal and ivory colors that blend with warm wallpapers.
+- Separate Friends and Active Now panels with the background visible.
+- Coordinated Nitro, Shop and Quests surfaces.
+- Local MP4 playback with no animated WebP or GIF conversion.
+- Muted looping video, background pausing and reduced-motion support.
+- Large panels avoid continuous blur over the video.
+
+## Installation
+
+The CSS theme works without the video plugin and uses a dark fallback background. Start with the instructions for your operating system:
+
+- **[Windows — PowerShell](docs/INSTALLATION.md#windows)**
+- **[macOS — Terminal](docs/INSTALLATION.md#macos)**
+- **[Linux — Terminal](docs/INSTALLATION.md#linux)**
+
+The [installation guide](docs/INSTALLATION.md) covers the CSS theme, building the optional desktop plugin, where to put the MP4, restarting Discord and troubleshooting. Video playback requires a custom Vencord desktop build; copying TypeScript into the themes folder does not install a plugin.
+
+For **Online Themes**, use:
 
 ```text
 https://raw.githubusercontent.com/LeoxMinei/obsidian-fallen-knight/main/Obsidian-Fallen-Knight.theme.css
 ```
 
-Il tema funziona anche senza plugin, con un fondale scuro. Il CSS da solo non riproduce MP4. La versione pubblica non incorpora filmati, fotogrammi o screenshot privati.
+## Local wallpaper
 
-## Aggiungere lo sfondo video
+Name your file **`obsidian-fallen-knight.mp4`** and place it in the folder opened by **Settings → Vencord → Themes → Open Themes Folder**. The plugin reads only that named local file and does not upload it.
 
-Per usare il video serve una **build personale di Vencord desktop**. Non basta copiare i file TypeScript nella cartella temi. Segui prima la [guida ufficiale ai plugin personalizzati](https://docs.vencord.dev/installing/custom-plugins/).
+The original look was inspired by **Fallen Knight in Flower Field Rain Live Wallpaper**, obtained from [Wallpaper Waves](https://wallpaperwaves.com/). Videos and extracted frames are not bundled. You can use another MP4 that you have permission to use.
 
-1. Copia `plugins/obsidianVideo.desktop` in `src/userplugins/obsidianVideo.desktop` della repository Vencord.
-2. Procurati un MP4 locale e rinominalo **`obsidian-fallen-knight.mp4`**. Per il look originale cerca **Fallen Knight in Flower Field Rain Live Wallpaper** su [Wallpaper Waves](https://wallpaperwaves.com/).
-3. Copia l'MP4 nella cartella aperta da **Open Themes Folder**, accanto al CSS.
-4. Nella repository Vencord esegui:
+The player preserves the source video's resolution and frame rate. A 1080p/60 fps source remains 1080p/60 fps; actual presentation performance depends on your computer, decoder and workload. No frame interpolation or upscaling is performed.
 
-   ```sh
-   pnpm build --dev
-   ```
+## Customization
 
-5. Se la tua build non è già installata, segui la [guida ufficiale d'installazione](https://docs.vencord.dev/installing/).
-6. Esci completamente da Discord, anche dall'icona nella barra, e riaprilo.
-7. In **Vencord → Plugins** verifica che **ObsidianVideo** sia attivo.
+Edit `--obs-accent`, `--obs-text`, `--obs-gap` and `--obs-radius` near the top of the CSS. The final Fallen Knight section defines `--obs-chat-surface` and `--obs-matte-background`: increase their opacity percentages for darker panels.
 
-Il video resta sul computer: il plugin legge soltanto il file indicato nella cartella temi. Non lo carica su servizi esterni. Per cambiare sfondo sostituisci l'MP4 con lo stesso nome e riavvia Discord.
+The plugin can be disabled in **Vencord → Plugins → ObsidianVideo**. When the video is unavailable or reduced motion is enabled, the dark fallback remains visible.
 
-### Prestazioni e accessibilità
+## Compatibility and testing
 
-Il player riproduce direttamente l'MP4 originale, senza convertirlo in WebP o GIF. Mantiene quindi risoluzione e frequenza dei fotogrammi del file scelto; la fluidità effettiva dipende da decoder, GPU e carico del computer.
+The source targets **Vencord on Discord desktop**. Setup instructions are provided for Windows, macOS and Linux; runtime testing has been performed on Linux/Chromium, not independently on all three operating systems. Other clients and the browser extension have not been verified for this native plugin. The plugin does not run in Discord's Android/iOS apps.
 
-- Video in loop, senza audio.
-- Pausa quando la finestra è nascosta.
-- Con **riduci movimento** il video si ferma e viene nascosto.
-- I pannelli grandi non applicano blur continuo al filmato.
-- Se il file manca, rimane il fondale scuro.
+Vencord development builds, TypeScript checking and plugin lint passed during development. The player was tested with an original 1920×1080/60 fps MP4, including start/stop, visibility changes, reduced motion and missing-file fallback. Friends, Nitro, Shop and Quests layouts were checked in simulated previews at three viewport widths. The preview above is illustrative, not a screenshot of a signed-in account.
 
-Il plugin è destinato a Vencord desktop. L'estensione browser e gli altri client non sono stati verificati.
+Discord may change its CSS classes. Report styling issues with your client version and a screenshot that excludes private information.
 
-## Aspetto
+## License and credits
 
-- Pannelli trasparenti e angoli arrotondati.
-- Palette bronzo, carbone caldo e avorio.
-- Friends e Active Now separati, con sfondo visibile.
-- Margine sopra l'icona Home nella barra server.
-- Superfici coordinate per Nitro, Shop e Quests.
-- Focus visibile e preferenze di movimento/trasparenza ridotti.
+Theme and plugin code: **GPL-3.0-or-later**; see [LICENSE](LICENSE). Created by [LeoxMinei](https://github.com/LeoxMinei).
 
-All'inizio del CSS puoi modificare `--obs-accent`, `--obs-text`, `--obs-gap` e `--obs-radius`. Le opacità di `--obs-chat-surface` e `--obs-matte-background` sono definite nella sezione finale Fallen Knight: aumenta la percentuale per scurire i pannelli.
+The plugin uses [Vencord](https://github.com/Vendicated/Vencord). This is an independent project, not affiliated with Discord or Vencord.
 
-## Verifica e limiti
-
-La build Vencord con `--dev`, il controllo TypeScript e il lint del plugin sono stati eseguiti sul codice originale della versione 2.5. Il player è stato provato in Chromium con MP4 1920×1080 a 60 fps, verificando avvio/arresto, pausa/ripresa e movimento ridotto. I layout di Friends, Nitro, Shop e Quests sono stati controllati in anteprime simulate a tre larghezze; non si tratta di una certificazione su tutte le versioni di Discord.
-
-Discord può cambiare i nomi delle classi CSS: se una sezione perde lo stile, apri una segnalazione con versione del client e screenshot senza dati personali.
-
-## Licenza e crediti
-
-Codice del tema e del plugin: **GPL-3.0-or-later**, vedi [LICENSE](LICENSE). Autore: [LeoxMinei](https://github.com/LeoxMinei).
-
-Il plugin usa le API di [Vencord](https://github.com/Vendicated/Vencord). Progetto indipendente, non affiliato a Discord o Vencord.
-
-Lo sfondo che ha ispirato il tema è stato ottenuto da Wallpaper Waves. Il filmato e i relativi fotogrammi appartengono ai rispettivi titolari, non sono inclusi e non sono coperti dalla licenza del codice. Scarica e usa i contenuti secondo le condizioni del loro fornitore.
+Third-party wallpaper rights remain with their respective owners and are not covered by the code license. Obtain and use media according to its provider's terms. The preview's CSS backdrop and sample interface are included with the project.

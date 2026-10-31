@@ -1,12 +1,20 @@
 # Changelog
 
+## 2.5.1
+
+- Added an illustrative preview with sample content and an original CSS backdrop.
+- Translated documentation, theme comments and plugin description into English.
+- Added separate Windows, macOS and Linux setup instructions, default folder hints and troubleshooting.
+- Clarified desktop, browser, mobile and untested-client support.
+- No changes to theme declarations or video playback behavior.
+
 ## 2.5.0
 
-Prima versione pubblica.
+First public release.
 
-- Tema caldo e traslucido per Vencord desktop.
-- Plugin ObsidianVideo con MP4 locale, loop silenzioso e pausa in background.
-- Rispetto della preferenza di movimento ridotto.
-- Corretti i pannelli Friends e il margine superiore della barra server.
-- Superfici coordinate per Nitro, Shop e Quests.
-- Distribuzione del solo codice, senza filmati o fotogrammi incorporati.
+- Warm translucent theme for Vencord desktop.
+- Optional ObsidianVideo plugin with local MP4 playback, muted looping and background pausing.
+- Reduced-motion support.
+- Friends panel fixes and server-rail top spacing.
+- Coordinated Nitro, Shop and Quests surfaces.
+- Code-only distribution without bundled third-party videos or extracted frames.
