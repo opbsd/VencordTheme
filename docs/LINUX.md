@@ -184,7 +184,7 @@ toolbox enter
 sudo dnf install git curl
 ```
 
-Inside that environment, run the shared toolchain and build steps. Keep `ObsidianSetup` inside your shared home directory so the resulting `Vencord/dist` is accessible outside the container. Some derivatives use Distrobox instead; follow that distribution's container instructions rather than assuming `toolbox` is installed.
+Inside that environment, run the shared toolchain and build steps. Keep `VencordThemeSetup` inside your shared home directory so the resulting `Vencord/dist` is accessible outside the container. Some derivatives use Distrobox instead; follow that distribution's container instructions rather than assuming `toolbox` is installed.
 
 Do not run `pnpm inject` inside a development container expecting it to patch the host client. Leave the container and use a host-visible installer, or select the resulting `dist` directory through the alternative client's custom-build settings.
 
@@ -255,14 +255,14 @@ nvm does not natively integrate with every shell, and prebuilt Node binaries are
 Run these commands as your normal user in a terminal where Node.js and pnpm work. They assume a fresh workspace; if you already have a custom Vencord checkout, add the plugin there and preserve your other plugins.
 
 ```sh
-mkdir -p "$HOME/Documents/ObsidianSetup"
-cd "$HOME/Documents/ObsidianSetup"
+mkdir -p "$HOME/Documents/VencordThemeSetup"
+cd "$HOME/Documents/VencordThemeSetup"
 
-git clone https://github.com/opbsd/VencordTheme.git obsidian-fallen-knight
+git clone https://github.com/opbsd/VencordTheme.git vencord-theme
 git clone https://github.com/Vendicated/Vencord.git
 
 mkdir -p Vencord/src/userplugins
-cp -R obsidian-fallen-knight/plugins/obsidianVideo.desktop Vencord/src/userplugins/
+cp -R vencord-theme/plugins/obsidianVideo.desktop Vencord/src/userplugins/
 
 cd Vencord
 pnpm install --frozen-lockfile
@@ -302,7 +302,7 @@ This route is shared by distributions that support Flatpak. Vencord lists [Disco
 3. A custom build stored in your home directory must be readable by the sandbox. For the example workspace in this guide, grant access only to that Vencord source/build directory:
 
    ```sh
-   flatpak override --user --filesystem="$HOME/Documents/ObsidianSetup/Vencord:ro" com.discordapp.Discord
+   flatpak override --user --filesystem="$HOME/Documents/VencordThemeSetup/Vencord:ro" com.discordapp.Discord
    ```
 
 4. Reopen Discord, use **Open Themes Folder** to locate the configuration *inside that client*, and add the CSS and MP4 there. Do not assume the host's `~/.config/Vencord/themes` is the active folder.
@@ -326,7 +326,7 @@ After building Vencord with the plugin:
 For Vesktop Flatpak, the host build directory must also be readable. With this guide's workspace:
 
 ```sh
-flatpak override --user --filesystem="$HOME/Documents/ObsidianSetup/Vencord:ro" dev.vencord.Vesktop
+flatpak override --user --filesystem="$HOME/Documents/VencordThemeSetup/Vencord:ro" dev.vencord.Vesktop
 ```
 
 Select the persistent host `dist` path rather than a temporary `/run/...` portal path. If the client disallows a read-only custom location or needs to update that directory, manage/rebuild the checkout on the host rather than granting access to your entire home directory.
@@ -335,9 +335,9 @@ Select the persistent host `dist` path rather than a temporary `/run/...` portal
 
 For every working client route above:
 
-1. Download [Obsidian-Fallen-Knight.theme.css](https://raw.githubusercontent.com/opbsd/VencordTheme/main/Obsidian-Fallen-Knight.theme.css).
+1. Download [Vencord-Theme.theme.css](https://raw.githubusercontent.com/opbsd/VencordTheme/main/Vencord-Theme.theme.css).
 2. Open **Settings → Vencord → Themes → Open Themes Folder**.
-3. Add the CSS, enable **Obsidian Fallen Knight Video**, and disable other themes.
+3. Add the CSS, enable **Vencord Theme**, and disable other themes.
 4. Fully quit the client, reopen it, and enable **ObsidianVideo** if necessary.
 5. Open **Themes → Local Themes → Wallpaper video → Choose wallpaper video**, select an MP4, and wait for the saved message.
 6. Fully quit and reopen the client again to apply the chosen video. The picker handles copying, naming, preview and colors.

@@ -1,8 +1,8 @@
 /**
- * @name Obsidian Fallen Knight Video
+ * @name Vencord Theme
  * @author opbsd
  * @source https://github.com/opbsd/VencordTheme
- * @version 2.7.0
+ * @version 2.7.1
  * @description Dark translucent glass, adaptive wallpaper colors and local MP4 playback through ObsidianVideo.
  */
 
@@ -24,7 +24,7 @@
 
 /* INSTALLATION
  * Discord > Settings > Vencord > Themes > Open Themes Folder.
- * Copy this file there and enable Obsidian Fallen Knight Video.
+ * Copy this file there and enable Vencord Theme.
  * Disable other themes and select a dark Discord appearance.
  * Only the locally generated startup stylesheet is imported; no remote fonts are required.
  *
@@ -569,7 +569,7 @@ body,
 
 :root { --obs-wallpaper-still: none; }
 
-/* FALLEN KNIGHT
+/* WALLPAPER SURFACES
  * ObsidianVideo plays your original local MP4 without re-encoding it.
  * Resolution and frame rate depend on your selected video and decoding performance.
  * No third-party media is included in the public distribution.

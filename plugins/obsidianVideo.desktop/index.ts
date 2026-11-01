@@ -94,7 +94,7 @@ function updatePlayback() {
 
 export default definePlugin({
     name: "ObsidianVideo",
-    description: "Plays a local Fallen Knight MP4 wallpaper without animated WebP backgrounds.",
+    description: "Plays a local MP4 wallpaper for Vencord Theme with adaptive colors.",
     authors: [{ name: "opbsd", id: 0n }],
     tags: ["Appearance"],
     settings,

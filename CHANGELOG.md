@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.7.1
+
+- Renamed the theme to Vencord Theme throughout its title, stylesheet filename, documentation and preview page.
+- Updated download links and example setup directory names.
+- Kept the existing ObsidianVideo plugin identifier and private cache paths for compatibility with installed settings and wallpapers.
+- No changes to video playback, adaptive colors or saved media.
+
 ## 2.7.0
 
 - Added a Choose wallpaper video button to Vencord's Local Themes page, with an MP4 file picker, preview validation, automatic file placement and restart guidance.

@@ -1,12 +1,12 @@
-# Obsidian Fallen Knight
+# Vencord Theme
 
 A dark **Vencord desktop** theme with translucent glass and a warm fallback palette. The optional **ObsidianVideo** plugin plays your own local MP4 wallpaper and adapts the interface colors to it.
 
-![Obsidian Fallen Knight Friends page with friend identities pixelated](assets/preview-discord-friends-redacted.png)
+![Vencord Theme Friends page with friend identities pixelated](assets/preview-discord-friends-redacted.png)
 
 *Actual Discord desktop screenshot supplied by the maintainer, showing the Friends page with the local video wallpaper. Friends' names and avatars have been pixelated for privacy; the pixelation is a screenshot edit, not a theme effect. The MP4 must be added separately.*
 
-[Download CSS](https://raw.githubusercontent.com/opbsd/VencordTheme/main/Obsidian-Fallen-Knight.theme.css) · [Download theme + plugin](https://github.com/opbsd/VencordTheme/archive/refs/tags/v2.7.0.zip) · [Installation guide](docs/INSTALLATION.md) · [Releases](https://github.com/opbsd/VencordTheme/releases/latest)
+[Download CSS](https://raw.githubusercontent.com/opbsd/VencordTheme/main/Vencord-Theme.theme.css) · [Download theme + plugin](https://github.com/opbsd/VencordTheme/archive/refs/tags/v2.7.1.zip) · [Installation guide](docs/INSTALLATION.md) · [Releases](https://github.com/opbsd/VencordTheme/releases/latest)
 
 The theme/plugin download is GitHub's source ZIP for this release; extract it to access the CSS, `plugins` and `docs` folders.
 
@@ -36,7 +36,7 @@ The [installation guide](docs/INSTALLATION.md) covers the CSS theme, building th
 For **Online Themes**, use:
 
 ```text
-https://raw.githubusercontent.com/opbsd/VencordTheme/main/Obsidian-Fallen-Knight.theme.css
+https://raw.githubusercontent.com/opbsd/VencordTheme/main/Vencord-Theme.theme.css
 ```
 
 ## Local wallpaper
@@ -53,7 +53,7 @@ For manual setup:
 
 Name your file **`wallpaper.mp4`** and place it in the folder opened by **Settings → Vencord → Themes → Open Themes Folder**. The plugin loads the video from that named local file and does not upload it. When upgrading from an earlier release, rename your existing video to **`wallpaper.mp4`**, rebuild/install the updated plugin, and fully quit and reopen Discord.
 
-The original look was inspired by **Fallen Knight in Flower Field Rain Live Wallpaper**, obtained from [Wallpaper Waves](https://wallpaperwaves.com/). Video files and standalone wallpaper assets are not bundled; the README includes a preview screenshot. You can use another MP4 that you have permission to use.
+The original preview wallpaper was obtained from [Wallpaper Waves](https://wallpaperwaves.com/). Video files and standalone wallpaper assets are not bundled; the README includes a preview screenshot. You can use another MP4 that you have permission to use.
 
 On startup, the theme uses a small cached still and its associated colors until the MP4 decoder is ready. The plugin generates `obsidian-startup.css` locally in the themes folder and stores its cache in Vencord's data directory. Keep the theme's local startup import; replacing or removing `wallpaper.mp4` invalidates the old cache on the next full start. First-time setup of an uncached video uses a neutral fallback while the first preview is generated. Cache files contain your private media preview and must not be distributed.
 
@@ -63,7 +63,7 @@ The player preserves the source video's resolution and frame rate. A 1080p/60 fp
 
 With the updated plugin, **adaptiveColors** is enabled by default. It coordinates accents, buttons, selections, borders and glass surfaces with the video's main and secondary colors. Open **Vencord → Plugins → ObsidianVideo → settings** and disable **adaptiveColors** to restore the fixed palette or use manual colors. Status, warning and danger colors remain recognizable. Analysis stays local and pauses while the document is hidden or reduced motion is enabled. The palette lives in a separate Vencord-managed stylesheet so Discord can rewrite its root inline styles on focus changes without erasing the colors. Minimizing and restoring the window retains the established palette, including when the video decoder reloads its frame data; normal gradual updates resume on the sampling timer.
 
-Edit `--obs-accent`, `--obs-text`, `--obs-gap` and `--obs-radius` near the top of the CSS. The final Fallen Knight section defines `--obs-chat-surface` and `--obs-matte-background`: increase their opacity percentages for darker panels.
+Edit `--obs-accent`, `--obs-text`, `--obs-gap` and `--obs-radius` near the top of the CSS. The final wallpaper surfaces section defines `--obs-chat-surface` and `--obs-matte-background`: increase their opacity percentages for darker panels.
 
 The plugin can be disabled in **Vencord → Plugins → ObsidianVideo**. When the video is unavailable, the dark fallback remains visible. Reduced motion hides the animation and can retain the cached still and its palette.
 

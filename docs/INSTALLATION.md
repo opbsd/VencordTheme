@@ -18,9 +18,9 @@ Choose your setup:
 These steps are the same on Windows, macOS and Linux:
 
 1. Install Vencord for your Discord desktop installation using the [official download page](https://vencord.dev/download/).
-2. Download [Obsidian-Fallen-Knight.theme.css](https://raw.githubusercontent.com/opbsd/VencordTheme/main/Obsidian-Fallen-Knight.theme.css).
+2. Download [Vencord-Theme.theme.css](https://raw.githubusercontent.com/opbsd/VencordTheme/main/Vencord-Theme.theme.css).
 3. Open Discord → **Settings → Vencord → Themes → Open Themes Folder**.
-4. Copy the CSS into that folder and enable **Obsidian Fallen Knight Video** in Local Themes.
+4. Copy the CSS into that folder and enable **Vencord Theme** in Local Themes.
 5. Disable other themes and select a dark Discord appearance.
 
 Without the optional plugin, the theme uses a dark fallback. To load the CSS online instead, paste the raw URL from the README into **Online Themes**. Online loading installs only the stylesheet, not the native video plugin.
@@ -37,7 +37,7 @@ node --version
 pnpm --version
 ```
 
-The commands below create a fresh `ObsidianSetup` workspace containing two repositories. If you already maintain a custom Vencord checkout, keep using it: copy this project's `plugins/obsidianVideo.desktop` folder into its `src/userplugins`, then rebuild that checkout. Do not overwrite your existing custom plugins.
+The commands below create a fresh `VencordThemeSetup` workspace containing two repositories. If you already maintain a custom Vencord checkout, keep using it: copy this project's `plugins/obsidianVideo.desktop` folder into its `src/userplugins`, then rebuild that checkout. Do not overwrite your existing custom plugins.
 
 The [official custom-plugin guide](https://docs.vencord.dev/installing/custom-plugins/) explains Vencord's build model. This project is a custom plugin, not a built-in Vencord plugin.
 
@@ -70,6 +70,8 @@ Use **Themes → Open Themes Folder**, add your MP4 there as exactly `wallpaper.
 
 ## Upgrade an existing custom build
 
+The stylesheet is now `Vencord-Theme.theme.css` and appears as **Vencord Theme**. Replace the previous theme file instead of enabling both copies. If you use Online Themes, replace its URL with the current Download CSS link. The existing **ObsidianVideo** plugin name, settings and generated cache paths are retained for compatibility; your chosen wallpaper does not need to be selected again.
+
 Download the latest theme/plugin ZIP and replace the CSS with its updated version. Copy **all files** from `plugins/obsidianVideo.desktop` into the matching `src/userplugins/obsidianVideo.desktop` folder in your existing Vencord checkout, overwriting older versions. Keep the other plugins in your checkout.
 
 The current plugin includes `index.ts`, `native.ts`, `colors.ts`, `palette.ts`, `picker.ts` and `selection.ts`. Do not copy only `index.ts` or put these source files in the themes folder.
@@ -90,15 +92,15 @@ Install the resulting custom build using the route for your client below (`pnpm 
 Open PowerShell as your normal user. Use the following commands in order:
 
 ```powershell
-$obsidianWorkspace = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'ObsidianSetup'
-New-Item -ItemType Directory -Force -Path $obsidianWorkspace | Out-Null
-Set-Location $obsidianWorkspace
+$themeWorkspace = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'VencordThemeSetup'
+New-Item -ItemType Directory -Force -Path $themeWorkspace | Out-Null
+Set-Location $themeWorkspace
 
-git clone https://github.com/opbsd/VencordTheme.git obsidian-fallen-knight
+git clone https://github.com/opbsd/VencordTheme.git vencord-theme
 git clone https://github.com/Vendicated/Vencord.git
 
 New-Item -ItemType Directory -Force -Path '.\Vencord\src\userplugins' | Out-Null
-Copy-Item -Recurse '.\obsidian-fallen-knight\plugins\obsidianVideo.desktop' '.\Vencord\src\userplugins\'
+Copy-Item -Recurse '.\vencord-theme\plugins\obsidianVideo.desktop' '.\Vencord\src\userplugins\'
 
 Set-Location '.\Vencord'
 pnpm install --frozen-lockfile
@@ -129,14 +131,14 @@ Select the Discord installation you use in the installer. Follow the official in
 Open Terminal and run:
 
 ```sh
-mkdir -p "$HOME/Documents/ObsidianSetup"
-cd "$HOME/Documents/ObsidianSetup"
+mkdir -p "$HOME/Documents/VencordThemeSetup"
+cd "$HOME/Documents/VencordThemeSetup"
 
-git clone https://github.com/opbsd/VencordTheme.git obsidian-fallen-knight
+git clone https://github.com/opbsd/VencordTheme.git vencord-theme
 git clone https://github.com/Vendicated/Vencord.git
 
 mkdir -p Vencord/src/userplugins
-cp -R obsidian-fallen-knight/plugins/obsidianVideo.desktop Vencord/src/userplugins/
+cp -R vencord-theme/plugins/obsidianVideo.desktop Vencord/src/userplugins/
 
 cd Vencord
 pnpm install --frozen-lockfile
