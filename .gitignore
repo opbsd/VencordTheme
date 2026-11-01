@@ -6,3 +6,6 @@ work/
 *.webp
 *.zip
 .DS_Store
+
+# Generated private startup media cache
+obsidian-startup.css

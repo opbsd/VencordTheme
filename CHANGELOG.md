@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.7.0
+
+- Added a Choose wallpaper video button to Vencord's Local Themes page, with an MP4 file picker, preview validation, automatic file placement and restart guidance.
+- Included the focus/root-style palette fix developed in 2.6.3.
+- Added a local startup still and palette cache, restored before the MP4 is decoded.
+- Validated the cache against the current wallpaper file at main-process startup; replaced/missing videos cannot reuse a stale preview.
+- Generated a local startup stylesheet and kept adaptive-color/video disable settings respected.
+- Kept the original MP4 unchanged and generated only a small JPEG preview.
+
+## 2.6.3
+
+- Moved adaptive colors from Discord-owned root inline styles to a dedicated Vencord-managed stylesheet.
+- Preserved the palette when root inline styles are rewritten during focus/window state updates, without waiting for the next video sample.
+- Kept decoder recovery, background pausing and complete cleanup when adaptive colors are disabled.
+
 ## 2.6.2
 
 - Changed the required local video filename to the generic `wallpaper.mp4`; existing users must rename their file and rebuild/install the updated plugin.

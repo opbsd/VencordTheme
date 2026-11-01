@@ -338,8 +338,11 @@ For every working client route above:
 1. Download [Obsidian-Fallen-Knight.theme.css](https://github.com/opbsd/VencordTheme/releases/latest/download/Obsidian-Fallen-Knight.theme.css).
 2. Open **Settings → Vencord → Themes → Open Themes Folder**.
 3. Add the CSS, enable **Obsidian Fallen Knight Video**, and disable other themes.
-4. For video, add your MP4 to the same folder with the exact name **`wallpaper.mp4`**.
-5. Fully quit the client, reopen it, and enable **ObsidianVideo** if necessary.
+4. Fully quit the client, reopen it, and enable **ObsidianVideo** if necessary.
+5. Open **Themes → Local Themes → Wallpaper video → Choose wallpaper video**, select an MP4, and wait for the saved message.
+6. Fully quit and reopen the client again to apply the chosen video. The picker handles copying, naming, preview and colors.
+
+See the shared [picker, startup cache and upgrade instructions](INSTALLATION.md#choose-a-wallpaper-video). For manual setup only, add an MP4 to **Open Themes Folder** as exactly `wallpaper.mp4`, then fully restart. A custom-build/plugin update requires copying all six plugin source files and rebuilding; normal video choices do not.
 
 A typical unsandboxed path is `~/.config/Vencord/themes`. Custom XDG paths, environment overrides and sandboxed clients differ: the folder button is authoritative.
 

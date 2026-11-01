@@ -5,6 +5,8 @@
 Choose your setup:
 
 - [CSS theme only — all desktop operating systems](#css-theme-only)
+- [Choose a wallpaper video — after installing the plugin](#choose-a-wallpaper-video)
+- [Upgrade an existing custom build](#upgrade-an-existing-custom-build)
 - [Windows — CSS and optional video plugin](#windows)
 - [macOS — CSS and optional video plugin](#macos)
 - [Linux — CSS and optional video plugin](#linux)
@@ -25,7 +27,7 @@ Without the optional plugin, the theme uses a dark fallback. To load the CSS onl
 
 ### Before adding video
 
-The required video filename is **`wallpaper.mp4`**, including when upgrading from an older release. Rename your existing file, rebuild/install the updated custom plugin, then fully quit and reopen Discord. Avoid a duplicate extension such as `wallpaper.mp4.mp4`.
+The **Choose wallpaper video** button handles the filename and folder automatically. It requires this project's updated custom plugin, not only the CSS. For the optional manual route, the required filename remains **`wallpaper.mp4`**; avoid a duplicate extension such as `wallpaper.mp4.mp4`.
 
 Install **Git, Node.js and pnpm** using the current requirements in the [official Vencord source-build guide](https://docs.vencord.dev/installing/). Verify your terminal can run:
 
@@ -38,6 +40,48 @@ pnpm --version
 The commands below create a fresh `ObsidianSetup` workspace containing two repositories. If you already maintain a custom Vencord checkout, keep using it: copy this project's `plugins/obsidianVideo.desktop` folder into its `src/userplugins`, then rebuild that checkout. Do not overwrite your existing custom plugins.
 
 The [official custom-plugin guide](https://docs.vencord.dev/installing/custom-plugins/) explains Vencord's build model. This project is a custom plugin, not a built-in Vencord plugin.
+
+## Choose a wallpaper video
+
+These steps are the same on Windows, macOS and supported Linux desktop setups, **after installing this project's custom plugin and CSS**:
+
+1. Fully quit Discord and reopen it once after plugin installation. A renderer reload alone does not load new native helpers.
+2. Check **Vencord → Plugins → ObsidianVideo** is enabled.
+3. Open **Vencord → Themes → Local Themes**.
+4. In **Wallpaper video**, click **Choose wallpaper video** and select an MP4 from your computer. You do not need to rename or move the original.
+5. Wait while the plugin checks that the video can be decoded and prepares its preview and colors.
+6. When the saved message appears, fully quit Discord and reopen it. The selected video is now the wallpaper.
+
+The plugin copies the selection into the themes folder as `wallpaper.mp4`. The source file keeps its name and location. Cancelling the picker or selecting an unreadable video keeps the previous wallpaper. A successful selection replaces the managed wallpaper; it takes effect after restarting, while the current session continues using its already-loaded video.
+
+To quit completely, use **Quit Discord** in the system tray on Windows/Linux, or **Discord → Quit Discord / Command-Q** on macOS. Closing the window can leave Discord running.
+
+### Startup preview and adaptive colors
+
+The plugin prepares a small local JPEG preview and its palette before confirming a selection. On the next start, that still and its associated colors appear while the MP4 decoder gets ready; the animation then starts at its original resolution and frame rate. No video re-encoding, frame interpolation or upscaling is performed.
+
+Colors are sampled locally from a 64×36 frame every three seconds and update gradually. They remain applied when Discord loses focus or is minimized, even if Discord rewrites its root styles. Turn off **adaptiveColors** in **Plugins → ObsidianVideo → settings** to use the fixed palette.
+
+`obsidian-startup.css` is generated support data, loaded automatically by the main theme. It does not need to be enabled as a separate theme. Keep the main CSS's local startup import. The preview cache stays in Vencord's data directory and is invalidated when the managed video changes or disappears. Do not publish generated cache files or private previews.
+
+### Manual alternative
+
+Use **Themes → Open Themes Folder**, add your MP4 there as exactly `wallpaper.mp4`, then fully quit and reopen Discord. This skips the picker's advance preparation; a video without a matching cache initially uses a neutral fallback until a preview can be generated. The folder button is authoritative for native, custom-XDG and sandboxed installations.
+
+## Upgrade an existing custom build
+
+Download the latest theme/plugin ZIP and replace the CSS with its updated version. Copy **all files** from `plugins/obsidianVideo.desktop` into the matching `src/userplugins/obsidianVideo.desktop` folder in your existing Vencord checkout, overwriting older versions. Keep the other plugins in your checkout.
+
+The current plugin includes `index.ts`, `native.ts`, `colors.ts`, `palette.ts`, `picker.ts` and `selection.ts`. Do not copy only `index.ts` or put these source files in the themes folder.
+
+From the Vencord source directory, run:
+
+```sh
+pnpm install --frozen-lockfile
+pnpm build --dev
+```
+
+Install the resulting custom build using the route for your client below (`pnpm inject` for supported Discord installations; Vesktop uses its separate custom-build settings). Fully quit and reopen Discord to load the new native helpers, then use [Choose a wallpaper video](#choose-a-wallpaper-video). The usual video choice requires no rebuilding after this initial installation/update.
 
 ## Windows
 
@@ -74,9 +118,9 @@ Select the Discord installation you use in the installer. Follow the official in
 ### 3. Add the theme and video
 
 - Follow [CSS theme only](#css-theme-only).
-- Open **Themes → Open Themes Folder** and place your MP4 there as `wallpaper.mp4`.
-- A typical standard-install path is `%APPDATA%\Vencord\themes`. The folder opened by Vencord is authoritative if your configuration differs.
 - Fully quit Discord from the tray and reopen it. Check **Plugins → ObsidianVideo** is enabled.
+- Follow [Choose a wallpaper video](#choose-a-wallpaper-video).
+- For manual setup, a typical themes path is `%APPDATA%\Vencord\themes`; **Open Themes Folder** is authoritative if your configuration differs.
 
 ## macOS
 
@@ -112,9 +156,9 @@ Select your Discord installation in the installer. Follow any platform-specific 
 ### 3. Add the theme and video
 
 - Follow [CSS theme only](#css-theme-only).
-- Use **Themes → Open Themes Folder** and add `wallpaper.mp4` there.
-- A typical standard-install path is `~/Library/Application Support/Vencord/themes`. In Finder, **Go → Go to Folder…** can open it. Use Vencord's folder button if your installation differs.
 - Quit Discord with Command-Q and reopen it. Check **Plugins → ObsidianVideo** is enabled.
+- Follow [Choose a wallpaper video](#choose-a-wallpaper-video).
+- For manual setup, a typical themes path is `~/Library/Application Support/Vencord/themes`; **Open Themes Folder** is authoritative if your configuration differs.
 
 ## Linux
 
@@ -137,11 +181,19 @@ The shared build instructions appear once in that guide. Distribution-specific s
 
 ## Troubleshooting
 
+### The video picker button is missing
+
+Enable **ObsidianVideo**, open the **Local Themes** tab, and fully quit and reopen Discord after installing the custom build. The stock Vencord build and the CSS alone do not include this button. If you upgraded, copy all six plugin files, rebuild/install that checkout and restart the complete app.
+
+### The video could not be opened or decoded
+
+Choose a readable local MP4 with a video track and a codec supported by your Discord/Electron installation. H.264 MP4 was used during testing. Cancelling or failing validation does not replace the managed wallpaper.
+
 ### The theme appears, but the video does not
 
 1. Make sure you installed and enabled the custom **ObsidianVideo** plugin, not only the CSS.
-2. Confirm the exact file name is `wallpaper.mp4` and that your file manager did not add a second extension.
-3. Put the file in the folder opened by **Open Themes Folder**, not the Vencord source folder or Discord's installation directory.
+2. If using the picker, wait for the saved message before quitting Discord.
+3. For manual setup, confirm the file is exactly `wallpaper.mp4` in **Open Themes Folder**, without a second extension. Do not put it in the Vencord source folder or Discord installation directory.
 4. Fully quit and reopen Discord. The native plugin helper requires a full restart after installation; reloading the renderer alone does not load it.
 5. If your system has reduced motion enabled, the plugin intentionally pauses and hides the video.
 6. Try an MP4 that your Discord/Electron installation can decode. The original development clip was H.264, 1920×1080 at 60 fps.
