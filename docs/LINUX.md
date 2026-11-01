@@ -335,7 +335,7 @@ Select the persistent host `dist` path rather than a temporary `/run/...` portal
 
 For every working client route above:
 
-1. Download [Obsidian-Fallen-Knight.theme.css](https://github.com/opbsd/VencordTheme/releases/latest/download/Obsidian-Fallen-Knight.theme.css).
+1. Download [Obsidian-Fallen-Knight.theme.css](https://raw.githubusercontent.com/opbsd/VencordTheme/main/Obsidian-Fallen-Knight.theme.css).
 2. Open **Settings → Vencord → Themes → Open Themes Folder**.
 3. Add the CSS, enable **Obsidian Fallen Knight Video**, and disable other themes.
 4. Fully quit the client, reopen it, and enable **ObsidianVideo** if necessary.

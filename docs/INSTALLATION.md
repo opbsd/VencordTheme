@@ -18,7 +18,7 @@ Choose your setup:
 These steps are the same on Windows, macOS and Linux:
 
 1. Install Vencord for your Discord desktop installation using the [official download page](https://vencord.dev/download/).
-2. Download [Obsidian-Fallen-Knight.theme.css](https://github.com/opbsd/VencordTheme/releases/latest/download/Obsidian-Fallen-Knight.theme.css).
+2. Download [Obsidian-Fallen-Knight.theme.css](https://raw.githubusercontent.com/opbsd/VencordTheme/main/Obsidian-Fallen-Knight.theme.css).
 3. Open Discord → **Settings → Vencord → Themes → Open Themes Folder**.
 4. Copy the CSS into that folder and enable **Obsidian Fallen Knight Video** in Local Themes.
 5. Disable other themes and select a dark Discord appearance.
