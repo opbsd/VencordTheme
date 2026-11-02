@@ -2,14 +2,14 @@
  * @name Vencord Theme
  * @author opbsd
  * @source https://github.com/opbsd/VencordTheme
- * @version 2.7.1
- * @description Dark translucent glass, adaptive wallpaper colors and local MP4 playback through ObsidianVideo.
+ * @version 2.8.0
+ * @description Performance-focused dark translucent panels, adaptive colors and local MP4 playback through ObsidianVideo.
  */
 
 @import url("vencord:///themes/obsidian-startup.css");
 
 /* ADAPTIVE WALLPAPER COLORS
- * Palette is sampled from the local MP4 by ObsidianVideo every 3 seconds.
+ * Palette is sampled from the local MP4 by ObsidianVideo every 10 seconds.
  * Disable adaptiveColors in the plugin settings to restore the fixed palette.
  */
 :root {
@@ -809,4 +809,15 @@ body,
 
 @media (prefers-reduced-transparency: reduce) {
     :root { --obs-glass-filter: none; }
+}
+
+/* Performance preset: retain translucent surfaces without live backdrop blur. */
+:root:root {
+    --obs-panel-filter: none !important;
+    --obs-glass-filter: none !important;
+    --obs-entrance: 0ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    :root { --obs-motion: 120ms; }
 }

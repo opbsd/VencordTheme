@@ -6,7 +6,7 @@ A dark **Vencord desktop** theme with translucent glass and a warm fallback pale
 
 *Actual Discord desktop screenshot supplied by the maintainer, showing the Friends page with the local video wallpaper. Friends' names and avatars have been pixelated for privacy; the pixelation is a screenshot edit, not a theme effect. The MP4 must be added separately.*
 
-[Download CSS](https://raw.githubusercontent.com/opbsd/VencordTheme/main/Vencord-Theme.theme.css) · [Download theme + plugin](https://github.com/opbsd/VencordTheme/archive/refs/tags/v2.7.1.zip) · [Installation guide](docs/INSTALLATION.md) · [Releases](https://github.com/opbsd/VencordTheme/releases/latest)
+[Download CSS](https://raw.githubusercontent.com/opbsd/VencordTheme/main/Vencord-Theme.theme.css) · [Download theme + plugin](https://github.com/opbsd/VencordTheme/archive/refs/tags/v2.8.0.zip) · [Installation guide](docs/INSTALLATION.md) · [Releases](https://github.com/opbsd/VencordTheme/releases/latest)
 
 The theme/plugin download is GitHub's source ZIP for this release; extract it to access the CSS, `plugins` and `docs` folders.
 
@@ -14,14 +14,15 @@ The theme/plugin download is GitHub's source ZIP for this release; extract it to
 
 - Dark translucent panels, rounded corners and restrained highlights.
 - Adaptive primary and secondary colors extracted locally from the wallpaper, with dark tinted surfaces and readable text.
-- Small 64×36 frame samples every three seconds, gradual palette updates and no continuous full-resolution analysis.
+- Small 64×36 frame samples every ten seconds, gradual palette updates and no continuous full-resolution analysis.
 - A fixed bronze, charcoal and ivory fallback when adaptive colors are disabled.
 - Separate Friends and Active Now panels with the background visible.
 - Coordinated Nitro, Shop and Quests surfaces.
 - Local MP4 playback with no animated WebP or GIF conversion.
-- Muted looping video, background pausing and reduced-motion support.
+- Muted looping video, pause on focus loss, deferred background startup and reduced-motion support.
+- Media source release after 30 seconds in the background, with saved-time resume.
 - A local startup preview and palette cache, validated against the current MP4 before the theme loads.
-- Large panels avoid continuous blur over the video.
+- Dark translucent panels without live backdrop blur, shorter interactions and no entrance animation.
 
 ## Installation
 
@@ -57,11 +58,11 @@ The original preview wallpaper was obtained from [Wallpaper Waves](https://wallp
 
 On startup, the theme uses a small cached still and its associated colors until the MP4 decoder is ready. The plugin generates `obsidian-startup.css` locally in the themes folder and stores its cache in Vencord's data directory. Keep the theme's local startup import; replacing or removing `wallpaper.mp4` invalidates the old cache on the next full start. First-time setup of an uncached video uses a neutral fallback while the first preview is generated. Cache files contain your private media preview and must not be distributed.
 
-The player preserves the source video's resolution and frame rate. A 1080p/60 fps source remains 1080p/60 fps; actual presentation performance depends on your computer, decoder and workload. No frame interpolation or upscaling is performed.
+For lower resource use, prepare a **1920×1080, 30 FPS H.264 MP4** using the [optional performance preset](docs/INSTALLATION.md#performance-preset-full-hd-at-30-fps), then select that copy with the picker. The player preserves the selected file's resolution and frame rate; it does not automatically transcode, interpolate frames or upscale.
 
 ## Customization
 
-With the updated plugin, **adaptiveColors** is enabled by default. It coordinates accents, buttons, selections, borders and glass surfaces with the video's main and secondary colors. Open **Vencord → Plugins → ObsidianVideo → settings** and disable **adaptiveColors** to restore the fixed palette or use manual colors. Status, warning and danger colors remain recognizable. Analysis stays local and pauses while the document is hidden or reduced motion is enabled. The palette lives in a separate Vencord-managed stylesheet so Discord can rewrite its root inline styles on focus changes without erasing the colors. Minimizing and restoring the window retains the established palette, including when the video decoder reloads its frame data; normal gradual updates resume on the sampling timer.
+With the updated plugin, **adaptiveColors** is enabled by default. It coordinates accents, buttons, selections, borders and glass surfaces with the video's main and secondary colors. Open **Vencord → Plugins → ObsidianVideo → settings** and disable **adaptiveColors** to restore the fixed palette or use manual colors. Status, warning and danger colors remain recognizable. Analysis stays local and pauses while Discord is unfocused, hidden or reduced motion is enabled. **pauseWhenUnfocused** is enabled by default; disable it if the wallpaper should continue while another window is active. With the default setting, 30 seconds in the background releases the video source; returning reloads it and resumes from its saved time. The cached poster and colors stay available, and an unfocused startup avoids the initial video read. The palette lives in a separate Vencord-managed stylesheet so Discord can rewrite its root inline styles on focus changes without erasing the colors. Minimizing and restoring the window retains the established palette, including when the video decoder reloads its frame data; normal gradual updates resume on the sampling timer.
 
 Edit `--obs-accent`, `--obs-text`, `--obs-gap` and `--obs-radius` near the top of the CSS. The final wallpaper surfaces section defines `--obs-chat-surface` and `--obs-matte-background`: increase their opacity percentages for darker panels.
 
@@ -71,11 +72,11 @@ The plugin can be disabled in **Vencord → Plugins → ObsidianVideo**. When th
 
 The source targets **Vencord on Discord desktop**. Setup instructions are provided for Windows, macOS and Linux; runtime testing has been performed on Linux/Chromium, not independently on all three operating systems. Other clients and the browser extension have not been verified for this native plugin. The plugin does not run in Discord's Android/iOS apps.
 
-Vencord development builds, TypeScript checking and plugin lint passed during development. The player was tested with an original 1920×1080/60 fps MP4, including start/stop, visibility changes, reduced motion and missing-file fallback. Friends, Nitro, Shop and Quests layouts were checked in simulated previews at three viewport widths. The preview above is a real desktop screenshot supplied by the maintainer; the layout checks described here used separate simulated fixtures.
+For 2.8.0, `pnpm build --dev`, TypeScript checking and plugin lint passed. Chromium checks used a real 1920×1080/30 FPS H.264 MP4 and covered five focus pause/resume cycles, a single 10-second palette timer, hidden/reduced-motion handling, persistent colors, no periodic cache saves, cleanup, deferred unfocused startup, idle source release, saved-time resume and stopping during a pending video read.
 
-Adaptive colors were checked with purple, blue, multicolor and neutral samples, including text contrast on opaque theme surfaces. A 2560×1440/60 fps MP4 ran at about 60 fps with and without sampling in a headless Chromium check; this is not a guarantee of desktop performance. Toggle restoration, hidden/reduced-motion pausing, cleanup and missing-video fallback were checked.
+Live Linux Discord checks confirmed Full HD playback, immediate focus-loss pause, media source removal after the 30-second timeout, retained poster/colors and playback resumption from the saved time. No overall CPU, RAM or GPU reduction percentage has been established. The lower resolution reduces the video workload; Chromium may retain internal memory pools after the source is released.
 
-The picker was checked at three viewport widths, including keyboard operation, cancellation, failed decoding, a real MP4 preview/palette, navigation without duplicate controls and cleanup. Native file-operation checks covered original-file preservation, atomic replacement, prepared cache and rejection of stale selection tokens. Fresh browser contexts showed the selected cached still and palette before any video decoder was active. These are local automated checks, not independent runtime validation of every operating system.
+Earlier development also checked Friends, Nitro, Shop and Quests layouts in simulated previews at three viewport widths, palette contrast, picker cancellation/validation and native cache operations. These checks are not independent validation of every operating system. The preview above is a maintainer-provided desktop screenshot.
 
 Discord may change its CSS classes. Report styling issues with your client version and a screenshot that excludes private information.
 

@@ -6,6 +6,7 @@ Choose your setup:
 
 - [CSS theme only — all desktop operating systems](#css-theme-only)
 - [Choose a wallpaper video — after installing the plugin](#choose-a-wallpaper-video)
+- [Performance preset — Full HD at 30 FPS](#performance-preset-full-hd-at-30-fps)
 - [Upgrade an existing custom build](#upgrade-an-existing-custom-build)
 - [Windows — CSS and optional video plugin](#windows)
 - [macOS — CSS and optional video plugin](#macos)
@@ -60,13 +61,35 @@ To quit completely, use **Quit Discord** in the system tray on Windows/Linux, or
 
 The plugin prepares a small local JPEG preview and its palette before confirming a selection. On the next start, that still and its associated colors appear while the MP4 decoder gets ready; the animation then starts at its original resolution and frame rate. No video re-encoding, frame interpolation or upscaling is performed.
 
-Colors are sampled locally from a 64×36 frame every three seconds and update gradually. They remain applied when Discord loses focus or is minimized, even if Discord rewrites its root styles. Turn off **adaptiveColors** in **Plugins → ObsidianVideo → settings** to use the fixed palette.
+Colors are sampled locally from a 64×36 frame every ten seconds and update gradually. They remain applied when Discord loses focus or is minimized, even if Discord rewrites its root styles. Turn off **adaptiveColors** in **Plugins → ObsidianVideo → settings** to use the fixed palette.
 
 `obsidian-startup.css` is generated support data, loaded automatically by the main theme. It does not need to be enabled as a separate theme. Keep the main CSS's local startup import. The preview cache stays in Vencord's data directory and is invalidated when the managed video changes or disappears. Do not publish generated cache files or private previews.
 
 ### Manual alternative
 
 Use **Themes → Open Themes Folder**, add your MP4 there as exactly `wallpaper.mp4`, then fully quit and reopen Discord. This skips the picker's advance preparation; a video without a matching cache initially uses a neutral fallback until a preview can be generated. The folder button is authoritative for native, custom-XDG and sandboxed installations.
+
+## Performance preset: Full HD at 30 FPS
+
+For lower video workload, prepare a separate **H.264 MP4 at up to 1920×1080 and 30 FPS** and select that copy with the picker. The plugin does not transcode videos automatically. Keep the original file.
+
+With FFmpeg installed, this command creates a silent copy, preserves the source aspect ratio, avoids upscaling smaller videos and caps the video bitrate at 5 Mbit/s. Replace `source.mp4` with your input filename and use a different output filename:
+
+```sh
+ffmpeg -i "source.mp4" -map 0:v:0 -vf "scale=w='min(1920,iw)':h='min(1080,ih)':force_original_aspect_ratio=decrease:force_divisible_by=2:flags=lanczos,fps=30" -c:v libx264 -preset fast -crf 22 -maxrate 5M -bufsize 10M -pix_fmt yuv420p -an -movflags +faststart "wallpaper-1080p30.mp4"
+```
+
+The same single-line command works in PowerShell and common macOS/Linux shells. Install FFmpeg separately if the command is unavailable; the theme does not install it. Select the output through **Choose wallpaper video**, then fully quit and reopen Discord. Preparing a 16:9 video at 1080p rather than 1440p, both at 30 FPS, reduces its pixels per second by 43.75%; that is not a measured reduction in the resources used by the whole Discord app.
+
+By default, **pauseWhenUnfocused** stops the video and palette sampling as soon as another window is active. After 30 seconds of inactivity the plugin removes the video source and revokes its Blob URL. Returning reloads the file and resumes from the saved time; the cached poster and palette remain visible. Discord starting in the background does not read the video until playback is allowed. Disable **pauseWhenUnfocused** in ObsidianVideo settings if background playback is preferred; hidden windows and reduced motion still pause it.
+
+Optional Discord/Vencord adjustments:
+
+- Disable **AlwaysAnimate** if enabled, so it does not force animations on avatars, emoji, banners and other supported elements.
+- Check Discord's hardware-acceleration setting on your machine. It was enabled for the local Linux verification; the theme does not change it, and the best setting depends on the driver and workload.
+- Keep one theme/background source enabled. The performance CSS retains dark translucent surfaces but disables live backdrop blur, uses 120 ms interactions and removes entrance animation while respecting reduced motion.
+
+These settings are guidance. Installing this release does not automatically re-encode your wallpaper or change other plugins or Discord preferences.
 
 ## Upgrade an existing custom build
 
@@ -198,11 +221,12 @@ Choose a readable local MP4 with a video track and a codec supported by your Dis
 3. For manual setup, confirm the file is exactly `wallpaper.mp4` in **Open Themes Folder**, without a second extension. Do not put it in the Vencord source folder or Discord installation directory.
 4. Fully quit and reopen Discord. The native plugin helper requires a full restart after installation; reloading the renderer alone does not load it.
 5. If your system has reduced motion enabled, the plugin intentionally pauses and hides the video.
-6. Try an MP4 that your Discord/Electron installation can decode. The original development clip was H.264, 1920×1080 at 60 fps.
+6. Focus the Discord window. The performance preset defers video loading while the window is inactive. A cached poster remains visible until playback starts.
+7. Try an MP4 that your Discord/Electron installation can decode; H.264 at 1920×1080 and 30 FPS was verified locally.
 
 ### Playback stutters
 
-Remove old WebP/GIF wallpaper CSS from QuickCSS and disable older animated themes. Keep a single wallpaper source active. The plugin plays the original MP4, so its bitrate, decoder support, GPU and other running workloads affect playback. Installing this theme does not enable hardware acceleration or change GPU drivers.
+Try the [Full HD/30 FPS preset](#performance-preset-full-hd-at-30-fps). Remove old WebP/GIF wallpaper CSS from QuickCSS and disable older animated themes. Keep a single wallpaper source active. The plugin plays the original MP4, so its bitrate, decoder support, GPU and other running workloads affect playback. Installing this theme does not enable hardware acceleration or change GPU drivers.
 
 ### A Discord update removes Vencord
 

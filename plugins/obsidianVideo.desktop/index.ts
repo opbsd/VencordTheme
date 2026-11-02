@@ -25,6 +25,14 @@ let poster: string | undefined;
 let lastPalette: Palette | undefined;
 let lastSave = 0;
 let savedWithPalette = false;
+let focused = document.hasFocus();
+let releaseTimer: ReturnType<typeof setTimeout> | undefined;
+let loading: Promise<void> | undefined;
+let resumeTime = 0;
+
+function playbackAllowed() {
+    return !document.hidden && !reducedMotion.matches && (!settings.store.pauseWhenUnfocused || focused);
+}
 
 function rememberStartup(colors?: Palette) {
     if (colors) lastPalette = colors;
@@ -50,8 +58,13 @@ function rememberStartup(colors?: Palette) {
 }
 
 function onVideoReady() {
+    if (video && resumeTime > 0 && Number.isFinite(video.duration)) {
+        video.currentTime = Math.min(resumeTime, Math.max(0, video.duration - .1));
+        resumeTime = 0;
+    }
     updatePalette();
     rememberStartup();
+    updatePlayback();
 }
 
 function updatePalette() {
@@ -62,8 +75,11 @@ function updatePalette() {
         return;
     }
     // Decoders can emit loadeddata again after the window is restored.
-    palette ??= createAdaptivePalette(video, lastPalette, rememberStartup);
-    palette.setActive(!document.hidden && !reducedMotion.matches);
+    palette ??= createAdaptivePalette(video, lastPalette, colors => {
+        lastPalette = colors;
+        if (!savedWithPalette) rememberStartup();
+    });
+    palette.setActive(playbackAllowed());
 }
 
 const settings = definePluginSettings({
@@ -72,24 +88,89 @@ const settings = definePluginSettings({
         description: "Adapt the dark theme palette to the wallpaper colors.",
         default: true,
         onChange: updatePalette
+    },
+    pauseWhenUnfocused: {
+        type: OptionType.BOOLEAN,
+        description: "Pause the wallpaper and color sampling while another window is active.",
+        default: true,
+        onChange: updatePlayback
     }
 });
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+function clearReleaseTimer() {
+    if (releaseTimer) clearTimeout(releaseTimer);
+    releaseTimer = undefined;
+}
+
+function releaseVideo() {
+    releaseTimer = undefined;
+    if (!video || playbackAllowed()) return;
+    resumeTime = video.currentTime || resumeTime;
+    video.removeAttribute("src");
+    video.load();
+    if (objectUrl) URL.revokeObjectURL(objectUrl);
+    objectUrl = undefined;
+}
+
+function loadWallpaper() {
+    if (loading || !video || !layer) return;
+    const currentVideo = video;
+    const currentLayer = layer;
+    const request = (async () => {
+        try {
+            const data = await Native.readWallpaper();
+            if (video !== currentVideo || !playbackAllowed()) return;
+            objectUrl = URL.createObjectURL(new Blob([new Uint8Array(data).buffer], { type: "video/mp4" }));
+            currentVideo.src = objectUrl;
+            updatePlayback();
+        } catch {
+            if (layer === currentLayer) {
+                currentLayer.hidden = true;
+                palette?.setActive(false);
+            }
+        }
+    })();
+    loading = request;
+    request.finally(() => {
+        if (loading === request) loading = undefined;
+    });
+}
+
 function updatePlayback() {
-    if (!video?.src || !layer) return;
+    if (!video || !layer) return;
     layer.hidden = reducedMotion.matches;
-    palette?.setActive(!document.hidden && !reducedMotion.matches);
-    if (document.hidden || reducedMotion.matches) {
-        lastSave = 0;
-        rememberStartup();
+    const active = playbackAllowed();
+    palette?.setActive(active);
+    if (!active) {
+        if (!video.paused) {
+            lastSave = 0;
+            rememberStartup();
+        }
         video.pause();
+        if (video.hasAttribute("src") && !releaseTimer)
+            releaseTimer = setTimeout(releaseVideo, 30000);
     } else {
+        clearReleaseTimer();
+        if (!video.hasAttribute("src")) {
+            if (startup) loadWallpaper();
+            return;
+        }
         video.play().catch(() => {
             if (layer) layer.hidden = true;
         });
     }
+}
+
+function onFocus() {
+    focused = true;
+    updatePlayback();
+}
+
+function onBlur() {
+    focused = false;
+    updatePlayback();
 }
 
 export default definePlugin({
@@ -103,6 +184,7 @@ export default definePlugin({
     start() {
         const mount = document.getElementById("app-mount");
         if (!mount || layer || !Native?.readWallpaper) return;
+        focused = document.hasFocus();
 
         picker = attachWallpaperPicker(mount, (signal, progress) => chooseWallpaper(Native, signal, progress));
         document.documentElement.removeAttribute("data-obsidian-video-disabled");
@@ -118,7 +200,7 @@ export default definePlugin({
         video.defaultMuted = true;
         video.loop = true;
         video.playsInline = true;
-        video.preload = "auto";
+        video.preload = "metadata";
         video.disablePictureInPicture = true;
         video.disableRemotePlayback = true;
 
@@ -134,6 +216,8 @@ export default definePlugin({
         });
         observer.observe(mount, { childList: true });
         document.addEventListener("visibilitychange", updatePlayback);
+        window.addEventListener("focus", onFocus);
+        window.addEventListener("blur", onBlur);
         reducedMotion.addEventListener("change", updatePlayback);
         const currentLayer = layer;
         const currentVideo = video;
@@ -148,10 +232,6 @@ export default definePlugin({
                 lastSave = initial.cached ? Date.now() : 0;
                 if (poster) currentVideo.poster = poster;
                 updatePalette();
-                const data = await Native.readWallpaper();
-                if (layer !== currentLayer) return;
-                objectUrl = URL.createObjectURL(new Blob([new Uint8Array(data).buffer], { type: "video/mp4" }));
-                currentVideo.src = objectUrl;
                 updatePlayback();
             } catch {
                 if (layer === currentLayer) {
@@ -163,6 +243,9 @@ export default definePlugin({
     },
 
     stop() {
+        clearReleaseTimer();
+        loading = undefined;
+        resumeTime = 0;
         picker?.stop();
         picker = undefined;
         document.documentElement.setAttribute("data-obsidian-video-disabled", "");
@@ -174,6 +257,8 @@ export default definePlugin({
         observer?.disconnect();
         observer = undefined;
         document.removeEventListener("visibilitychange", updatePlayback);
+        window.removeEventListener("focus", onFocus);
+        window.removeEventListener("blur", onBlur);
         reducedMotion.removeEventListener("change", updatePlayback);
         video?.pause();
         video?.removeAttribute("src");

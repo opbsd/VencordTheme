@@ -22,11 +22,14 @@ export function createAdaptivePalette(video: HTMLVideoElement, initial?: Palette
     // Discord owns the root inline style and can replace it during window state updates.
     const style = createAndAppendStyle("obsidian-adaptive-palette", managedStyleRootNode);
     let lastFrame = -1;
+    let lastDeclarations = "";
 
     function apply() {
         if (!current) return;
         const declarations = Object.entries(paletteVariables(current))
             .map(([name, value]) => `${name}:${value}!important;`).join("");
+        if (declarations === lastDeclarations) return;
+        lastDeclarations = declarations;
         style.textContent = `:root:root{${declarations}}`;
     }
     apply();
@@ -65,7 +68,7 @@ export function createAdaptivePalette(video: HTMLVideoElement, initial?: Palette
             if (timer || failed) return;
             // Preserve the established palette on resume; only the first activation samples immediately.
             if (!current) sample();
-            if (!failed) timer = setInterval(sample, 3000);
+            if (!failed) timer = setInterval(sample, 10000);
         },
         stop() {
             if (timer) clearInterval(timer);

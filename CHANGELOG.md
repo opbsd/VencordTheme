@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.8.0 — Performance
+
+- Pause video and palette sampling when Discord loses focus by default; the new `pauseWhenUnfocused` setting can opt out.
+- After 30 seconds of inactivity, unload the media source and revoke its Blob URL. Reload on return and resume from the saved playback time, retaining the cached poster and palette.
+- Defer the initial video read while Discord starts unfocused, hidden or with reduced motion enabled.
+- Sample adaptive colors every 10 seconds instead of 3, and skip identical palette stylesheet writes.
+- Save startup data on initial preparation and lifecycle events instead of periodic palette samples.
+- Disable live backdrop blur while retaining dark translucent panels; use 120 ms interaction transitions and remove entrance animation. Reduced motion remains respected.
+- Document an optional Full HD/30 FPS H.264 preparation preset. The player does not automatically transcode or force a resolution.
+- Document disabling AlwaysAnimate as an optional Discord/Vencord setting; the theme does not silently change other plugins or hardware-acceleration preferences.
+- Validate Full HD playback, focus cycles, idle media release, saved-time resume, lazy startup and stop during a pending video read in Chromium and the main lifecycle inside Linux Discord.
+
+
 ## 2.7.1
 
 - Renamed the theme to Vencord Theme throughout its title, stylesheet filename, documentation and preview page.
