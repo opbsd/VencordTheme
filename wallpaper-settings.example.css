@@ -1,0 +1,11 @@
+/* Copy to your Vencord themes folder as wallpaper-settings.css.
+ * Keep this local configuration disabled in the theme list; the main theme imports it.
+ * Supply your own wallpaper.jpg in the same folder. No wallpaper is bundled.
+ * Animated mode: set --theme-wallpaper-image: none and enable ObsidianVideo.
+ */
+:root {
+    --theme-wallpaper-image: url("vencord:///themes/wallpaper.jpg");
+    --theme-wallpaper-brightness: 1.12;
+    --theme-wallpaper-contrast: 1.10;
+    --theme-wallpaper-saturation: 1.35;
+}

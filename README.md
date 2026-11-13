@@ -6,7 +6,7 @@ A dark **Vencord desktop** theme with translucent glass and a warm fallback pale
 
 *Actual Discord desktop screenshot supplied by the maintainer, showing the Friends page with the local video wallpaper. Friends' names and avatars have been pixelated for privacy; the pixelation is a screenshot edit, not a theme effect. The MP4 must be added separately.*
 
-[Download CSS](https://raw.githubusercontent.com/opbsd/VencordTheme/main/Vencord-Theme.theme.css) · [Download theme + plugin](https://github.com/opbsd/VencordTheme/archive/refs/tags/v2.8.0.zip) · [Installation guide](docs/INSTALLATION.md) · [Releases](https://github.com/opbsd/VencordTheme/releases/latest)
+[Download CSS](https://raw.githubusercontent.com/opbsd/VencordTheme/main/Vencord-Theme.theme.css) · [Download theme + plugin](https://github.com/opbsd/VencordTheme/archive/refs/tags/v2.9.0.zip) · [Installation guide](docs/INSTALLATION.md) · [Releases](https://github.com/opbsd/VencordTheme/releases/latest)
 
 The theme/plugin download is GitHub's source ZIP for this release; extract it to access the CSS, `plugins` and `docs` folders.
 
@@ -40,7 +40,13 @@ For **Online Themes**, use:
 https://raw.githubusercontent.com/opbsd/VencordTheme/main/Vencord-Theme.theme.css
 ```
 
-## Local wallpaper
+## Static or animated wallpaper
+
+**Static image:** use your own JPG/PNG/WebP and `wallpaper-settings.example.css`; no custom plugin build is needed. **Animated:** enable ObsidianVideo and select your own MP4. Read the [static and animated setup guide](docs/INSTALLATION.md#choose-a-static-or-animated-wallpaper-290) before choosing your mode. No personal wallpaper or preview cache is included.
+
+Version 2.9.0 also fixes channel-list clipping, the message composer gap, server-member glass surfaces, transparent voice panels and participant corners aligned with Discord's speaking outline.
+
+## Local wallpaper (animated mode)
 
 After installing the updated custom plugin and CSS, fully quit and reopen Discord once, then:
 

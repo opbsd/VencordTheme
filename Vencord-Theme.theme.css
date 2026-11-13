@@ -2,11 +2,12 @@
  * @name Vencord Theme
  * @author opbsd
  * @source https://github.com/opbsd/VencordTheme
- * @version 2.8.0
+ * @version 2.9.0
  * @description Performance-focused dark translucent panels, adaptive colors and local MP4 playback through ObsidianVideo.
  */
 
 @import url("vencord:///themes/obsidian-startup.css");
+@import url("vencord:///themes/wallpaper-settings.css");
 
 /* ADAPTIVE WALLPAPER COLORS
  * Palette is sampled from the local MP4 by ObsidianVideo every 10 seconds.
@@ -267,18 +268,18 @@ body,
 
 /* Near-black fallback with a subtle warm glow. */
 #app-mount,
-#app-mount .bg__960e4 {
+#app-mount [class*="bg_"] {
     background:
         radial-gradient(ellipse 540px 380px at 140px 0,
             color-mix(in srgb, var(--obs-accent-secondary) 8%, transparent), transparent 100%),
         var(--obs-black) !important;
 }
 
-#app-mount .app__160d8,
-#app-mount .base__5e434,
-#app-mount .sidebar__5e434,
-#app-mount .page__5e434,
-#app-mount .chat_f75fb0 {
+#app-mount [class*="app_"],
+#app-mount [class*="base_"],
+#app-mount [class*="sidebar_"],
+#app-mount [class*="page_"],
+#app-mount [class*="chat_"] {
     background: transparent !important;
 }
 
@@ -287,50 +288,50 @@ body,
     margin-top: var(--obs-gap);
 }
 
-#app-mount .sidebar__5e434 {
+#app-mount [class*="sidebar_"] {
     margin: 0 var(--obs-gap) var(--obs-gap);
 }
 
-#app-mount .page__5e434 {
+#app-mount [class*="page_"] {
     padding: 0 var(--obs-gap) var(--obs-gap) 0;
     min-width: 0;
     border: 0;
 }
 
-#app-mount .page__5e434 > .chat_f75fb0,
-#app-mount .page__5e434 > .container__133bf {
+#app-mount [class*="page_"] > [class*="chat_"],
+#app-mount [class*="page_"] > .container__133bf {
     padding: 0;
     min-width: 0;
 }
 
-#app-mount .guilds__5e434 {
+#app-mount [class*="guilds_"] {
     margin-right: var(--obs-gap);
     margin-bottom: calc(var(--custom-app-panels-height, 0px) + var(--obs-gap));
 }
 
-#app-mount .sidebarList__5e434 {
+#app-mount [class*="sidebarList_"] {
     margin-bottom: calc(var(--custom-app-panels-height, 0px) + var(--obs-gap));
     border: 0;
 }
 
 /* The outer margin already reserves room for the user panel. Remove the duplicate
  * inner reservation to prevent an empty area below channels when Spotify is open. */
-#app-mount .sidebarList__5e434 .container__2637a {
+#app-mount [class*="sidebarList_"] .container__2637a {
     padding-bottom: 0 !important;
 }
 
-#app-mount .sidebarList__5e434 :is(.scroller__629e4, .scroller__99e7c) {
+#app-mount [class*="sidebarList_"] :is(.scroller__629e4, .scroller__99e7c) {
     margin-bottom: 0 !important;
 }
 
 /* Older clients use flex instead of subgrid. Reserve the rail gap without clipping channels. */
 @supports not ((grid-template-columns: subgrid) and (white-space-collapse: collapse)) {
-    #app-mount .sidebar__5e434:not(.channelListHidden__5e434):not([data-collapsed="true"]) {
+    #app-mount [class*="sidebar_"]:not([class*="channelListHidden_"]):not([data-collapsed="true"]) {
         width: calc(var(--custom-guild-sidebar-width) + var(--obs-gap) - 1px);
     }
 }
 
-#app-mount .panels__5e434 {
+#app-mount [class*="panels_"] {
     left: 0;
     bottom: 0;
     width: 100%;
@@ -338,17 +339,17 @@ body,
     border: 0;
 }
 
-#app-mount .chat_f75fb0 {
+#app-mount [class*="chat_"] {
     border: 0;
 }
 
-#app-mount .chat_f75fb0 > .subtitleContainer_f75fb0,
+#app-mount [class*="chat_"] > [class*="subtitleContainer_"],
 #app-mount .container__133bf > .container__9293f {
     margin-bottom: var(--obs-gap);
     flex-shrink: 0;
 }
 
-#app-mount .chat_f75fb0 > .content_f75fb0 {
+#app-mount [class*="chat_"] > .content_f75fb0 {
     border: 0;
     background: transparent;
     min-height: 0;
@@ -356,9 +357,9 @@ body,
 
 /* Matching navigation, member-list and user-panel surfaces with one subtle inner border. */
 #app-mount :is(
-    .guilds__5e434,
-    .sidebarList__5e434,
-    .panels__5e434,
+    [class*="guilds_"],
+    [class*="sidebarList_"],
+    [class*="panels_"],
     .container_c8ffbb
 ) {
     background: var(--obs-matte-background) !important;
@@ -373,14 +374,14 @@ body,
 /* Remove opaque inner layers and native shadows that would duplicate panel edges. */
 #app-mount :is(
     .container__2637a,
-    .privateChannels_e6b769,
+    [class*="privateChannels_"],
     .scroller__99e7c,
     .scroller_ef3116,
-    .members_c8ffbb,
-    .member_c8ffbb,
+    [class*="members_"],
+    [class*="member_"],
     .title_f75fb0,
     .header_f37cb1,
-    .panels__5e434 .container__37e49
+    [class*="panels_"] .container__37e49
 ) {
     background: transparent !important;
 }
@@ -391,13 +392,13 @@ body,
     border: 0;
 }
 
-#app-mount .sidebar__5e434::after {
+#app-mount [class*="sidebar_"]::after {
     display: none;
 }
 
 /* A real gap separates the glass header from the conversation. */
 #app-mount :is(
-    .subtitleContainer_f75fb0,
+    [class*="subtitleContainer_"],
     .container__133bf > .container__9293f
 ) {
     background: var(--obs-glass-background) !important;
@@ -409,7 +410,7 @@ body,
 }
 
 /* One dark surface for messages and the composer, without blurring message scrolling. */
-#app-mount .chatContent_f75fb0 {
+#app-mount [class*="chatContent_"] {
     background: var(--obs-chat-surface) !important;
     border-radius: var(--obs-radius);
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--obs-secondary) 3%, transparent);
@@ -449,12 +450,12 @@ body,
 
 /* Menus, emoji picker and dialogs use a stronger floating-glass treatment. */
 #app-mount :is(
-    .menu_c1e9c4,
-    .contentWrapper__08434,
-    .root__49fc1,
-    .autocomplete__6b0e0,
+    [class*="menu_"],
+    [class*="contentWrapper_"],
+    [class*="root_"],
+    [class*="autocomplete_"],
     .container__16eb0,
-    .messagesPopoutWrap__432f4
+    [class*="messagesPopoutWrap_"]
 ) {
     background: var(--obs-glass-background) !important;
     -webkit-backdrop-filter: var(--obs-glass-filter);
@@ -486,21 +487,21 @@ body,
 }
 
 /* Subtle channel and direct-message hover motion without layout shifts. */
-#app-mount :is(.link__2ea32, .interactive__972a0) {
+#app-mount :is([class*="link_"], [class*="interactive_"]) {
     border-radius: 10px;
     transition: background-color var(--obs-motion) ease,
         box-shadow var(--obs-motion) ease,
         translate var(--obs-motion) var(--obs-ease);
 }
 
-#app-mount :is(.link__2ea32, .interactive__972a0):hover {
+#app-mount :is([class*="link_"], [class*="interactive_"]):hover {
     translate: 1px 0;
     box-shadow: inset 0 1px 0 color-mix(in srgb, var(--obs-text) 5%, transparent);
 }
 
 #app-mount :is(
-    .modeSelected__2ea32 .link__2ea32,
-    .interactiveSelected__972a0
+    [class*="modeSelected_"] [class*="link_"],
+    [class*="interactiveSelected_"]
 ) {
     background: linear-gradient(100deg, color-mix(in srgb, var(--obs-accent) 12%, transparent), color-mix(in srgb, var(--obs-accent-secondary) 4%, transparent)) !important;
     box-shadow: inset 2px 0 0 var(--obs-accent),
@@ -545,7 +546,7 @@ body,
         --obs-motion: 0ms;
         --obs-entrance: 0ms;
     }
-    #app-mount :is(.link__2ea32, .interactive__972a0):hover {
+    #app-mount :is([class*="link_"], [class*="interactive_"]):hover {
         translate: none;
     }
     #app-mount button[class*="button_"]:not(:disabled):active {
@@ -584,7 +585,7 @@ body,
 }
 
 #app-mount,
-#app-mount .bg__960e4 {
+#app-mount [class*="bg_"] {
     background-color: var(--obs-black) !important;
     background-image:
         linear-gradient(color-mix(in srgb, var(--obs-black) 16%, transparent),
@@ -596,12 +597,12 @@ body,
 }
 
 /* Keep the wallpaper visible behind the base window layers. */
-#app-mount .baseLayer__960e4,
-#app-mount .layers__160d8 {
+#app-mount [class*="baseLayer_"],
+#app-mount [class*="layers_"] {
     background: transparent !important;
 }
 
-#app-mount .chatContent_f75fb0 :is(.messagesWrapper__36d07, .scroller__36d07) {
+#app-mount [class*="chatContent_"] :is([class*="messagesWrapper_"], .scroller__36d07) {
     background: transparent !important;
 }
 
@@ -612,7 +613,7 @@ body,
     }
 }
 
-#app-mount :is(.guilds__5e434, .sidebarList__5e434, .panels__5e434, .container_c8ffbb) {
+#app-mount :is([class*="guilds_"], [class*="sidebarList_"], [class*="panels_"], .container_c8ffbb) {
     -webkit-backdrop-filter: var(--obs-panel-filter);
     backdrop-filter: var(--obs-panel-filter);
 }
@@ -624,7 +625,7 @@ body,
 /* Reduced motion hides the video and uses the dark fallback. */
 @media (prefers-reduced-motion: reduce) {
     #app-mount,
-    #app-mount .bg__960e4 {
+    #app-mount [class*="bg_"] {
         background-image:
             linear-gradient(color-mix(in srgb, var(--obs-black) 16%, transparent),
                             color-mix(in srgb, var(--obs-black) 16%, transparent)),
@@ -645,7 +646,7 @@ body,
     isolation: isolate;
 }
 
-#app-mount .bg__960e4 {
+#app-mount [class*="bg_"] {
     background: transparent !important;
 }
 
@@ -683,13 +684,13 @@ body,
     --obs-glass-filter: blur(8px) saturate(105%);
 }
 
-#app-mount :is(.subtitleContainer_f75fb0, .container__133bf > .container__9293f) {
+#app-mount :is([class*="subtitleContainer_"], .container__133bf > .container__9293f) {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
 }
 
 /* Inner rail padding keeps the first icon away from the top edge. */
-#app-mount .guilds__5e434 .scroller_ef3116 {
+#app-mount [class*="guilds_"] .scroller_ef3116 {
     padding-top: 12px !important;
     box-sizing: border-box;
 }
@@ -706,18 +707,18 @@ body,
     border: 0 !important;
 }
 
-#app-mount .tabBody__133bf {
+#app-mount [class*="tabBody_"] {
     background: transparent !important;
     border: 0 !important;
 }
 
-#app-mount .peopleColumn__133bf {
+#app-mount [class*="peopleColumn_"] {
     background: var(--obs-chat-surface) !important;
     border-radius: var(--obs-radius);
     box-shadow: inset 0 0 0 1px var(--obs-glass-line);
 }
 
-#app-mount .nowPlayingColumn__133bf {
+#app-mount [class*="nowPlayingColumn_"] {
     margin-left: var(--obs-gap);
     background: var(--obs-matte-background) !important;
     border-radius: var(--obs-radius);
@@ -734,23 +735,23 @@ body,
     border-inline-start: 0;
 }
 
-#app-mount .emptyCard__7e549 {
+#app-mount [class*="emptyCard_"] {
     background: color-mix(in srgb, var(--obs-panel) 32%, transparent) !important;
     border-radius: 12px;
 }
 
-#app-mount .tabBar__133bf .addFriend__133bf {
+#app-mount [class*="tabBar_"] [class*="addFriend_"] {
     color: var(--obs-on-accent) !important;
     border-radius: 10px;
 }
 
-#app-mount .tabBar__133bf .addFriend__133bf[aria-selected="true"] {
+#app-mount [class*="tabBar_"] [class*="addFriend_"][aria-selected="true"] {
     background: color-mix(in srgb, var(--obs-accent) 14%, transparent) !important;
     color: var(--obs-accent-hover) !important;
 }
 
 /* Nitro, Shop and Quests: locally scoped tokens leave other screens unchanged. */
-#app-mount :is(.applicationStore_f07d62, .homeWrapper__0920e, .shop__6db1d, .container__955a3) {
+#app-mount :is([class*="applicationStore_"], [class*="homeWrapper_"], [class*="shop_"], .container__955a3) {
     --background-base-low: transparent !important;
     --background-base-lower: transparent !important;
     --background-base-lowest: transparent !important;
@@ -765,37 +766,37 @@ body,
     border-radius: var(--obs-radius);
 }
 
-#app-mount :is(.homeWrapper__0920e, .shop__6db1d, .container__955a3) {
+#app-mount :is([class*="homeWrapper_"], [class*="shop_"], .container__955a3) {
     overflow: hidden;
 }
 
-#app-mount :is(.mainPageScroller__80907, .shop__6db1d, .scroller__23746) {
+#app-mount :is([class*="mainPageScroller_"], [class*="shop_"], .scroller__23746) {
     background: var(--obs-chat-surface) !important;
     border-radius: var(--obs-radius);
     box-shadow: inset 0 0 0 1px var(--obs-glass-line);
 }
 
-#app-mount .shop__08415 {
+#app-mount [class*="shop_"] {
     background: transparent !important;
 }
 
-#app-mount :is(.headerBar__1a9ce, .headerBar__8a7fc, .navBar__131a1) {
+#app-mount :is([class*="headerBar_"], [class*="headerBar_"], [class*="navBar_"]) {
     background: var(--obs-glass-background) !important;
     border: 0 !important;
     box-shadow: inset 0 -1px 0 var(--obs-glass-line);
 }
 
-#app-mount .applicationStore_f07d62 :is([class*="hero_"], [class*="heroSection_"], [class*="heroContainer_"]) {
+#app-mount [class*="applicationStore_"] :is([class*="hero_"], [class*="heroSection_"], [class*="heroContainer_"]) {
     background: radial-gradient(ellipse at 50% 0, color-mix(in srgb, var(--obs-accent-secondary) 16%, transparent), transparent 70%),
         color-mix(in srgb, var(--obs-panel) 50%, transparent) !important;
     border-radius: var(--obs-radius);
 }
 
-#app-mount .applicationStore_f07d62 :is([class*="gradientBackground_"], [class*="heroBackground_"], [class*="backgroundGradient_"]) {
+#app-mount [class*="applicationStore_"] :is([class*="gradientBackground_"], [class*="heroBackground_"], [class*="backgroundGradient_"]) {
     background: radial-gradient(ellipse at 50% 0, color-mix(in srgb, var(--obs-accent-secondary) 18%, transparent), transparent 75%) !important;
 }
 
-#app-mount :is(.applicationStore_f07d62, .shop__6db1d, .container__955a3) :is(
+#app-mount :is([class*="applicationStore_"], [class*="shop_"], .container__955a3) :is(
     [class*="productCard_"], [class*="questCard_"], [class*="questTile_"], [class*="perkCard_"]
 ) {
     background-color: color-mix(in srgb, var(--obs-panel) 62%, transparent) !important;
@@ -820,4 +821,215 @@ body,
 
 @media (prefers-reduced-motion: no-preference) {
     :root { --obs-motion: 120ms; }
+}
+
+/* Local layout compatibility and static local wallpaper. */
+:root:root {
+  --obs-gap: 10px;
+  --obs-radius: 14px;
+  --obs-chat-surface: rgb(12 15 20 / 40%);
+  --obs-matte-background: rgb(12 15 20 / 48%);
+  --obs-glass-background: rgb(12 15 20 / 43%);
+}
+#app-mount { background: transparent !important; isolation: isolate; }
+#app-mount::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(rgb(7 9 13 / 20%), rgb(7 9 13 / 20%)), var(--local-static-image) center / cover no-repeat;
+}
+#app-mount :is([class*="app_"], [class*="bg_"], [class*="layers_"], [class*="baseLayer_"], [class*="base_"], [class*="sidebar_"], [class*="page_"], [class*="chat_"], [class*="tabBody_"], [class*="privateChannels_"], [class*="peopleList_"], [class*="messagesWrapper_"], [class*="members_"], [class*="member_"]) { background: transparent !important; }
+#app-mount [class*="container_"]:has([class*="peopleColumn_"]),
+#app-mount [class*="container_"]:has(> [class*="members_"]),
+#app-mount [class*="sidebarList_"] > [class*="container_"] { background: transparent !important; }
+#app-mount [class*="sidebar_"]::after { display: none; }
+#app-mount :is([class*="peopleColumn_"], [class*="chatContent_"]) {
+  background: var(--obs-chat-surface) !important; border-radius: var(--obs-radius);
+  box-shadow: inset 0 0 0 1px rgb(220 224 230 / 9%); overflow: hidden;
+}
+#app-mount :is([class*="nowPlayingColumn_"], [class*="sidebarList_"], [class*="guilds_"], [class*="panels_"]) {
+  background: var(--obs-matte-background) !important; border-radius: var(--obs-radius);
+  box-shadow: inset 0 0 0 1px rgb(220 224 230 / 9%);
+}
+#app-mount [class*="nowPlayingColumn_"] { margin-left: var(--obs-gap); }
+#app-mount [class*="content_"]:has(> [class*="sidebar_"]) { margin-top: var(--obs-gap); }
+#app-mount [class*="sidebar_"] { margin: 0 var(--obs-gap) var(--obs-gap) 0; }
+#app-mount [class*="page_"] { padding: 0 var(--obs-gap) var(--obs-gap) 0; }
+#app-mount [class*="tabBody_"] { gap: 0; border: 0; }
+#app-mount [class*="peopleList_"] { background: transparent !important; }
+#app-mount [class*="nowPlayingColumn_"] [class*="scroller_"] { background: transparent !important; border: 0; }
+#app-mount [class*="subtitleContainer_"],
+#app-mount [class*="container_"]:has(> [class*="tabBody_"]) > [class*="container_"] {
+  background: var(--obs-glass-background) !important; border-radius: var(--obs-radius); margin-bottom: var(--obs-gap);
+}
+/* One viewport-aligned static wallpaper on the desktop surfaces. */
+#app-mount::before { display: none; }
+#app-mount, #app-mount :is([class*="app_"], [class*="baseLayer_"]) {
+  background-image: linear-gradient(rgb(10 13 18 / 45%), rgb(10 13 18 / 45%)), var(--theme-wallpaper-image, none) !important;
+  background-attachment: fixed !important; background-size: cover !important;
+  background-position: center center !important; background-repeat: no-repeat !important;
+}
+#app-mount :is([class*="sidebarList_"], [class*="privateChannels_"]) [class*="scroller_"] { background: transparent !important; }
+#app-mount [class*="container_"]:has(> [class*="nowPlayingColumn_"]) { background: transparent !important; }
+
+/* Let the common application backdrop show through each glass panel. */
+#app-mount :is([class*="peopleColumn_"], [class*="chatContent_"], [class*="sidebarList_"], [class*="nowPlayingColumn_"], [class*="guilds_"], [class*="panels_"], [class*="subtitleContainer_"]) {
+  background-image: none !important;
+  background-color: rgb(10 13 18 / 42%) !important;
+}
+
+/* Reserve the voice/user panel height once, on the outer sidebar only. */
+#app-mount [class*="sidebarList_"] > [class*="container_"] {
+  padding-bottom: 0 !important;
+  min-height: 0;
+}
+#app-mount [class*="sidebarList_"] [class*="scroller_"] {
+  margin-bottom: 0 !important;
+}
+
+/* Match the server members/activity sidebar to the other glass panels. */
+#app-mount [class*="container_"]:has(> [class*="membersWrap_"]),
+#app-mount [class*="membersWrap_"] {
+  background: rgb(10 13 18 / 42%) !important;
+  border-radius: var(--obs-radius);
+  box-shadow: inset 0 0 0 1px rgb(220 224 230 / 9%);
+  overflow: hidden;
+}
+#app-mount [class*="container_"]:has(> [class*="membersWrap_"]) {
+  margin-left: var(--obs-gap);
+}
+#app-mount [class*="container_"]:has(> [class*="membersWrap_"]) [class*="membersWrap_"] {
+  background: transparent !important;
+  box-shadow: none;
+}
+#app-mount [class*="membersWrap_"] :is([class*="members_"], [class*="member_"], [class*="scroller_"]),
+#app-mount [class*="container_"]:has(> [class*="membersWrap_"]) > [class*="container_"] {
+  background: transparent !important;
+}
+
+/* Clear opaque ancestor layers; keep one glass surface on the members wrapper. */
+#app-mount [class*="container_"]:has([class*="membersWrap_"]) {
+  background: transparent !important;
+  box-shadow: none;
+}
+#app-mount [class*="membersWrap_"] {
+  background: rgb(10 13 18 / 42%) !important;
+  border-radius: var(--obs-radius);
+  box-shadow: inset 0 0 0 1px rgb(220 224 230 / 9%);
+}
+#app-mount [class*="container_"]:has(> [class*="membersWrap_"]) [class*="membersWrap_"] {
+  background: rgb(10 13 18 / 42%) !important;
+  box-shadow: inset 0 0 0 1px rgb(220 224 230 / 9%);
+}
+
+/* Keep the original image vivid; filters affect only the wallpaper layer. */
+#app-mount, #app-mount :is([class*="app_"], [class*="baseLayer_"]) {
+  background-image: none !important;
+  background-color: transparent !important;
+}
+#app-mount [class*="baseLayer_"] { isolation: isolate; }
+#app-mount [class*="baseLayer_"]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--theme-wallpaper-image, none) center / cover no-repeat;
+  filter: brightness(var(--theme-wallpaper-brightness, 1.12)) contrast(var(--theme-wallpaper-contrast, 1.10)) saturate(var(--theme-wallpaper-saturation, 1.35));
+}
+
+/* Separate the message history from the composer without overlaying messages. */
+#app-mount [class*="chatContent_"] > [class*="form_"] {
+  position: relative !important;
+  flex-shrink: 0 !important;
+  margin-top: 10px !important;
+  padding-top: 0 !important;
+  background: transparent !important;
+}
+#app-mount [class*="chatContent_"] > [class*="form_"]::before,
+#app-mount [class*="chatContent_"] > [class*="form_"]::after {
+  display: none !important;
+}
+#app-mount [class*="chatContent_"] [class*="messagesWrapper_"] {
+  min-height: 0;
+}
+#app-mount [class*="chatContent_"] [class*="channelTextArea_"] {
+  margin-bottom: 10px !important;
+}
+
+/* Clip message history at its own edge and keep the composer in a separate row. */
+#app-mount [class*="chatContent_"] [class*="messagesWrapper_"] {
+  overflow: hidden !important;
+  border-radius: var(--obs-radius);
+  margin-bottom: 0 !important;
+}
+#app-mount [class*="chatContent_"] [class*="form_"] {
+  margin-top: 10px !important;
+  padding-top: 0 !important;
+  position: relative !important;
+  flex-shrink: 0 !important;
+  transform: none !important;
+}
+#app-mount [class*="chatContent_"] [class*="form_"]::before,
+#app-mount [class*="chatContent_"] [class*="form_"]::after {
+  display: none !important;
+}
+#app-mount [class*="chatContent_"] [class*="channelTextArea_"] {
+  margin-top: 0 !important;
+  background: rgb(10 13 18 / 62%) !important;
+}
+
+/* Match the voice-channel canvas to the other glass panels. */
+#app-mount :is([class*="callContainer_"], [class*="videoBackground_"], [class*="callBackground_"], [class*="channelCall_"]) {
+  background: transparent !important;
+}
+#app-mount [class*="callContainer_"] {
+  --background-base-lowest: transparent;
+  --background-primary: transparent;
+  border-radius: var(--obs-radius);
+  box-shadow: inset 0 0 0 1px rgb(220 224 230 / 9%);
+}
+#app-mount [class*="callContainer_"] > [class*="root_"],
+#app-mount [class*="callContainer_"] [class*="gradientContainer_"],
+#app-mount [class*="callContainer_"] [class*="background_"] {
+  background: transparent !important;
+}
+
+#app-mount [class*="callContainer_"] [class*="root_"],
+#app-mount [class*="wrapper_"]:has([class*="callContainer_"]),
+#app-mount [class*="root_"]:has([class*="callContainer_"]),
+#app-mount [class*="container_"]:has(> [class*="callContainer_"]),
+#app-mount [class*="root_"]:has([class*="videoGrid_"]) {
+  background: transparent !important;
+}
+
+/* A single glass surface for calls; participant cards remain readable. */
+#app-mount [class*="callContainer_"] {
+  background: rgb(10 13 18 / 42%) !important;
+}
+#app-mount [class*="callContainer_"] :is([class*="tile_"], [class*="tileChild_"], [class*="tileBackground_"], [class*="videoBackground_"]) {
+  background: rgb(10 13 18 / 42%) !important;
+}
+
+/* Round and clip participant surfaces, including transparent inner layers. */
+#app-mount [class*="callContainer_"] :is([class*="tile_"], [class*="tileChild_"], [class*="tileBackground_"], [class*="videoBackground_"]) {
+  border-radius: var(--obs-radius, 14px) !important;
+  overflow: hidden !important;
+}
+
+/* Keep participant surfaces and Discord's speaking outline on the same radius. */
+#app-mount [class*="callContainer_"] {
+  --voice-tile-radius: 8px;
+}
+#app-mount [class*="callContainer_"] :is([class*="tile_"], [class*="tileChild_"], [class*="tileBackground_"], [class*="videoBackground_"]) {
+  border-radius: var(--voice-tile-radius) !important;
+}
+/* The outer tile must not clip Discord's activity/focus outline. */
+#app-mount [class*="callContainer_"] [class*="tile_"] {
+  overflow: visible !important;
+}
+#app-mount [class*="callContainer_"] :is([class*="tileChild_"], [class*="tileBackground_"], [class*="videoBackground_"]) {
+  overflow: hidden !important;
+}
+#app-mount [class*="callContainer_"] [class*="tile_"] [class*="border_"],
+#app-mount [class*="callContainer_"] [class*="tile_"] [class*="speaking_"] {
+  border-radius: var(--voice-tile-radius) !important;
 }

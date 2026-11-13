@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.9.0 — Static wallpapers and desktop layout fixes
+
+- Add a local wallpaper configuration example and separate static-image / animated-MP4 instructions. No personal media or generated cache is distributed.
+- Support a viewport-wide static image, with wallpaper-only brightness, contrast and saturation controls.
+- Update semantic desktop selectors for glass panels, spacing and rounded corners.
+- Remove duplicate bottom-space reservation that clipped server channels above the voice controls.
+- Separate the message history from the composer and remove the overlapping decorative edge.
+- Apply matching glass styling to the server members/activity sidebar and voice-channel canvas.
+- Keep participant surfaces and Discord's speaking outline aligned at an 8px radius without clipping the outer indicator.
+- Preserve the existing ObsidianVideo source and animated-wallpaper lifecycle.
+- Desktop layout changes were checked in live Windows Discord during chat, screen sharing and voice activity. Animated MP4 playback has not been independently re-tested for this release.
+
 ## 2.8.0 — Performance
 
 - Pause video and palette sampling when Discord loses focus by default; the new `pauseWhenUnfocused` setting can opt out.

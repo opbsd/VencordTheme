@@ -9,3 +9,9 @@ work/
 
 # Generated private startup media cache
 obsidian-startup.css
+
+# Personal wallpaper configuration and generated media
+wallpaper-settings.css
+wallpaper.*
+startup.json
+obsidianVideo/
