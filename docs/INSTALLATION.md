@@ -14,6 +14,34 @@ Choose your setup:
 - [Other clients and mobile](#other-clients-and-mobile)
 - [Troubleshooting](#troubleshooting)
 
+## Choose a static or animated wallpaper (2.9.0)
+
+All wallpaper files are supplied by you and stay on your computer. This release does not bundle personal wallpaper images, videos, generated previews, or Vencord settings. Keep only **Vencord Theme** enabled in the theme list.
+
+### Static image — JPG, PNG or WebP
+
+1. Install `Vencord-Theme.theme.css` in the folder opened by **Settings → Vencord → Themes → Open Themes Folder**, and enable **Vencord Theme** under Local Themes.
+2. Copy your own image into that folder. For example, name it `wallpaper.jpg` (make sure the actual file format matches the extension).
+3. Copy `wallpaper-settings.example.css` into the same folder and rename the copy to `wallpaper-settings.css`.
+4. Edit the image URL in that local file to match your filename, for example `url("vencord:///themes/wallpaper.jpg")` or `url("vencord:///themes/my-background.png")`. Keep the `vencord:///themes/` prefix.
+5. Disable **ObsidianVideo** if installed. A static image needs only Vencord and the CSS; it does not require compiling a custom plugin. Reload Discord to apply changes. The local configuration is imported automatically; do not enable it as a separate theme.
+
+The image fills the window, keeps its aspect ratio and may crop at the edges. Brightness, contrast and saturation affect only the static wallpaper, not text, avatars or shared screens. In `wallpaper-settings.css`, use `1` for the original value; try brightness `1.12`, contrast `1.10` and saturation `1.35` for a more vivid image. Keep your original image unchanged. Desktop Local Themes are required for these local file URLs; Online Themes alone cannot access another user's files.
+
+### Animated wallpaper — MP4
+
+1. Install the CSS and build/install **ObsidianVideo** using the platform instructions below. Preserve any other userplugins already in your Vencord checkout.
+2. If you previously used a static image, set `--theme-wallpaper-image: none;` in your local `wallpaper-settings.css`. This removes the static layer so it cannot cover the video.
+3. Enable **ObsidianVideo**, then fully quit and reopen Discord so its native helpers load.
+4. Open **Vencord → Themes → Local Themes → Choose wallpaper video**, select your own MP4, and wait for the saved message. Fully quit and reopen Discord again.
+5. Alternatively copy your own MP4 into the themes folder as exactly `wallpaper.mp4`, then fully restart Discord. H.264 MP4 is recommended for compatibility.
+
+The video is muted and loops. Adaptive colors and focus-based pause remain plugin options. Static-image filter settings do not affect the video. Switching back to a photo requires disabling ObsidianVideo and restoring the image URL. No wallpaper is downloaded or uploaded automatically.
+
+### Updating an existing installation
+
+Replace the main theme CSS with 2.9.0 and keep your local `wallpaper-settings.css` and wallpaper files. Users coming from a personalized CSS with an embedded photo should configure their own local image as above; do not distribute that personalized CSS. For video installations keep the plugin enabled and follow the plugin upgrade steps below. The plugin source remains unchanged from 2.8.0.
+
 ## CSS theme only
 
 These steps are the same on Windows, macOS and Linux:
