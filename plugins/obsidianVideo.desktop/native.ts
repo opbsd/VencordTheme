@@ -6,6 +6,7 @@
 
 import { RendererSettings } from "@main/settings";
 import { DATA_DIR, THEMES_DIR } from "@main/utils/constants";
+import { ensureSafePath } from "@main/utils/ensureSafePath";
 import { randomUUID } from "crypto";
 import { BrowserWindow, dialog, IpcMainInvokeEvent } from "electron";
 import { mkdirSync, readFileSync, renameSync, statSync, writeFileSync } from "fs";
@@ -18,6 +19,7 @@ interface StartupCache {
     identity: string;
     poster: string;
     palette?: Palette;
+    paletteVersion?: number;
 }
 
 const wallpaper = join(THEMES_DIR, "wallpaper.mp4");
@@ -43,7 +45,10 @@ function validCache(data: StartupCache): boolean {
 function readCache(): StartupCache | undefined {
     try {
         const data: StartupCache = JSON.parse(readFileSync(cachePath, "utf8"));
-        if (validCache(data) && data.identity === identity()) return data;
+        if (validCache(data) && data.identity === identity()) return {
+            ...data,
+            palette: data.paletteVersion === 2 ? data.palette : undefined
+        };
     } catch { }
 }
 
@@ -88,13 +93,27 @@ export function getStartup(_: IpcMainInvokeEvent) {
 export function saveStartup(_: IpcMainInvokeEvent, cache: StartupCache) {
     if (!validCache(cache) || cache.identity !== identity()) return false;
     mkdirSync(cacheDir, { recursive: true });
-    writeAtomic(cachePath, JSON.stringify(cache));
+    writeAtomic(cachePath, JSON.stringify({ ...cache, paletteVersion: 2 }));
     if (startupIdentity !== cache.identity) refreshStartup();
     return true;
 }
 
 export function readWallpaper(_: IpcMainInvokeEvent) {
     return readFile(wallpaper);
+}
+
+export async function readStaticWallpaper(_: IpcMainInvokeEvent, url: string, previousIdentity: string) {
+    const prefix = "vencord:///themes/";
+    if (!url.startsWith(prefix)) throw new Error("Use an image in the themes folder.");
+    const relative = decodeURIComponent(url.slice(prefix.length));
+    const path = ensureSafePath(THEMES_DIR, relative);
+    const types: Record<string, string> = { ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp" };
+    const mime = types[extname(relative).toLowerCase()];
+    if (!path || !mime) throw new Error("Choose a local JPG, PNG or WebP image.");
+    const stat = statSync(path);
+    if (!stat.isFile()) throw new Error("Wallpaper is not a file.");
+    const fileIdentity = `${relative}:${stat.size}:${stat.mtimeMs}:${stat.ctimeMs}:${stat.ino}`;
+    return { identity: fileIdentity, mime, data: previousIdentity === fileIdentity ? undefined : await readFile(path) };
 }
 
 let selecting = false;

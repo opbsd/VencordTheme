@@ -5,12 +5,15 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
+import { managedStyleRootNode } from "@api/Styles";
+import { createAndAppendStyle } from "@utils/css";
 import definePlugin, { OptionType, PluginNative } from "@utils/types";
 
-import { Palette } from "./colors";
+import { Palette, paletteVariables, RGB } from "./colors";
 import { createAdaptivePalette } from "./palette";
 import { attachWallpaperPicker } from "./picker";
 import { chooseWallpaper } from "./selection";
+import { attachStaticPalette } from "./staticPalette";
 
 const Native = VencordNative.pluginHelpers.ObsidianVideo as PluginNative<typeof import("./native")>;
 
@@ -29,9 +32,11 @@ let focused = document.hasFocus();
 let releaseTimer: ReturnType<typeof setTimeout> | undefined;
 let loading: Promise<void> | undefined;
 let resumeTime = 0;
+let staticPalette: ReturnType<typeof attachStaticPalette> | undefined;
+let accentStyle: HTMLStyleElement | undefined;
 
 function playbackAllowed() {
-    return !document.hidden && !reducedMotion.matches && (!settings.store.pauseWhenUnfocused || focused);
+    return !staticPalette?.active && !document.hidden && !reducedMotion.matches && (!settings.store.pauseWhenUnfocused || focused);
 }
 
 function rememberStartup(colors?: Palette) {
@@ -58,16 +63,19 @@ function rememberStartup(colors?: Palette) {
 }
 
 function onVideoReady() {
+    updatePalette();
+    palette?.captureFirstFrame();
+    rememberStartup();
     if (video && resumeTime > 0 && Number.isFinite(video.duration)) {
         video.currentTime = Math.min(resumeTime, Math.max(0, video.duration - .1));
         resumeTime = 0;
     }
-    updatePalette();
-    rememberStartup();
     updatePlayback();
 }
 
 function updatePalette() {
+    updateAccent();
+    staticPalette?.refresh();
     document.documentElement.toggleAttribute("data-obsidian-palette-disabled", !settings.store.adaptiveColors);
     if (!video || !settings.store.adaptiveColors) {
         palette?.stop();
@@ -82,16 +90,40 @@ function updatePalette() {
     palette.setActive(playbackAllowed());
 }
 
+function updateAccent() {
+    accentStyle ??= createAndAppendStyle("obsidian-manual-accent", managedStyleRootNode);
+    const value = settings.store.accentColor.trim();
+    if (!settings.store.adaptiveColors || !/^#[a-f\d]{6}$/i.test(value)) {
+        accentStyle.textContent = "";
+        return;
+    }
+    const rgb = [1, 3, 5].map(i => parseInt(value.slice(i, i + 2), 16)) as RGB;
+    const variables = {
+        ...paletteVariables([rgb, rgb]),
+        "--obs-accent": value,
+        "--obs-accent-hover": `color-mix(in srgb, ${value} 80%, white)`,
+        "--obs-accent-pressed": `color-mix(in srgb, ${value} 80%, black)`
+    };
+    const declarations = Object.entries(variables).map(([k, v]) => `${k}:${v}!important;`).join("");
+    accentStyle.textContent = `:root:root:root{${declarations}}`;
+}
+
 const settings = definePluginSettings({
     adaptiveColors: {
         type: OptionType.BOOLEAN,
-        description: "Adapt the dark theme palette to the wallpaper colors.",
+        description: "Extract a fixed palette from a static image or the video's first frame.",
         default: true,
         onChange: updatePalette
     },
+    accentColor: {
+        type: OptionType.STRING,
+        description: "Optional accent override (#RRGGBB). Leave empty to choose automatically for each wallpaper.",
+        default: "",
+        onChange: updateAccent
+    },
     pauseWhenUnfocused: {
         type: OptionType.BOOLEAN,
-        description: "Pause the wallpaper and color sampling while another window is active.",
+        description: "Pause video playback while another window is active.",
         default: true,
         onChange: updatePlayback
     }
@@ -124,7 +156,6 @@ function loadWallpaper() {
             if (video !== currentVideo || !playbackAllowed()) return;
             objectUrl = URL.createObjectURL(new Blob([new Uint8Array(data).buffer], { type: "video/mp4" }));
             currentVideo.src = objectUrl;
-            updatePlayback();
         } catch {
             if (layer === currentLayer) {
                 currentLayer.hidden = true;
@@ -140,7 +171,7 @@ function loadWallpaper() {
 
 function updatePlayback() {
     if (!video || !layer) return;
-    layer.hidden = reducedMotion.matches;
+    layer.hidden = reducedMotion.matches || !!staticPalette?.active;
     const active = playbackAllowed();
     palette?.setActive(active);
     if (!active) {
@@ -175,7 +206,7 @@ function onBlur() {
 
 export default definePlugin({
     name: "ObsidianVideo",
-    description: "Plays a local MP4 wallpaper for Vencord Theme with adaptive colors.",
+    description: "Local MP4 playback and fixed palettes from static wallpapers or the first video frame.",
     authors: [{ name: "opbsd", id: 0n }],
     tags: ["Appearance"],
     settings,
@@ -185,6 +216,8 @@ export default definePlugin({
         const mount = document.getElementById("app-mount");
         if (!mount || layer || !Native?.readWallpaper) return;
         focused = document.hasFocus();
+        staticPalette = attachStaticPalette(Native, () => settings.store.adaptiveColors, updatePlayback);
+        updateAccent();
 
         picker = attachWallpaperPicker(mount, (signal, progress) => chooseWallpaper(Native, signal, progress));
         document.documentElement.removeAttribute("data-obsidian-video-disabled");
@@ -200,7 +233,7 @@ export default definePlugin({
         video.defaultMuted = true;
         video.loop = true;
         video.playsInline = true;
-        video.preload = "metadata";
+        video.preload = "auto";
         video.disablePictureInPicture = true;
         video.disableRemotePlayback = true;
 
@@ -248,6 +281,10 @@ export default definePlugin({
         resumeTime = 0;
         picker?.stop();
         picker = undefined;
+        staticPalette?.stop();
+        staticPalette = undefined;
+        accentStyle?.remove();
+        accentStyle = undefined;
         document.documentElement.setAttribute("data-obsidian-video-disabled", "");
         lastSave = 0;
         rememberStartup();
