@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.0 — Fixed wallpaper palettes and desktop fixes
+
+- Extract automatic colors once from a local static image or the first decoded video frame, without periodic analysis or gradual palette changes.
+- Add an optional `accentColor` hex override; an empty value adapts to each wallpaper. No personal accent or media is configured by default.
+- Detect static wallpaper mode and suppress video playback while the image is selected. Cache unchanged image analysis and invalidate older moving-video palettes.
+- Make the pre-join voice lobby transparent and restore the complete rounded Friends navigation panel.
+- Darken floating context menus for readable labels over bright backgrounds.
+- Replace broad descendant style queries with scoped panel rules to reduce style recalculation during voice activity.
+- Include updated static-image, MP4, automatic-color and manual-accent instructions.
+- Validation: development build, TypeScript checking, isolated Chromium palette/cache/cleanup checks and live Windows layout checks. Live MP4 playback on Windows has not been re-tested. Performance samples are workload-dependent and do not establish an overall CPU or FPS improvement.
+
 ## 2.9.0 — Static wallpapers and desktop layout fixes
 
 - Add a local wallpaper configuration example and separate static-image / animated-MP4 instructions. No personal media or generated cache is distributed.

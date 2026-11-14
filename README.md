@@ -6,7 +6,7 @@ A dark **Vencord desktop** theme with translucent glass and a warm fallback pale
 
 *Actual Discord desktop screenshot supplied by the maintainer, showing the Friends page with the local video wallpaper. Friends' names and avatars have been pixelated for privacy; the pixelation is a screenshot edit, not a theme effect. The MP4 must be added separately.*
 
-[Download CSS](https://raw.githubusercontent.com/opbsd/VencordTheme/main/Vencord-Theme.theme.css) · [Download theme + plugin](https://github.com/opbsd/VencordTheme/archive/refs/tags/v2.9.0.zip) · [Installation guide](docs/INSTALLATION.md) · [Releases](https://github.com/opbsd/VencordTheme/releases/latest)
+[Download CSS](https://raw.githubusercontent.com/opbsd/VencordTheme/main/Vencord-Theme.theme.css) · [Download theme + plugin](https://github.com/opbsd/VencordTheme/archive/refs/tags/v3.0.0.zip) · [Installation guide](docs/INSTALLATION.md) · [Releases](https://github.com/opbsd/VencordTheme/releases/latest)
 
 The theme/plugin download is GitHub's source ZIP for this release; extract it to access the CSS, `plugins` and `docs` folders.
 
@@ -14,7 +14,7 @@ The theme/plugin download is GitHub's source ZIP for this release; extract it to
 
 - Dark translucent panels, rounded corners and restrained highlights.
 - Adaptive primary and secondary colors extracted locally from the wallpaper, with dark tinted surfaces and readable text.
-- Small 64×36 frame samples every ten seconds, gradual palette updates and no continuous full-resolution analysis.
+- A fixed palette from one 64×36 sample of a static image or the first video frame, without periodic color analysis.
 - A fixed bronze, charcoal and ivory fallback when adaptive colors are disabled.
 - Separate Friends and Active Now panels with the background visible.
 - Coordinated Nitro, Shop and Quests surfaces.
@@ -42,9 +42,9 @@ https://raw.githubusercontent.com/opbsd/VencordTheme/main/Vencord-Theme.theme.cs
 
 ## Static or animated wallpaper
 
-**Static image:** use your own JPG/PNG/WebP and `wallpaper-settings.example.css`; no custom plugin build is needed. **Animated:** enable ObsidianVideo and select your own MP4. Read the [static and animated setup guide](docs/INSTALLATION.md#choose-a-static-or-animated-wallpaper-290) before choosing your mode. No personal wallpaper or preview cache is included.
+**Static image:** use your own JPG/PNG/WebP and `wallpaper-settings.example.css`; the CSS-only mode needs no custom plugin build; automatic colors use the updated ObsidianVideo plugin. **Animated:** enable ObsidianVideo and select your own MP4. Read the [static and animated setup guide](docs/INSTALLATION.md#choose-a-static-or-animated-wallpaper-300) before choosing your mode. No personal wallpaper or preview cache is included.
 
-Version 2.9.0 also fixes channel-list clipping, the message composer gap, server-member glass surfaces, transparent voice panels and participant corners aligned with Discord's speaking outline.
+Version 3.0.0 adds fixed static/first-frame palettes, optional manual accents, a transparent pre-join lobby, a rounded Friends header, readable context menus and narrower style queries. It retains the channel-list, composer, member-sidebar and speaking-outline fixes from 2.9.0.
 
 ## Local wallpaper (animated mode)
 
@@ -68,7 +68,9 @@ For lower resource use, prepare a **1920×1080, 30 FPS H.264 MP4** using the [op
 
 ## Customization
 
-With the updated plugin, **adaptiveColors** is enabled by default. It coordinates accents, buttons, selections, borders and glass surfaces with the video's main and secondary colors. Open **Vencord → Plugins → ObsidianVideo → settings** and disable **adaptiveColors** to restore the fixed palette or use manual colors. Status, warning and danger colors remain recognizable. Analysis stays local and pauses while Discord is unfocused, hidden or reduced motion is enabled. **pauseWhenUnfocused** is enabled by default; disable it if the wallpaper should continue while another window is active. With the default setting, 30 seconds in the background releases the video source; returning reloads it and resumes from its saved time. The cached poster and colors stay available, and an unfocused startup avoids the initial video read. The palette lives in a separate Vencord-managed stylesheet so Discord can rewrite its root inline styles on focus changes without erasing the colors. Minimizing and restoring the window retains the established palette, including when the video decoder reloads its frame data; normal gradual updates resume on the sampling timer.
+With the updated plugin, **adaptiveColors** is enabled by default. It coordinates accents, buttons, selections, borders and glass surfaces with the main and secondary colors of your static image or the first decoded video frame. Analysis happens locally once per wallpaper, without a periodic sampling timer. Leave **accentColor** empty for automatic selection, or enter a six-digit hex color to choose an accent and matching surfaces. Disable **adaptiveColors** to restore the theme's fallback palette. Status, warning and danger colors remain recognizable.
+
+**pauseWhenUnfocused** is enabled by default; disable it if the video should continue while another window is active. With the default setting, 30 seconds in the background releases the video source; returning reloads it and resumes from its saved time. The cached poster and colors stay available, and an unfocused startup avoids the initial video read. The palette lives in a separate Vencord-managed stylesheet so Discord can rewrite its root inline styles on focus changes without erasing the colors. Restoring the window and reloading the decoder retain the established palette.
 
 Edit `--obs-accent`, `--obs-text`, `--obs-gap` and `--obs-radius` near the top of the CSS. The final wallpaper surfaces section defines `--obs-chat-surface` and `--obs-matte-background`: increase their opacity percentages for darker panels.
 
@@ -76,7 +78,9 @@ The plugin can be disabled in **Vencord → Plugins → ObsidianVideo**. When th
 
 ## Compatibility and testing
 
-The source targets **Vencord on Discord desktop**. Setup instructions are provided for Windows, macOS and Linux; runtime testing has been performed on Linux/Chromium, not independently on all three operating systems. Other clients and the browser extension have not been verified for this native plugin. The plugin does not run in Discord's Android/iOS apps.
+The source targets **Vencord on Discord desktop**. Setup instructions are provided for Windows, macOS and Linux; runtime checks have been performed on Linux/Chromium and Windows, not independently on all three operating systems. Other clients and the browser extension have not been verified for this native plugin. The plugin does not run in Discord's Android/iOS apps.
+
+The fixed-palette update passed a standalone development build and TypeScript checking on Windows. Isolated Chromium checks covered one-shot video sampling, no periodic analysis timers, static-image caching and refresh, disabling/re-enabling colors and cleanup. The installed Windows client was also checked visually with a static wallpaper and a manual accent. This update has not yet had a live MP4 playback check on Windows.
 
 For 2.8.0, `pnpm build --dev`, TypeScript checking and plugin lint passed. Chromium checks used a real 1920×1080/30 FPS H.264 MP4 and covered five focus pause/resume cycles, a single 10-second palette timer, hidden/reduced-motion handling, persistent colors, no periodic cache saves, cleanup, deferred unfocused startup, idle source release, saved-time resume and stopping during a pending video read.
 
@@ -93,3 +97,6 @@ Theme and plugin code: **GPL-3.0-or-later**; see [LICENSE](LICENSE). Created by 
 The plugin uses [Vencord](https://github.com/Vendicated/Vencord). This is an independent project, not affiliated with Discord or Vencord.
 
 Third-party wallpaper rights remain with their respective owners and are not covered by the code license. Obtain and use media according to its provider's terms. The README preview is a maintainer-provided screenshot. Third-party artwork and avatars visible in it retain their respective rights.
+
+
+Automatic static and first-frame video palettes, plus the optional accentColor override, are described in the [fixed palette guide](docs/INSTALLATION.md#fixed-wallpaper-palettes).

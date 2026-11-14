@@ -2,7 +2,7 @@
  * @name Vencord Theme
  * @author opbsd
  * @source https://github.com/opbsd/VencordTheme
- * @version 2.9.0
+ * @version 3.0.0
  * @description Performance-focused dark translucent panels, adaptive colors and local MP4 playback through ObsidianVideo.
  */
 
@@ -10,7 +10,7 @@
 @import url("vencord:///themes/wallpaper-settings.css");
 
 /* ADAPTIVE WALLPAPER COLORS
- * Palette is sampled from the local MP4 by ObsidianVideo every 10 seconds.
+ * ObsidianVideo samples a static image or the first video frame once.
  * Disable adaptiveColors in the plugin settings to restore the fixed palette.
  */
 :root {
@@ -837,7 +837,7 @@ body,
   background: linear-gradient(rgb(7 9 13 / 20%), rgb(7 9 13 / 20%)), var(--local-static-image) center / cover no-repeat;
 }
 #app-mount :is([class*="app_"], [class*="bg_"], [class*="layers_"], [class*="baseLayer_"], [class*="base_"], [class*="sidebar_"], [class*="page_"], [class*="chat_"], [class*="tabBody_"], [class*="privateChannels_"], [class*="peopleList_"], [class*="messagesWrapper_"], [class*="members_"], [class*="member_"]) { background: transparent !important; }
-#app-mount [class*="container_"]:has([class*="peopleColumn_"]),
+#app-mount main:has(> [class*="tabBody_"]),
 #app-mount [class*="container_"]:has(> [class*="members_"]),
 #app-mount [class*="sidebarList_"] > [class*="container_"] { background: transparent !important; }
 #app-mount [class*="sidebar_"]::after { display: none; }
@@ -906,7 +906,7 @@ body,
 }
 
 /* Clear opaque ancestor layers; keep one glass surface on the members wrapper. */
-#app-mount [class*="container_"]:has([class*="membersWrap_"]) {
+#app-mount [class*="chat_"] > [class*="content_"] {
   background: transparent !important;
   box-shadow: none;
 }
@@ -994,10 +994,9 @@ body,
 }
 
 #app-mount [class*="callContainer_"] [class*="root_"],
-#app-mount [class*="wrapper_"]:has([class*="callContainer_"]),
-#app-mount [class*="root_"]:has([class*="callContainer_"]),
-#app-mount [class*="container_"]:has(> [class*="callContainer_"]),
-#app-mount [class*="root_"]:has([class*="videoGrid_"]) {
+#app-mount [class*="chat_"] > [class*="wrapper_"],
+#app-mount [class*="root_"]:has(> [class*="callContainer_"]),
+#app-mount [class*="container_"]:has(> [class*="callContainer_"]) {
   background: transparent !important;
 }
 
@@ -1032,4 +1031,30 @@ body,
 #app-mount [class*="callContainer_"] [class*="tile_"] [class*="border_"],
 #app-mount [class*="callContainer_"] [class*="tile_"] [class*="speaking_"] {
   border-radius: var(--voice-tile-radius) !important;
+}/* Pre-join voice lobby uses a separate animated gradient canvas. */
+#app-mount [class*="callContainer_"] [class*="pulseGradient_"] {
+  display: none !important;
+}
+#app-mount [class*="callContainer_"] [class*="container_"]:has(> [class*="pulseGradient_"]) {
+  background: transparent !important;
+}
+/* Friends header wraps its controls inside upperContainer in current Discord. */
+#app-mount main:has(> [class*="tabBody_"]) > section[role="navigation"] {
+  background: var(--obs-glass-background) !important;
+  border-radius: var(--obs-radius) !important;
+  border: 1px solid rgb(220 224 230 / 9%) !important;
+  box-shadow: none !important;
+  margin-bottom: var(--obs-gap) !important;
+  overflow: hidden;
+}
+#app-mount main:has(> [class*="tabBody_"]) > section[role="navigation"] > [class*="upperContainer_"] {
+  background: transparent !important;
+  border-radius: inherit;
+}
+#app-mount [class*="callContainer_"] :is([class*="channelName_"], [class*="participantsRow_"]) {
+  text-shadow: 0 1px 4px rgb(0 0 0 / 90%), 0 0 10px rgb(0 0 0 / 60%);
+}
+/* Floating context menus need more coverage than the main glass panels. */
+#app-mount [class*="menu_"][role="menu"] {
+  background: color-mix(in srgb, var(--obs-black, #090c10) 94%, transparent) !important;
 }
