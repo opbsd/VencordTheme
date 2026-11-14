@@ -342,7 +342,7 @@ For every working client route above:
 5. Open **Themes → Local Themes → Wallpaper video → Choose wallpaper video**, select an MP4, and wait for the saved message.
 6. Fully quit and reopen the client again to apply the chosen video. The picker handles copying, naming, preview and colors.
 
-See the shared [picker, startup cache and upgrade instructions](INSTALLATION.md#choose-a-wallpaper-video). For manual setup only, add an MP4 to **Open Themes Folder** as exactly `wallpaper.mp4`, then fully restart. A custom-build/plugin update requires copying all six plugin source files and rebuilding; normal video choices do not.
+See the shared [picker, startup cache and upgrade instructions](INSTALLATION.md#choose-a-wallpaper-video). For manual setup only, add an MP4 to **Open Themes Folder** as exactly `wallpaper.mp4`, then fully restart. A custom-build/plugin update requires copying all seven plugin source files and rebuilding; normal video choices do not.
 
 A typical unsandboxed path is `~/.config/Vencord/themes`. Custom XDG paths, environment overrides and sandboxed clients differ: the folder button is authoritative.
 

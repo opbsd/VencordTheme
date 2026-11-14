@@ -14,7 +14,7 @@ Choose your setup:
 - [Other clients and mobile](#other-clients-and-mobile)
 - [Troubleshooting](#troubleshooting)
 
-## Choose a static or animated wallpaper (2.9.0)
+## Choose a static or animated wallpaper (3.0.0)
 
 All wallpaper files are supplied by you and stay on your computer. This release does not bundle personal wallpaper images, videos, generated previews, or Vencord settings. Keep only **Vencord Theme** enabled in the theme list.
 
@@ -24,7 +24,7 @@ All wallpaper files are supplied by you and stay on your computer. This release 
 2. Copy your own image into that folder. For example, name it `wallpaper.jpg` (make sure the actual file format matches the extension).
 3. Copy `wallpaper-settings.example.css` into the same folder and rename the copy to `wallpaper-settings.css`.
 4. Edit the image URL in that local file to match your filename, for example `url("vencord:///themes/wallpaper.jpg")` or `url("vencord:///themes/my-background.png")`. Keep the `vencord:///themes/` prefix.
-5. Disable **ObsidianVideo** if installed. A static image needs only Vencord and the CSS; it does not require compiling a custom plugin. Reload Discord to apply changes. The local configuration is imported automatically; do not enable it as a separate theme.
+5. For automatic colors, build the updated **ObsidianVideo** plugin, enable it and turn on **adaptiveColors**. The plugin detects the static image from your local configuration and does not play a video in static mode. For a CSS-only wallpaper without automatic colors, keep the plugin disabled. Reload Discord to apply changes; do not enable the local configuration as a separate theme.
 
 The image fills the window, keeps its aspect ratio and may crop at the edges. Brightness, contrast and saturation affect only the static wallpaper, not text, avatars or shared screens. In `wallpaper-settings.css`, use `1` for the original value; try brightness `1.12`, contrast `1.10` and saturation `1.35` for a more vivid image. Keep your original image unchanged. Desktop Local Themes are required for these local file URLs; Online Themes alone cannot access another user's files.
 
@@ -36,11 +36,11 @@ The image fills the window, keeps its aspect ratio and may crop at the edges. Br
 4. Open **Vencord → Themes → Local Themes → Choose wallpaper video**, select your own MP4, and wait for the saved message. Fully quit and reopen Discord again.
 5. Alternatively copy your own MP4 into the themes folder as exactly `wallpaper.mp4`, then fully restart Discord. H.264 MP4 is recommended for compatibility.
 
-The video is muted and loops. Adaptive colors and focus-based pause remain plugin options. Static-image filter settings do not affect the video. Switching back to a photo requires disabling ObsidianVideo and restoring the image URL. No wallpaper is downloaded or uploaded automatically.
+The video is muted and loops. Adaptive colors and focus-based pause remain plugin options. Static-image filter settings do not affect the video. To switch back to a photo, restore the image URL and restart Discord. Keep ObsidianVideo enabled for automatic image colors, or disable it for CSS-only mode. No wallpaper is downloaded or uploaded automatically.
 
 ### Updating an existing installation
 
-Replace the main theme CSS with 2.9.0 and keep your local `wallpaper-settings.css` and wallpaper files. Users coming from a personalized CSS with an embedded photo should configure their own local image as above; do not distribute that personalized CSS. For video installations keep the plugin enabled and follow the plugin upgrade steps below. The plugin source remains unchanged from 2.8.0.
+Replace the main theme CSS with 3.0.0 and keep your local `wallpaper-settings.css` and wallpaper files. Users coming from a personalized CSS with an embedded photo should configure their own local image as above; do not distribute that personalized CSS. For video installations keep the plugin enabled and follow the plugin upgrade steps below. Copy all plugin files, including `staticPalette.ts`, when installing the fixed-palette update.
 
 ## CSS theme only
 
@@ -89,7 +89,7 @@ To quit completely, use **Quit Discord** in the system tray on Windows/Linux, or
 
 The plugin prepares a small local JPEG preview and its palette before confirming a selection. On the next start, that still and its associated colors appear while the MP4 decoder gets ready; the animation then starts at its original resolution and frame rate. No video re-encoding, frame interpolation or upscaling is performed.
 
-Colors are sampled locally from a 64×36 frame every ten seconds and update gradually. They remain applied when Discord loses focus or is minimized, even if Discord rewrites its root styles. Turn off **adaptiveColors** in **Plugins → ObsidianVideo → settings** to use the fixed palette.
+Colors are extracted locally once from the first decoded video frame at 64×36 pixels and remain fixed for that wallpaper. There is no periodic color-analysis timer. They remain applied when Discord loses focus or is minimized, even if Discord rewrites its root styles. Turn off **adaptiveColors** in **Plugins → ObsidianVideo → settings** to use the fixed palette.
 
 `obsidian-startup.css` is generated support data, loaded automatically by the main theme. It does not need to be enabled as a separate theme. Keep the main CSS's local startup import. The preview cache stays in Vencord's data directory and is invalidated when the managed video changes or disappears. Do not publish generated cache files or private previews.
 
@@ -109,7 +109,7 @@ ffmpeg -i "source.mp4" -map 0:v:0 -vf "scale=w='min(1920,iw)':h='min(1080,ih)':f
 
 The same single-line command works in PowerShell and common macOS/Linux shells. Install FFmpeg separately if the command is unavailable; the theme does not install it. Select the output through **Choose wallpaper video**, then fully quit and reopen Discord. Preparing a 16:9 video at 1080p rather than 1440p, both at 30 FPS, reduces its pixels per second by 43.75%; that is not a measured reduction in the resources used by the whole Discord app.
 
-By default, **pauseWhenUnfocused** stops the video and palette sampling as soon as another window is active. After 30 seconds of inactivity the plugin removes the video source and revokes its Blob URL. Returning reloads the file and resumes from the saved time; the cached poster and palette remain visible. Discord starting in the background does not read the video until playback is allowed. Disable **pauseWhenUnfocused** in ObsidianVideo settings if background playback is preferred; hidden windows and reduced motion still pause it.
+By default, **pauseWhenUnfocused** stops the video as soon as another window is active. The established palette remains fixed. After 30 seconds of inactivity the plugin removes the video source and revokes its Blob URL. Returning reloads the file and resumes from the saved time; the cached poster and palette remain visible. Discord starting in the background does not read the video until playback is allowed. Disable **pauseWhenUnfocused** in ObsidianVideo settings if background playback is preferred; hidden windows and reduced motion still pause it.
 
 Optional Discord/Vencord adjustments:
 
@@ -125,7 +125,7 @@ The stylesheet is now `Vencord-Theme.theme.css` and appears as **Vencord Theme**
 
 Download the latest theme/plugin ZIP and replace the CSS with its updated version. Copy **all files** from `plugins/obsidianVideo.desktop` into the matching `src/userplugins/obsidianVideo.desktop` folder in your existing Vencord checkout, overwriting older versions. Keep the other plugins in your checkout.
 
-The current plugin includes `index.ts`, `native.ts`, `colors.ts`, `palette.ts`, `picker.ts` and `selection.ts`. Do not copy only `index.ts` or put these source files in the themes folder.
+The current plugin includes `index.ts`, `native.ts`, `colors.ts`, `palette.ts`, `staticPalette.ts`, `picker.ts` and `selection.ts`. Do not copy only `index.ts` or put these source files in the themes folder.
 
 From the Vencord source directory, run:
 
@@ -236,7 +236,7 @@ The shared build instructions appear once in that guide. Distribution-specific s
 
 ### The video picker button is missing
 
-Enable **ObsidianVideo**, open the **Local Themes** tab, and fully quit and reopen Discord after installing the custom build. The stock Vencord build and the CSS alone do not include this button. If you upgraded, copy all six plugin files, rebuild/install that checkout and restart the complete app.
+Enable **ObsidianVideo**, open the **Local Themes** tab, and fully quit and reopen Discord after installing the custom build. The stock Vencord build and the CSS alone do not include this button. If you upgraded, copy all seven plugin files, rebuild/install that checkout and restart the complete app.
 
 ### The video could not be opened or decoded
 
@@ -263,3 +263,11 @@ Use the installation procedure for your custom build again. Running the stock in
 ### A page loses styling
 
 Discord can change its CSS classes. Include your operating system, Discord/Vencord versions and a screenshot with private details removed when reporting an issue.
+
+## Fixed wallpaper palettes
+
+Enable **ObsidianVideo → adaptiveColors** for automatic colors with either a local JPG/PNG/WebP or an MP4. Static mode reads `--theme-wallpaper-image` from `wallpaper-settings.css`; the named image must be inside the Vencord themes folder. Its palette is computed once and checked again when Vencord reloads the theme. After replacing an image file, reload the theme or fully restart Discord. When switching wallpaper modes, fully restart Discord.
+
+Video mode uses only the first decoded frame (or the saved palette prepared by the picker). Playback, focus pause/resume and idle reload do not trigger repeated color sampling. A fully black first frame gives a neutral palette. If the first frame does not represent the rest of your video, use the optional accent override to choose another color.
+
+Leave **accentColor** empty to adapt automatically to each wallpaper. Enter any six-digit hex color, such as `#72C8D4`, to choose your own accent and derive matching surface/selection colors. Clear that setting to restore automatic selection. Status colors and server-role colors are retained. These defaults contain no personal image or fixed user accent.
